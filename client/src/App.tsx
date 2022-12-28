@@ -1,11 +1,15 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import './styles/App.css';
 
 function App() {
   return (
-    <div className="App">
-      Hello World
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
