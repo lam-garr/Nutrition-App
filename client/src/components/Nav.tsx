@@ -1,11 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import '../styles/Nav';
+import '../styles/Nav.css';
 
 function Nav(){
     return(
-        <nav></nav>
+        <nav className='nav-bar'>
+            <div className='nav-container'>
+                <div className='nav-logo'>
+                    <Link to={'/'}>
+                        <h1>Title</h1>
+                    </Link>
+                </div>
+            </div>
+        </nav>
     )
 }
 
