@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/Home.css'
 
 function Home(){
     return(
@@ -17,7 +18,7 @@ function Home(){
                     <img src='' alt='sample pic'/>
                 </div>
             </header>
-            <section className='section-onw'>
+            <section className='section-one'>
                 <div className='container'>
                     {/*Add src for photo and edit alt desc*/}
                     <img src='' alt='sample pic'/>

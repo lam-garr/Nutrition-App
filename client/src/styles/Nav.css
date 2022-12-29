@@ -1,5 +1,8 @@
 .nav-bar{
-    max-height: 80px;
+    max-height: 100px;
+    position: sticky;
+    top: 0;
+    width: 100%;
 }
 
 .nav-container{
