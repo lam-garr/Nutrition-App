@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import HomePage from './pages/Home';
+import LoginPage from './pages/Login';
+import SignupPage from './pages/Signup';
 import NavComponent from './components/Nav';
 import './styles/App.css';
 
@@ -10,6 +12,8 @@ function App() {
     <BrowserRouter>
     <NavComponent/>
       <Routes>
+        <Route path='sign-up' element={<SignupPage/>}></Route>
+        <Route path='/log-in' element={<LoginPage/>}></Route>
         <Route path='/' element={<HomePage/>}></Route>
       </Routes>
     </BrowserRouter>
