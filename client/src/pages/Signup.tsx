@@ -15,7 +15,7 @@ function Signup(){
                     <input required type='password' placeholder='Re-Enter Password'/>
                 </form>
                 <div className='terms'>
-                    <label><input type='checkbox' id='checkbox'/>I agree</label>
+                    <label><input type='checkbox' id='checkbox'/>I agree to the term and conditions.</label>
                 </div>
                 <button>Sign Up</button>
                 <div className='members'>

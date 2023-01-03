@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Input from '../components/Input';
 import '../styles/Login.css';
 
 function Login(){
@@ -8,10 +9,10 @@ function Login(){
             <div className='content'>
                 <h1>Login</h1>
                 <form>
-                    <input required type='text' placeholder='Username'/>
-                    <input required type='password' placeholder='Password'/>
+                    <Input type='text' placeholder='Username' error={false}/>
+                    <Input type='password' placeholder='Password' error={false}/>
                     <div className='help'>
-                        Forgot Pawword
+                        Forgot Password
                     </div>
                 </form>
                 <button>Log In</button>
