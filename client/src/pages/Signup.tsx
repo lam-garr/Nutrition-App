@@ -52,7 +52,7 @@ function Signup(){
                     <Input changeHandler={handleRePasswordChange} value={rePasswordInput} type='password' placeholder='Re-Enter Password' error={false} errorMessage={''} required={true}/>
                 </form>
                 <div className='terms'>
-                    <label><input type='checkbox' id='checkbox'/>I agree to the term and conditions.</label>
+                    <label><input type='checkbox' id='checkbox'/>I agree to the terms and conditions.</label>
                 </div>
                 <button>Sign Up</button>
                 <div className='members'>

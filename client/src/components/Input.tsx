@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import '../styles/Input.css';
 
 interface propHandler{
@@ -13,13 +12,6 @@ interface propHandler{
 }
 
 function Input(prop:propHandler){
-
-   // const [input, setInput] = useState('');
-
-   // const changeInput = (e:any) =>{
-   //     setInput(e.target.value)
-   // }
-
     return(
         <div className={`inputField ${prop.value !==''?'field_not_empty':''}`}>
             <div className='fieldLabel'>
@@ -32,5 +24,3 @@ function Input(prop:propHandler){
 }
 
 export default Input;
-
-//<input required type={prop.type} placeholder={prop.placeholder}></input>
