@@ -40,11 +40,16 @@ function Signup(){
         setRePasswordInput(e.target.value);
     }
 
+    //onsubmit form handling
+    const handleSubmit = (e:any) => {
+        e.preventDefault();
+    }
+
     return(
         <body>
             <div className='content'>
                 <h1>Sign Up</h1>
-                <form action='/api/sign-up' method='post'>
+                <form onSubmit={handleSubmit}>
                     <Input changeHandler={handleUsernameChange} value={usernameInput} type='text' placeholder='Username' error={false} errorMessage={''} required={true}/>
                     <Input changeHandler={handleFirstnameChange} value={firstnameInput} type='text' placeholder='First Name' error={false} errorMessage={''} required={true}/>
                     <Input changeHandler={handleLastnameChange} value={lastnameInput} type='text' placeholder='Last Name' error={false} errorMessage={''} required={true}/>
