@@ -1,16 +1,30 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Input from '../components/Input';
 import '../styles/Login.css';
 
 function Login(){
+
+    const [ loginInput, setLoginInput ] = useState('');
+
+    const handleLoginChange = (e:any) => {
+        setLoginInput(e.target.value);
+    }
+
+    const[ passwordInput, setPasswordInput ] = useState('');
+
+    const handlePasswordChange = (e:any) => {
+        setPasswordInput(e.target.value);
+    }
+
     return(
         <body>
             <div className='content'>
                 <h1>Login</h1>
                 <form>
-                    <Input type='text' placeholder='Username' error={false} errorMessage={'username not valid'} required={true}/>
-                    <Input type='password' placeholder='Password' error={false} errorMessage={''} required={true}/>
+                    <Input changeHandler={handleLoginChange} value={loginInput} type='text' placeholder='Username' error={false} errorMessage={'username not valid'} required={true}/>
+                    <Input changeHandler={handlePasswordChange} value={passwordInput} type='password' placeholder='Password' error={false} errorMessage={''} required={true}/>
                     <div className='help'>
                         Forgot Password
                     </div>
