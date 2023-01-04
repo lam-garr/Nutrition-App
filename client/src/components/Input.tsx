@@ -5,7 +5,9 @@ import '../styles/Input.css';
 interface propHandler{
     type: string,
     placeholder: string,
-    error: boolean;
+    error: boolean,
+    errorMessage: string,
+    required: boolean;
 }
 
 function Input(prop:propHandler){
@@ -20,9 +22,9 @@ function Input(prop:propHandler){
         <div className={`inputField ${input !==''?'field_not_empty':''}`}>
             <div className='fieldLabel'>
             <label htmlFor={prop.type}>{prop.placeholder.toLowerCase()}</label>
-            <span className='err'>error</span>
+            <span className='err'>{prop.errorMessage}</span>
             </div>
-            <input className='fieldInput'id={prop.type} placeholder={prop.placeholder} type={prop.type} value={input} onChange={changeInput}></input>
+            <input required={prop.required}className='fieldInput'id={prop.type} placeholder={prop.placeholder} type={prop.type} value={input} onChange={changeInput}></input>
         </div>
     )
 }

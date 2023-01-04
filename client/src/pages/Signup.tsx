@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Input from '../components/Input';
 import '../styles/Signup.css';
 
 function Signup(){
@@ -8,11 +9,11 @@ function Signup(){
             <div className='content'>
                 <h1>Sign Up</h1>
                 <form action='/api/sign-up' method='post'>
-                    <input required type='text' placeholder='Username'/>
-                    <input type='text' placeholder='First Name'/>
-                    <input type='text' placeholder='Last Name'/>
-                    <input required type='password' placeholder='Password'/>
-                    <input required type='password' placeholder='Re-Enter Password'/>
+                    <Input type='text' placeholder='Username' error={false} errorMessage={''} required={true}/>
+                    <Input type='text' placeholder='First Name' error={false} errorMessage={''} required={true}/>
+                    <Input type='text' placeholder='Last Name' error={false} errorMessage={''} required={true}/>
+                    <Input type='password' placeholder='Password' error={false} errorMessage={''} required={true}/>
+                    <Input type='password' placeholder='Re-Enter Password' error={false} errorMessage={''} required={true}/>
                 </form>
                 <div className='terms'>
                     <label><input type='checkbox' id='checkbox'/>I agree to the term and conditions.</label>

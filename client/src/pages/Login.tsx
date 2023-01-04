@@ -9,8 +9,8 @@ function Login(){
             <div className='content'>
                 <h1>Login</h1>
                 <form>
-                    <Input type='text' placeholder='Username' error={false}/>
-                    <Input type='password' placeholder='Password' error={false}/>
+                    <Input type='text' placeholder='Username' error={false} errorMessage={'username not valid'} required={true}/>
+                    <Input type='password' placeholder='Password' error={false} errorMessage={''} required={true}/>
                     <div className='help'>
                         Forgot Password
                     </div>

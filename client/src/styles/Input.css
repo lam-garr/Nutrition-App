@@ -5,7 +5,7 @@
 
 .fieldLabel{
     margin-left: 15px;
-    color: grey;
+    color: rgb(114, 113, 113);
     display: block;
     font-size: 9px;
     line-height: 1;
@@ -37,8 +37,8 @@
     margin-left: 11px;
     background-color: inherit;
     border: 1px solid green;
-    color: green;
-    font-size: 21px;
+    color: rgb(49, 49, 49);
+    font-size: 15px;
     padding: 7px;
     width: 100%;
     transition: all .2s ease-in-out;
@@ -52,4 +52,14 @@
 .err{
     margin-right: 10px;
     color: red;
+}
+
+input:focus{
+    border: 1px solid rgb(193, 252, 193);
+    background-color: rgb(253, 249, 243);
+    color:rgb(49, 49, 49);
+}
+
+::placeholder{
+    color: rgb(121, 121, 121);
 }
