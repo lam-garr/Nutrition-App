@@ -12,7 +12,7 @@ function Home(){
                         <h1>Nutrition Stuff</h1>
                         <p>nutrition info stuff etc, etc.</p>
                         {/*Edit Link to with actual path!!!!!*/}
-                        <Link to={"/"}><button type='button'>Start Now!, or not</button></Link>
+                        <Link to={"/sign-up"}><button type='button'>Start Now!, or not</button></Link>
                     </div>
                     {/*Add src for photo and edit alt desc*/}
                     <img src='' alt='sample pic'/>
