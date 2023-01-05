@@ -6,7 +6,6 @@ interface propHandler{
     value: string,
     type: string,
     placeholder: string,
-    error: boolean,
     errorMessage: string,
     required: boolean;
 }
