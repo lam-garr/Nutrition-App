@@ -58,7 +58,7 @@ function Login(){
     }
 
     return(
-        <body>
+        <main>
             <div className='content'>
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit}>
@@ -73,7 +73,7 @@ function Login(){
                 Not a member? <Link to='/sign-up'>Sign Up</Link>
                 </div>
             </div>
-        </body>
+        </main>
     )
 }
 

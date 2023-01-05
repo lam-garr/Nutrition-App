@@ -136,7 +136,7 @@ function Signup(){
     }
 
     return(
-        <body>
+        <main>
             <div className='content'>
                 <h1>Sign Up</h1>
                 <form onSubmit={handleSubmit}>
@@ -154,7 +154,7 @@ function Signup(){
                     <p>Already a member?<Link to='/log-in'>Login Here</Link></p>
                 </div>
             </div>
-        </body>
+        </main>
     )
 }
 

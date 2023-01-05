@@ -5,7 +5,7 @@ import '../styles/Home.css'
 
 function Home(){
     return(
-        <body>
+        <main>
             <header className='header'>
                 <div className='container'>
                     <div>
@@ -44,7 +44,7 @@ function Home(){
                     </div>
                 </div>
             </section>
-        </body>
+        </main>
     )
 }
 
