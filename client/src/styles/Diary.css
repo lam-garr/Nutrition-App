@@ -1,0 +1,66 @@
+.page-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.food-diary-section-one{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    max-width: 1000px;
+    margin-bottom: 10px;
+}
+
+.food-diary-section-two{
+    border: 1px solid green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    max-width: 1000px;
+}
+
+.section-one-content{
+    height: 100px;
+    width: 450px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.date{
+    border: 1px solid black;
+    height: 70px;
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.date-day{
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.sec-one-buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 125px;
+    margin-right: 20px;
+}
+
+.section-two-content{
+    min-height: 300px;
+    width: 800px;
+ 
+}

@@ -16,13 +16,13 @@
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
 }
 
-h1{
+.content h1{
     font-size: 2rem;
     color: black;
     margin-bottom: 1.2rem;
 }
 
-form input{
+.content form input{
     width: 92%;
     outline: none;
     border: 1px solid rgb(208, 255, 208);
@@ -32,7 +32,7 @@ form input{
     background: inherit;
 }
 
-button{
+.content button{
     font-size: 1rem;
     margin-top: 1.8rem;
     padding: 10px 0;
@@ -45,12 +45,12 @@ button{
     background-color: rgb(18, 117, 18);
 }
 
-button:hover{
+.content button:hover{
     color: rgb(199, 198, 198);
     background-color: rgb(14, 87, 14);
 }
 
-input:focus{
+.content input:focus{
     border: 1px solid rgb(193, 252, 193);
     background-color: rgb(253, 249, 243);
 }

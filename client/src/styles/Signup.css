@@ -32,7 +32,7 @@ form input{
     background: inherit;
 }
 
-button{
+.content button{
     font-size: 1rem;
     margin-top: 1.8rem;
     padding: 10px 0;
@@ -45,21 +45,21 @@ button{
     background-color: rgb(18, 117, 18);
 }
 
-button:hover{
+.content button:hover{
     color: rgb(199, 198, 198);
     background-color: rgb(14, 87, 14);
 }
 
-input:focus{
+.content input:focus{
     border: 1px solid rgb(193, 252, 193);
     background-color: rgb(253, 249, 243);
 }
 
-.terms{
+.content .terms{
     margin-top: 0.2rem;
 }
 
-.terms input{
+.content .terms input{
     height: 1em;
     width: 1em;
     vertical-align: middle;
@@ -67,12 +67,12 @@ input:focus{
     margin-bottom: 1px;
 }
 
-.terms label{
+.content .terms label{
     font-size: 0.7rem;
     cursor: pointer;
 }
 
-.terms label input{
+.content .terms label input{
     margin-right: 0.3rem;
 }
 

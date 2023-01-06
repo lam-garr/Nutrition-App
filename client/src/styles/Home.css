@@ -11,12 +11,13 @@
 }
 
 .header{
-    background-color: inherit;
+    background-color: red;
     color: green;
     min-height: 400px;
 }
 
 .header h1{
+    margin-top: 40px;
     font-size: 3rem;
     font-weight: bold;
     line-height: 1.2;
@@ -33,7 +34,7 @@
 }
 
 .section-one{
-    background-color: inherit;
+    background-color: blue;
     color: green;
     min-height: 400px;
 }
@@ -52,6 +53,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.section-two{
+    background-color: pink;
 }
 
 .section-two .container{

@@ -147,8 +147,8 @@ function Signup(){
                     <Input changeHandler={handleRePasswordChange} value={rePasswordInput} type='password' placeholder='Re-Enter Password' errorMessage={rePwErrorMessage} required={true}/>
                     <div className='terms'>
                     <label><input type='checkbox' id='checkbox' onChange={handleCheckBox}/>I agree to the terms and conditions.</label>
-                </div>
-                <button type='submit'>Sign Up</button>
+                    </div>
+                    <button type='submit'>Sign Up</button>
                 </form>
                 <div className='members'>
                     <p>Already a member?<Link to='/log-in'>Login Here</Link></p>
