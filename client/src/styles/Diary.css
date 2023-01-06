@@ -15,6 +15,28 @@
     margin-bottom: 10px;
 }
 
+.sec-one-right{
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sec-one-stats{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.content-btn{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
 .food-diary-section-two{
     border: 1px solid green;
     display: flex;
@@ -25,7 +47,7 @@
 }
 
 .section-one-content{
-    height: 100px;
+    height: 110px;
     width: 450px;
     border: 1px solid green;
     border-radius: 5px;
@@ -34,6 +56,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    position: relative;
 }
 
 .date{
@@ -56,7 +79,7 @@
     display: flex;
     justify-content: space-between;
     width: 125px;
-    margin-right: 20px;
+
 }
 
 .section-two-content{
@@ -64,3 +87,4 @@
     width: 800px;
  
 }
+
