@@ -12,6 +12,10 @@ function Diary(){
         {id:'2',name:'two'}
     ]
 
+    const deleteId = (id:string) => {
+        console.log(id)
+    }
+
     return(
         <main className='page-content'>
             <section className='food-diary-section-one'>
@@ -38,7 +42,7 @@ function Diary(){
             </section>
             <section className='food-diary-section-two'>
                 <div className='section-two-content'>
-                    <Table itemData={myArr}/>
+                    <Table deleteHandler={deleteId} itemData={myArr}/>
                 </div>
             </section>
         </main>
