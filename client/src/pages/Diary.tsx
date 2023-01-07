@@ -1,9 +1,17 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Table from '../components/Table';
 import '../styles/Diary.css'
 
 function Diary(){
+
+    //sample data
+    const myArr = [
+        {id:'1',name:'one'},
+        {id:'2',name:'two'}
+    ]
+
     return(
         <main className='page-content'>
             <section className='food-diary-section-one'>
@@ -29,19 +37,8 @@ function Diary(){
                 </div>
             </section>
             <section className='food-diary-section-two'>
-            <div className='section-two-content'>
-                    <table>
-                        <tr>
-                            <th>ex. 1</th>
-                            <th>ex. 2</th>
-                            <th>ex. 3</th>
-                        </tr>
-                        <tr>
-                            <td>example for ex. 1</td>
-                            <td>example for ex. 2</td>
-                            <td>example for ex. 3</td>
-                        </tr>
-                    </table>
+                <div className='section-two-content'>
+                    <Table itemData={myArr}/>
                 </div>
             </section>
         </main>
