@@ -4,16 +4,23 @@ import { Link } from 'react-router-dom';
 import Table from '../components/Table';
 import '../styles/Diary.css'
 
+//sample iterface
+interface iData{
+    id: number,
+    name: string;
+}
+
 function Diary(){
 
-    //sample data
-    const myArr = [
-        {id:'1',name:'one'},
-        {id:'2',name:'two'}
-    ]
+    const [ itemData, setItemData ] = useState<iData[]>([]);
 
-    const deleteId = (id:string) => {
-        console.log(id)
+    const deleteId = (id:number) => {
+        setItemData(prev => {return prev.filter(item => item.id !== id)})
+    }
+
+    const addData = () => {
+        const data = {id:Math.floor(Math.random() * 100), name:'world'}
+        setItemData(prev => [...prev, data])
     }
 
     return(
@@ -34,7 +41,7 @@ function Diary(){
                         </div>
                         <div className='sec-one-buttons'>
                         <button>save</button>
-                        <button>add food</button>
+                        <button onClick={addData}>add food</button>
                         </div>
                         <button className='content-btn'>?</button>
                     </div>
@@ -42,7 +49,7 @@ function Diary(){
             </section>
             <section className='food-diary-section-two'>
                 <div className='section-two-content'>
-                    <Table deleteHandler={deleteId} itemData={myArr}/>
+                    <Table deleteHandler={deleteId} addHandler={addData} itemData={itemData}/>
                 </div>
             </section>
         </main>
