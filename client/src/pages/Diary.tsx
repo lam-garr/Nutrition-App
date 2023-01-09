@@ -44,7 +44,7 @@ function Diary(prop:diaryProp){
 
     return(
         <main className='page-content'>
-            <TableModal tableModalHandler={changeTableModal} tModalIsOpen={prop.overlayOpen}/>
+            <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={prop.overlayOpen}/>
             <section className='food-diary-section-one'>
                 <div className='section-one-content'>
                     <div className='date'>
