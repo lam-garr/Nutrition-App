@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Table from '../components/Table';
+import TableModal from '../components/TableModal';
 import '../styles/Diary.css'
 
 //sample iterface
@@ -10,7 +11,12 @@ interface iData{
     name: string;
 }
 
-function Diary(){
+interface diaryProp{
+    overlayChange: () => void,
+    overlayOpen: boolean;
+}
+
+function Diary(prop:diaryProp){
 
     const [ itemData, setItemData ] = useState<iData[]>([]);
 
@@ -23,8 +29,22 @@ function Diary(){
         setItemData(prev => [...prev, data])
     }
 
+    //change overlay from parent
+    const changeOverlay = () => {
+        prop.overlayChange();
+    }
+
+    const [ tableModalOpen, setTableModalOpen ] = useState(false);
+
+    //open close table modal handler
+    const changeTableModal = () => {
+        setTableModalOpen(!tableModalOpen);
+        prop.overlayChange();
+    }
+
     return(
         <main className='page-content'>
+            <TableModal tableModalHandler={changeTableModal} tModalIsOpen={prop.overlayOpen}/>
             <section className='food-diary-section-one'>
                 <div className='section-one-content'>
                     <div className='date'>
@@ -41,7 +61,7 @@ function Diary(){
                         </div>
                         <div className='sec-one-buttons'>
                         <button>save</button>
-                        <button onClick={addData}>add food</button>
+                        <button onClick={()=>{addData(); changeOverlay()}}>add food</button>
                         </div>
                         <button className='content-btn'>?</button>
                     </div>
