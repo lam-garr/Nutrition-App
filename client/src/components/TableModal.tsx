@@ -3,7 +3,8 @@ import '../styles/tableModal.css';
 
 interface propInterface{
     tableModalHandler: (event: React.MouseEvent<HTMLButtonElement>) => void,
-    tableModalIsOpen: boolean;
+    tableModalIsOpen: boolean,
+    itemData: {id: number, name: string};
     //tableModalClose: () => void;
 }
 
@@ -29,7 +30,7 @@ function Modal(prop:propInterface){
     return(
         <aside className={`modal ${prop.tableModalIsOpen?'active':''}`} ref={modalRef}>
             <div className='modal-header'>
-                <h3 className='modal-title'>Hi</h3>
+                <h3 className='modal-title'>{prop.itemData.id}</h3>
                 <button className='clse-btn' onClick={prop.tableModalHandler}>&times;</button>
             </div>
             <div className='modal-body'>

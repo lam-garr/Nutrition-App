@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Table from '../components/Table';
 import TableModal from '../components/TableModal';
+import AddModal from '../components/AddModal';
 import '../styles/Diary.css'
 
 //sample iterface
@@ -27,6 +28,9 @@ function Diary(prop:diaryProp){
     const addData = () => {
         const data = {id:Math.floor(Math.random() * 100), name:'world'}
         setItemData(prev => [...prev, data])
+
+        //close modal after adding item to array
+        changeAddModal();
     }
 
     //change overlay from parent
@@ -42,9 +46,28 @@ function Diary(prop:diaryProp){
         prop.overlayChange();
     }
 
+    //open close add modal handler
+    const [ addModalOpen, setAddModalOpen ] = useState(false);
+
+    const changeAddModal = () => {
+        setAddModalOpen(!addModalOpen);
+        prop.overlayChange();
+    }
+
+    //handle rendering the modal with item data
+    const displayItem = (id:number) => {
+        changeTableModal();
+        setPropItem(itemData.find(el => el.id === id));
+    }
+
+    //this useState will be sued to pass info for rendering in the TableModal
+    //change useState typing when finished later
+    const [ propItem, setPropItem ] = useState<any>();
+
     return(
         <main className='page-content'>
-            <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={prop.overlayOpen}/>
+            <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} addItem={addData}/>
+            <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem}/>
             <section className='food-diary-section-one'>
                 <div className='section-one-content'>
                     <div className='date'>
@@ -61,7 +84,7 @@ function Diary(prop:diaryProp){
                         </div>
                         <div className='sec-one-buttons'>
                         <button>save</button>
-                        <button onClick={()=>{addData(); changeOverlay()}}>add food</button>
+                        <button onClick={()=>{changeOverlay(); changeAddModal()}}>add food</button>
                         </div>
                         <button className='content-btn'>?</button>
                     </div>
@@ -69,7 +92,7 @@ function Diary(prop:diaryProp){
             </section>
             <section className='food-diary-section-two'>
                 <div className='section-two-content'>
-                    <Table deleteHandler={deleteId} addHandler={addData} itemData={itemData}/>
+                    <Table deleteHandler={deleteId} addHandler={addData} itemData={itemData} itemDataHandler={displayItem}/>
                 </div>
             </section>
         </main>
