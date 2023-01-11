@@ -4,7 +4,8 @@ import '../styles/tableModal.css';
 interface propInterface{
     tableModalHandler: (event: React.MouseEvent<HTMLButtonElement>) => void,
     tableModalIsOpen: boolean,
-    itemData: {id: number, name: string};
+    itemData: {id: number, name: string},
+    closeModal: () => void;
     //tableModalClose: () => void;
 }
 
@@ -12,11 +13,11 @@ function Modal(prop:propInterface){
 
     const modalRef = useRef<any>();
 
-    //useEffect for if user clicks off of the modal, it will close
-    /*useEffect(()=>{
+    useEffect(()=>{
         const handleEvent = (e:any) => {
-            if(!modalRef.current.contains(e.target)){
-                prop.tableModalClose();
+            if((!modalRef.current.contains(e.target)) && prop.tableModalIsOpen){
+                //close modal, reverse boolean value
+                prop.closeModal();
             }
         }
 
@@ -25,12 +26,12 @@ function Modal(prop:propInterface){
         return() => {
             document.removeEventListener('mousedown', handleEvent);
         }
-    })*/
+    })
 
     return(
         <aside className={`modal ${prop.tableModalIsOpen?'active':''}`} ref={modalRef}>
             <div className='modal-header'>
-                <h3 className='modal-title'>{prop.itemData.id}</h3>
+                <h3 className='modal-title'>{prop.itemData?prop.itemData.id:''}</h3>
                 <button className='clse-btn' onClick={prop.tableModalHandler}>&times;</button>
             </div>
             <div className='modal-body'>

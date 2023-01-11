@@ -66,8 +66,8 @@ function Diary(prop:diaryProp){
 
     return(
         <main className='page-content'>
-            <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} addItem={addData}/>
-            <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem}/>
+            <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} addItem={addData} closeModal={changeAddModal}/>
+            <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem} closeModal={changeTableModal}/>
             <section className='food-diary-section-one'>
                 <div className='section-one-content'>
                     <div className='date'>
