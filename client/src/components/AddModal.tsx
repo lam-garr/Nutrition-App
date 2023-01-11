@@ -29,20 +29,30 @@ function Modal(prop:propInterface){
         }
     })
 
-    const addData = () => {
+    const addData = (e:any) => {
+        e.preventDefault();
         prop.addItem();
     }
 
+    //create ref for input then when rendered will autofocus to it
+    const inputRef = useRef<any>();
+
+    useEffect(()=>{
+        if(inputRef){
+            inputRef.current.focus();
+        }
+    })
+
     return(
-        <aside className={`modal ${prop.addModalIsOpen?'active':''}`} ref={modalRef}>
-            <div className='modal-header'>
-                <h3 className='modal-title'>Hi</h3>
+        <aside className={`addModal ${prop.addModalIsOpen?'active':''}`} ref={modalRef}>
+            <div className='addModal-header'>
+                <h3 className='addModal-title'>Add an Entry</h3>
                 <button className='clse-btn' onClick={prop.addModalHandler}>&times;</button>
             </div>
-            <div className='modal-body'>
-                World
+            <div className='addModal-body'>
+                    <input ref={inputRef}></input>
             </div>
-            <div className='modal-footer'>
+            <div className='addModal-footer'>
                 <div></div>
                 <div className='ftr-btns'>
                     <button onClick={addData}>add</button>

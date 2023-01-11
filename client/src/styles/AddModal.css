@@ -1,4 +1,4 @@
-.modal{
+.addModal{
     position: fixed;
     top: 50%;
     left: 50%;
@@ -7,15 +7,15 @@
     border-radius: 10px;
     background-color: aliceblue;
     width: 500px;
-    max-width: 80%;
+    margin: 0;
     z-index: 100;
 }
 
-.modal.active{
+.addModal.active{
     transform: translate(-50%, -50%) scale(1);
 }
 
-.modal-header{
+.addModal-header{
     padding: 10px 15px;
     display: flex;
     justify-content: space-between;
@@ -23,12 +23,12 @@
     border-bottom: 1px solid grey;
 }
 
-.modal-header .modal-title{
+.addModal-header .addModal-title{
     font-size: large;
     font-weight: bold;
 }
 
-.modal-header .clse-btn{
+.addModal-header .clse-btn{
     cursor: pointer;
     border: none;
     outline: none;
@@ -37,12 +37,13 @@
     font-weight: bold;
 }
 
-.modal-body{
-    height: 350px;
+.addModal-body{
+    height: 300px;
     padding: 10px 10px;
+    margin: 0;
 }
 
-.modal-footer{
+.addModal-footer{
     padding: 10px 15px;
     display: flex;
     justify-content: space-between;
@@ -50,3 +51,6 @@
     border-top: 1px solid grey;
 }
 
+.addModal-body form input{
+    color: pink;
+}
