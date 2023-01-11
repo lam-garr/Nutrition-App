@@ -15,6 +15,7 @@ function Modal(prop:propInterface){
 
     useEffect(()=>{
         const handleEvent = (e:any) => {
+            //checks to see if click event is outside of the ref component and that the modal is in fact open or value is true
             if((!modalRef.current.contains(e.target)) && prop.addModalIsOpen){
                 //close modal, reverse boolean value
                 prop.closeModal();

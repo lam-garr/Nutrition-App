@@ -1,0 +1,8 @@
+.tableInfo{
+    cursor: pointer;
+}
+
+.tableDelete{
+    cursor: pointer;
+    color: red;
+}

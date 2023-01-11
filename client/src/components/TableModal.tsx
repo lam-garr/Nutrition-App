@@ -11,10 +11,11 @@ interface propInterface{
 
 function Modal(prop:propInterface){
 
-    const modalRef = useRef<any>();
+    const modalRef = useRef<any>(null);
 
     useEffect(()=>{
         const handleEvent = (e:any) => {
+            //checks to see if click event is outside of the ref component and that the modal is in fact open or value is true
             if((!modalRef.current.contains(e.target)) && prop.tableModalIsOpen){
                 //close modal, reverse boolean value
                 prop.closeModal();
@@ -28,13 +29,23 @@ function Modal(prop:propInterface){
         }
     })
 
+    //create ref for modal component that scrolls
+    const modalBodyRef = useRef<any>(null);
+
+    useEffect(()=>{
+        //component will scroll to the top when rendered
+        if(modalBodyRef){
+            modalBodyRef.current.scrollTo(0, 0);
+        }
+    })
+
     return(
         <aside className={`modal ${prop.tableModalIsOpen?'active':''}`} ref={modalRef}>
             <div className='modal-header'>
                 <h3 className='modal-title'>{prop.itemData?prop.itemData.id:''}</h3>
                 <button className='clse-btn' onClick={prop.tableModalHandler}>&times;</button>
             </div>
-            <div className='modal-body'>
+            <div className='modal-body' ref={modalBodyRef}>
                 World World World World World World World World World World World World World World
                 World World World World World World World World World World World World World World
                 World World World World World World World World World World World World World World

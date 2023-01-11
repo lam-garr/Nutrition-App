@@ -40,8 +40,8 @@ function Table(prop:propData){
                     <tr key={item.id}>
                         <td>{item.id}</td>
                         <td>{item.name}</td>
-                        <td onClick={()=>getItemData(item.id)}>info</td>
-                        <td onClick={()=>sendDelete(item.id)}>delete</td>
+                        <td onClick={()=>getItemData(item.id)} className='tableInfo'>info</td>
+                        <td onClick={()=>sendDelete(item.id)} className='tableDelete'>delete</td>
                     </tr>
                 )
             })}
