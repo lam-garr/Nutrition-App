@@ -55,6 +55,7 @@ function Diary(prop:diaryProp){
     const changeAddModal = () => {
         setAddModalOpen(!addModalOpen);
         prop.overlayChange();
+        setAddInput('');
     }
 
     //handle rendering the modal with item data
