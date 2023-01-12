@@ -51,6 +51,52 @@
     border-top: 1px solid grey;
 }
 
-.addModal-body form input{
+.addInput{
     color: pink;
+    border: 1px solid black;
+    border-radius: 2px;
+    width: 300px;
+    height: 30px;
+    padding: 5px 5px;
+}
+
+.addBtn{
+    font-size: 15px;
+    padding: 5px 0;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    width: 65px;
+    height: 25px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(18, 117, 18);
+}
+
+.addBtn:hover{
+    color: rgb(228, 228, 228);
+    background-color: rgb(12, 136, 12);
+}
+
+.addForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.addForm hr{
+    border: none;
+    height: 1px;
+    background-color: grey;
+}
+
+.form-btns{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.addFormInput{
+    display: flex;
+    flex-direction: row;
 }

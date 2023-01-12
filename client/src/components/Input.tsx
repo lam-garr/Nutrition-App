@@ -17,7 +17,7 @@ function Input(prop:propHandler){
             <label htmlFor={prop.type}>{prop.placeholder.toLowerCase()}</label>
             <span className='err'>{prop.errorMessage}</span>
             </div>
-            <input required={prop.required}className='fieldInput'id={prop.type} placeholder={prop.placeholder} type={prop.type} value={prop.value} onChange={prop.changeHandler}></input>
+            <input required={prop.required} className='fieldInput' placeholder={prop.placeholder} type={prop.type} value={prop.value} onChange={prop.changeHandler}></input>
         </div>
     )
 }

@@ -46,8 +46,8 @@ form input{
 }
 
 .content button:hover{
-    color: rgb(199, 198, 198);
-    background-color: rgb(14, 87, 14);
+    color: rgb(228, 228, 228);
+    background-color: rgb(12, 136, 12);
 }
 
 .content input:focus{

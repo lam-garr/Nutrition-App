@@ -25,9 +25,12 @@ function Diary(prop:diaryProp){
         setItemData(prev => {return prev.filter(item => item.id !== id)})
     }
 
-    const addData = () => {
-        const data = {id:Math.floor(Math.random() * 100), name:'world'}
+    const addData = (name:string) => {
+        const data = {id:Math.floor(Math.random() * 100), name:name}
         setItemData(prev => [...prev, data])
+
+        //clear input data
+        setAddInput('');
 
         //close modal after adding item to array
         changeAddModal();
@@ -60,13 +63,20 @@ function Diary(prop:diaryProp){
         setPropItem(itemData.find(el => el.id === id));
     }
 
-    //this useState will be sued to pass info for rendering in the TableModal
+    //this useState will be used to pass info for rendering in the TableModal
     //change useState typing when finished later
     const [ propItem, setPropItem ] = useState<any>();
 
+    //handler for AddModal
+    const [ addInput, setAddInput ] = useState('');
+
+    const handleInputChange = (e:any) => {
+        setAddInput(e.target.value);
+    }
+
     return(
         <main className='page-content'>
-            <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} addItem={addData} closeModal={changeAddModal}/>
+            <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData}/>
             <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem} closeModal={changeTableModal}/>
             <section className='food-diary-section-one'>
                 <div className='section-one-content'>
@@ -92,7 +102,7 @@ function Diary(prop:diaryProp){
             </section>
             <section className='food-diary-section-two'>
                 <div className='section-two-content'>
-                    <Table deleteHandler={deleteId} addHandler={addData} itemData={itemData} itemDataHandler={displayItem}/>
+                    <Table deleteHandler={deleteId} itemData={itemData} itemDataHandler={displayItem}/>
                 </div>
             </section>
         </main>

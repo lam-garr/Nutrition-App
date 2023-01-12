@@ -3,7 +3,7 @@ import '../styles/Table.css';
 
 interface propData {
     //clickHandler: (event: React.MouseEvent<HTMLButtonElement>, id:string) => void,
-    addHandler: (data:{id: number, name: string}) => void,
+    //addHandler: (data:{id: number, name: string}) => void,
     deleteHandler: (id:number) => void,
     itemData: {id: number, name: string}[],
     itemDataHandler: (id:number) => void;

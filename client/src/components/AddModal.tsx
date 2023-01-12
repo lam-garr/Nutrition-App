@@ -4,8 +4,10 @@ import '../styles/AddModal.css';
 interface propInterface{
     addModalHandler: (event: React.MouseEvent<HTMLButtonElement>) => void,
     addModalIsOpen: boolean,
-    addItem: () => void,
-    closeModal: () => void;
+    closeModal: () => void,
+    changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    value: string,
+    addHandler: (name: string) => void;
 }
 
 function Modal(prop:propInterface){
@@ -29,9 +31,10 @@ function Modal(prop:propInterface){
         }
     })
 
-    const addData = (e:any) => {
+    //function will be called when form is submitted, passing the input field data to parent
+    const addData = (e:any, name:string) => {
         e.preventDefault();
-        prop.addItem();
+        prop.addHandler(name);
     }
 
     //create ref for input then when rendered will autofocus to it
@@ -50,13 +53,25 @@ function Modal(prop:propInterface){
                 <button className='clse-btn' onClick={prop.addModalHandler}>&times;</button>
             </div>
             <div className='addModal-body'>
-                    <input ref={inputRef}></input>
-            </div>
-            <div className='addModal-footer'>
-                <div></div>
-                <div className='ftr-btns'>
-                    <button onClick={addData}>add</button>
-                </div>
+                    <form className='addForm'>
+                        <div className='addFormInput'>
+                            <label>Enter item name:</label>
+                            <input required className='addInput' ref={inputRef} onChange={prop.changeHandler} value={prop.value}></input>
+                        </div>
+                        <div>
+                            <label>choose</label>
+                            <select>
+                                <option>select</option>
+                                <option>lb</option>
+                                <option>kg</option>
+                            </select>
+                        </div>
+                        <hr/>
+                        <div className='form-btns'>
+                            <div></div>
+                            <button onClick={(e)=>{addData(e, prop.value)}} className='addBtn'>add</button>
+                        </div>
+                    </form>
             </div>
         </aside>
     )
