@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.acc-content{
+    width: 330px;
+    padding: 2rem 1rem;
+    margin: 50px auto;
+    background-color: rgb(255, 252, 249);
+    border: 1px solid rgb(52, 255, 52);
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+}
+
+.acc-content h1{
+    font-size: 2rem;
+    color: black;
+    margin-bottom: 1.2rem;
+}
+
+.acc-dltBtn{
+    font-size: 1rem;
+    margin-top: 1.8rem;
+    padding: 10px 0;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    width: 90%;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(170, 29, 29);
+}
+
+.acc-dltBtn:hover{
+    color: rgb(228, 228, 228);
+    background-color: rgb(155, 28, 28);
+}
