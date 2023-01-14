@@ -7,7 +7,8 @@ function Account(){
             <div className='acc-content'>
                 <h1>Account</h1>
                 <div>
-                    <span>id :123456789</span>
+                    {/*sample id, change after login api implementation*/}
+                    <span>id: 123456789</span>
                 </div>
                 <button className='acc-dltBtn'>Delete account</button>
             </div>

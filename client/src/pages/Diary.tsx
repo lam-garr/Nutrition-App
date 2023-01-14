@@ -21,10 +21,12 @@ function Diary(prop:diaryProp){
 
     const [ itemData, setItemData ] = useState<iData[]>([]);
 
+    //delete item by id
     const deleteId = (id:number) => {
         setItemData(prev => {return prev.filter(item => item.id !== id)})
     }
 
+    //add item
     const addData = (name:string) => {
         const data = {id:Math.floor(Math.random() * 100), name:name}
         setItemData(prev => [...prev, data])
@@ -34,16 +36,35 @@ function Diary(prop:diaryProp){
 
         //close modal after adding item to array
         changeAddModal();
+
+        
     }
+
+    //useEffect to check if there is data stored in localStorage
+    //if so, then set stored data to array. Basically populates array with the stored data
+    useEffect(() => {
+        const data = window.localStorage.getItem('GUEST_DATA');
+        if(data !== null){
+            setItemData(JSON.parse(data));
+        }
+    },[])
+
+    //useEffect to update array whenever itemData state is changed
+    useEffect(() => {
+        //update array to localStorage if not empty
+        if(itemData.length > 0){
+            window.localStorage.setItem('GUEST_DATA', JSON.stringify(itemData));
+        }
+    },[itemData])
 
     //change overlay from parent
     const changeOverlay = () => {
         prop.overlayChange();
     }
 
+    //open close table modal handler
     const [ tableModalOpen, setTableModalOpen ] = useState(false);
 
-    //open close table modal handler
     const changeTableModal = () => {
         setTableModalOpen(!tableModalOpen);
         prop.overlayChange();

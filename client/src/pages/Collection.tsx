@@ -3,7 +3,9 @@ import '../styles/Collection.css';
 
 function Collection(){
     return(
-        <main></main>
+        <main>
+            
+        </main>
     )
 }
 
