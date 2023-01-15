@@ -25,9 +25,10 @@ function App() {
     <NavComponent/>
     <Overlay isOpen={overlayOpen}/>
       <Routes>
-        <Route path='/account' element={<AccountPage/>}></Route>
+        <Route path='/user/collection' element={<CollectionPage/>}></Route>
+        <Route path='/user/account' element={<AccountPage/>}></Route>
         <Route path='/diary' element={<DiaryPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
-        <Route path='/collection' element={<CollectionPage/>}></Route>
+        
         <Route path='/sign-up' element={<SignupPage/>}></Route>
         <Route path='/log-in' element={<LoginPage/>}></Route>
         <Route path='/' element={<HomePage/>}></Route>
