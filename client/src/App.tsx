@@ -25,7 +25,7 @@ function App() {
     <NavComponent/>
     <Overlay isOpen={overlayOpen}/>
       <Routes>
-        <Route path='/user/collection' element={<CollectionPage/>}></Route>
+        <Route path='/user/collection' element={<CollectionPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
         <Route path='/user/account' element={<AccountPage/>}></Route>
         <Route path='/diary' element={<DiaryPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
         

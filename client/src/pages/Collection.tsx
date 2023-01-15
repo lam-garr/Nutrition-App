@@ -1,7 +1,18 @@
 import React from 'react';
 import '../styles/Collection.css';
 
-function Collection(){
+interface collectionProp{
+    overlayChange: () => void,
+    overlayOpen: boolean;
+}
+
+function Collection(prop:collectionProp){
+
+     //change overlay from parent
+     const changeOverlay = () => {
+        prop.overlayChange();
+    }
+
     return(
         <main className='collection-page-content'>
             <section className='collection-section-one'>
