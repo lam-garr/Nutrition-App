@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+import HelpModal from '../components/HelpModal'
 import '../styles/Collection.css';
 
 interface collectionProp{
@@ -8,18 +10,22 @@ interface collectionProp{
 
 function Collection(prop:collectionProp){
 
-     //change overlay from parent
-     const changeOverlay = () => {
+    //open close help modal
+    const [helpModalOpen, setHelpModalOpen] = useState(false);
+
+    const changeHelpModal = () => {
+        setHelpModalOpen(!helpModalOpen);
         prop.overlayChange();
     }
 
     return(
         <main className='collection-page-content'>
+            <HelpModal helpModalHandler={changeHelpModal} helpModalIsOpen={helpModalOpen} closeModal={changeHelpModal}/>
             <section className='collection-section-one'>
                 <div className='sec-one-content'>
                     Collection of User Diaries
                 </div>
-                <button className='sec-one-btn'>?</button>
+                <button className='sec-one-btn' onClick={() => {changeHelpModal()}}>?</button>
             </section>
             <section className='collection-section-two'>
                 <div className='sec-two-p1'>

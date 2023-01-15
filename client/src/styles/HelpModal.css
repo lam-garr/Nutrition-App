@@ -1,0 +1,52 @@
+.help-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    border: 1px solid green;
+    border-radius: 10px;
+    background-color: white;
+    width: 500px;
+    margin: 0;
+    z-index: 100;
+}
+
+.help-modal.active{
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.help-modal-header{
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid grey;
+}
+
+.help-modal-header .help-modal-title{
+    font-size: large;
+    font-weight: bold;
+}
+
+.help-modal-header .clse-btn{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-weight: large;
+    font-weight: bold;
+}
+
+.help-modal-body{
+    height: 180px;
+    padding: 10px 10px;
+    margin: 0;
+}
+
+.help-modal-footer{
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid grey;
+}

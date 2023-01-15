@@ -53,9 +53,9 @@ function Diary(prop:diaryProp){
     },[itemData])
 
     //change overlay from parent
-    const changeOverlay = () => {
-        prop.overlayChange();
-    }
+    //const changeOverlay = () => {
+    //    prop.overlayChange();
+    //}
 
     //open close table modal handler
     const [ tableModalOpen, setTableModalOpen ] = useState(false);
@@ -111,7 +111,7 @@ function Diary(prop:diaryProp){
                         </div>
                         <div className='sec-one-buttons'>
                         <button>save</button>
-                        <button onClick={()=>{changeOverlay(); changeAddModal()}}>add food</button>
+                        <button onClick={()=>{changeAddModal()}}>add food</button>
                         </div>
                         <button className='content-btn'>?</button>
                     </div>
