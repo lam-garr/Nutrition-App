@@ -10,7 +10,6 @@
     background-color: rgb(34, 34, 34);
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
     border: none;
     z-index: 60;
 }
@@ -24,6 +23,7 @@
     transition: 0.3s;
     border: none;
     background: none;
+    cursor: pointer;
 }
 
 .sidebar button:hover{
@@ -31,10 +31,7 @@
 }
 
 .sidebar .sidebar-close{
-    position: absolute;
-    top: 0;
-    right: 25px;
-    margin-left: 50px;
+    padding-top: 5px;
 }
 
 .sidebar.active{
@@ -45,3 +42,16 @@
     width: 0%;
 }
 
+a{
+    text-decoration: none;
+}
+
+.sidebar-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
