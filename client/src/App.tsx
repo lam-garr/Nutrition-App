@@ -9,6 +9,7 @@ import DiaryPage from './pages/Diary';
 import AccountPage from './pages/Account';
 import CollectionPage from './pages/Collection';
 import Overlay from './components/Overlay';
+import SideBar from './components/SideBar';
 import './styles/App.css';
 
 function App() {
@@ -20,9 +21,18 @@ function App() {
     setOverlayOpen(!overlayOpen);
   }
 
+  //handle sidebar change
+  const [ sidebarOpen, setSidebarOpen ] = useState(false);
+
+  const sidebarChange = () => {
+    setSidebarOpen(!sidebarOpen);
+    setOverlayOpen(!overlayOpen)
+  }
+
   return (
     <BrowserRouter>
-    <NavComponent/>
+    <NavComponent sidebarHandler={sidebarChange}/>
+    <SideBar clickHandler={sidebarChange} closeHandler={sidebarChange} sideBarOpen={sidebarOpen}/>
     <Overlay isOpen={overlayOpen}/>
       <Routes>
         <Route path='/user/collection' element={<CollectionPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>

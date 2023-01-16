@@ -11,11 +11,11 @@ interface propInterface{
 function SideBar(prop: propInterface){
 
     //check local storage to see if user is authenticated with access token
-    const loggenIn = true;
+    const loggenIn = false;
 
     return(
         <aside className={`sidebar ${prop.sideBarOpen?'active':'inactive'}`}>
-            <button className='sidebar-close' onClick={prop.clickHandler}></button>
+            <button className='sidebar-close' onClick={prop.clickHandler}>o</button>
             <Link to={'/'}><button onClick={prop.closeHandler}>Home</button></Link>
             <Link to={'/diary'}><button onClick={prop.closeHandler}>Food Diary</button></Link>
             {loggenIn && <Link to={'/user/collection'}><button onClick={prop.closeHandler}>Diary Entries</button></Link>}
