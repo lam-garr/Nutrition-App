@@ -2,9 +2,15 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Input from '../components/Input';
+import HelpModal from '../components/HelpModal';
 import '../styles/Signup.css';
 
-function Signup(){
+interface propInterface{
+    overlayChange: () => void,
+    overlayOpen: boolean;
+}
+
+function Signup(prop: propInterface){
 
     //username input handling
     const [ usernameInput, setUsernameInput ] = useState('');
@@ -135,8 +141,17 @@ function Signup(){
         console.log('ok');
     }
 
+    //open close modal
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const changeModal = () => {
+        setModalOpen(!modalOpen);
+        prop.overlayChange();
+    }
+
     return(
         <main>
+            <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal}/>
             <div className='content'>
                 <h1>Sign Up</h1>
                 <form onSubmit={handleSubmit}>

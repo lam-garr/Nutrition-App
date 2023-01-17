@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Table from '../components/Table';
 import TableModal from '../components/TableModal';
 import AddModal from '../components/AddModal';
+import HelpModal from '../components/HelpModal';
 import '../styles/Diary.css'
 
 //sample iterface
@@ -91,10 +92,19 @@ function Diary(prop:diaryProp){
         setAddInput(e.target.value);
     }
 
+    //open close help modal
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const changeModal = () => {
+        setModalOpen(!modalOpen);
+        prop.overlayChange();
+    }
+
     return(
         <main className='page-content'>
             <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData}/>
             <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem} closeModal={changeTableModal}/>
+            <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal}/>
             <section className='food-diary-section-one'>
                 <div className='section-one-content'>
                     <div className='date'>
@@ -113,7 +123,7 @@ function Diary(prop:diaryProp){
                         <button>save</button>
                         <button onClick={()=>{changeAddModal()}}>add food</button>
                         </div>
-                        <button className='content-btn'>?</button>
+                        <button className='content-btn' onClick={changeModal}>?</button>
                     </div>
                 </div>
             </section>

@@ -38,9 +38,8 @@ function App() {
         <Route path='/user/collection' element={<CollectionPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
         <Route path='/user/account' element={<AccountPage/>}></Route>
         <Route path='/diary' element={<DiaryPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
-        
-        <Route path='/sign-up' element={<SignupPage/>}></Route>
-        <Route path='/log-in' element={<LoginPage/>}></Route>
+        <Route path='/sign-up' element={<SignupPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
+        <Route path='/log-in' element={<LoginPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
         <Route path='/' element={<HomePage/>}></Route>
       </Routes>
     </BrowserRouter>

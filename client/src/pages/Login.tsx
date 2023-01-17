@@ -2,9 +2,15 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Input from '../components/Input';
+import HelpModal from '../components/HelpModal';
 import '../styles/Login.css';
 
-function Login(){
+interface propInterface{
+    overlayChange: () => void,
+    overlayOpen: boolean;
+}
+
+function Login(prop: propInterface){
 
     //login username input handling
     const [ loginInput, setLoginInput ] = useState('');
@@ -57,15 +63,24 @@ function Login(){
         console.log("ok")
     }
 
+    //open close modal
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const changeModal = () => {
+        setModalOpen(!modalOpen);
+        prop.overlayChange();
+    }
+
     return(
         <main>
+            <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal}/>
             <div className='content'>
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit}>
                     <Input changeHandler={handleLoginChange} value={loginInput} type='text' placeholder='Username' errorMessage={LoginErrorMessage} required={true}/>
                     <Input changeHandler={handlePasswordChange} value={passwordInput} type='password' placeholder='Password' errorMessage={pwErrorMessage} required={true}/>
                     <div className='help'>
-                        Forgot Password
+                        <span onClick={changeModal}>Forgot Password</span>
                     </div>
                     <button type='submit'>Log In</button>
                 </form>

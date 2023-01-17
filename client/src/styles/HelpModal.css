@@ -28,7 +28,7 @@
     font-weight: bold;
 }
 
-.help-modal-header .clse-btn{
+.help-modal-header .help-clse-btn{
     cursor: pointer;
     border: none;
     outline: none;
