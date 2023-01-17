@@ -49,7 +49,7 @@
 
 .section-one-content{
     height: 110px;
-    width: 450px;
+    width: 525px;
     border: 1px solid green;
     border-radius: 5px;
     background-color: inherit;
@@ -80,12 +80,23 @@
     display: flex;
     justify-content: space-between;
     width: 125px;
-
 }
 
 .section-two-content{
     min-height: 300px;
     width: 800px;
- 
 }
+
+.sec-one-fat, .sec-one-cal, .sec-one-protein, .sec-one-carbs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cal-data, .carb-data, .fat-data, .protein-data{
+    display: flex;
+    justify-content: center;
+    color: black;
+}
+
 

@@ -53,11 +53,6 @@ function Diary(prop:diaryProp){
         window.localStorage.setItem('GUEST_DATA', JSON.stringify(itemData));    
     },[itemData])
 
-    //change overlay from parent
-    //const changeOverlay = () => {
-    //    prop.overlayChange();
-    //}
-
     //open close table modal handler
     const [ tableModalOpen, setTableModalOpen ] = useState(false);
 
@@ -100,6 +95,36 @@ function Diary(prop:diaryProp){
         prop.overlayChange();
     }
 
+    //handling specific macronutrient value along with total calories
+
+    //handling for carbs
+    const [ carbs, setCarbs ] = useState(0);
+
+    const changeCarbs = (value: number) => {
+        setCarbs(carbs + value);
+    }
+
+    //handling for protein
+    const [ protein, setProtein ] = useState(0);
+
+    const changeProtein = (value: number) => {
+        setProtein(protein + value);
+    }
+
+    //handling for fat
+    const [ fat, setFat ] = useState(100);
+
+    const changeFat = (value: number) => {
+        setFat(fat + value);
+    }
+
+    //handling for total calories
+    const [ calories, setCalories ] = useState(0);
+
+    const changeCalories = (value: number) => {
+        setCalories(calories + value);
+    }
+
     return(
         <main className='page-content'>
             <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData}/>
@@ -113,11 +138,23 @@ function Diary(prop:diaryProp){
                         <span>2023</span>
                     </div>
                     <div className='sec-one-right'>
-                        <div className='sec-one-stats'>
-                            <div>10</div>
-                            <div>20</div>
-                            <div>30</div>
-                            <div>2000</div>
+                    <div className='sec-one-stats'>
+                            <div className='sec-one-carbs'>
+                                <div className='carb-data'>{carbs}g</div>
+                                <span>carbohydrates</span>
+                            </div>
+                            <div className='sec-one-protein'>
+                                <div className='protein-data'>{protein}g</div>
+                                <span>protein</span>
+                            </div>
+                            <div className='sec-one-fat'>
+                                <div className='fat-data'>{fat}g</div>
+                                <span className='fat-span'>fat</span>
+                            </div>
+                            <div className='sec-one-cal'>
+                                <div className='cal-data'>{calories}</div>
+                                <span>calories</span>
+                            </div>
                         </div>
                         <div className='sec-one-buttons'>
                         <button>save</button>
