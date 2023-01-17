@@ -14,7 +14,7 @@
 }
 
 .header{
-    background-color: red;
+    background-color: inherit;
     color: green;
     min-height: 400px;
     display: flex;
@@ -40,7 +40,7 @@
 }
 
 .section-one{
-    background-color: blue;
+    background-color: inherit;
     color: green;
     min-height: 400px;
     display: flex;
@@ -65,7 +65,7 @@
 }
 
 .section-two{
-    background-color: pink;
+    background-color: inherit;
     min-height: 300px;
 }
 
