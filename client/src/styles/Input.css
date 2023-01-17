@@ -4,7 +4,7 @@
 }
 
 .fieldLabel{
-    margin-left: 20px;
+    margin-left: 28px;
     color: rgb(114, 113, 113);
     display: block;
     font-size: 9px;
@@ -50,7 +50,7 @@
 }
 
 .err{
-    margin-right: 30px;
+    margin-right: 40px;
     color: red;
 }
 

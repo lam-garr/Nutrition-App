@@ -98,3 +98,7 @@
     margin: 0.3rem 1.4rem 0 0;
 }
 
+.forgot{
+    color: blue;
+    cursor: pointer;
+}

@@ -72,15 +72,6 @@ form input{
     cursor: pointer;
 }
 
-.content .terms label input{
-    margin-right: 0.3rem;
-}
-
-.terms a{
-    color: blue;
-    text-decoration: none;
-}
-
 .members{
     font-size: 0.8rem;
     margin-top: 1.4rem;
@@ -91,4 +82,15 @@ form input{
     margin-left: 0.5rem;
     color: blue;
     text-decoration: none;
+}
+
+.term-serv-click{
+    color: blue;
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+
+.term-serv-end{
+    font-size: 0.7rem;
+    cursor: pointer;
 }

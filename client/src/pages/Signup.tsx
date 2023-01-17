@@ -161,7 +161,7 @@ function Signup(prop: propInterface){
                     <Input changeHandler={handlePasswordChange} value={passwordInput} type='password' placeholder='Password' errorMessage={pwErrorMessage} required={true}/>
                     <Input changeHandler={handleRePasswordChange} value={rePasswordInput} type='password' placeholder='Re-Enter Password' errorMessage={rePwErrorMessage} required={true}/>
                     <div className='terms'>
-                    <label><input type='checkbox' id='checkbox' onChange={handleCheckBox}/>I agree to the terms and conditions.</label>
+                    <label><input type='checkbox' id='checkbox' onChange={handleCheckBox}/>I agree to the </label><span className='term-serv-click' onClick={changeModal}>terms and conditions</span><span className='term-serv-end'>.</span>
                     </div>
                     <button type='submit'>Sign Up</button>
                 </form>

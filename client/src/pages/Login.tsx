@@ -80,7 +80,7 @@ function Login(prop: propInterface){
                     <Input changeHandler={handleLoginChange} value={loginInput} type='text' placeholder='Username' errorMessage={LoginErrorMessage} required={true}/>
                     <Input changeHandler={handlePasswordChange} value={passwordInput} type='password' placeholder='Password' errorMessage={pwErrorMessage} required={true}/>
                     <div className='help'>
-                        <span onClick={changeModal}>Forgot Password</span>
+                        <span className='forgot' onClick={changeModal}>Forgot Password?</span>
                     </div>
                     <button type='submit'>Log In</button>
                 </form>
