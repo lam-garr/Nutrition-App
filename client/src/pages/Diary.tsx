@@ -5,6 +5,7 @@ import Table from '../components/Table';
 import TableModal from '../components/TableModal';
 import AddModal from '../components/AddModal';
 import HelpModal from '../components/HelpModal';
+import DateModal from '../components/DateModal';
 import '../styles/Diary.css'
 
 //sample iterface
@@ -104,22 +105,30 @@ function Diary(prop:diaryProp){
 
     const [ month, setMonth ] = useState(months[date.getMonth()]);
 
-    const changeMonth = () => {
-        setMonth('');
+    const changeMonth = (e:any) => {
+        setMonth(e.target.value);
     }
 
     //handling for day with default day as initial day
     const [ day, setDay ] = useState(date.getDate());
 
-    const changeDay = () => {
-        setDay(0);
+    const changeDay = (e:any) => {
+        setDay(e.target.value);
     }
 
     //handling for year with default year as initial year
     const [ year, setYear ] = useState(date.getFullYear());
 
-    const changeYear = () => {
-        setYear(3000);
+    const changeYear = (e:any) => {
+        setYear(e.target.value);
+    }
+
+    //open close Date modal
+    const [dateOpen, setDateOpen] = useState(false);
+
+    const changeDate = () => {
+        setDateOpen(!dateOpen);
+        prop.overlayChange();
     }
 
     //handling specific macronutrient value along with total calories
@@ -157,12 +166,13 @@ function Diary(prop:diaryProp){
             <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData}/>
             <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem} closeModal={changeTableModal}/>
             <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal}/>
+            <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} month={month} day={day} year={year}/>
             <section className='food-diary-section-one'>
                 <div className='section-one-content'>
-                    <div className='date'>
+                    <div className='date' onClick={changeDate}>
                         <span>{month}</span>
                         <span className='date-day'>{day}</span>
-                        <span>2023</span>
+                        <span>{year}</span>
                     </div>
                     <div className='sec-one-right'>
                     <div className='sec-one-stats'>
@@ -202,3 +212,11 @@ function Diary(prop:diaryProp){
 }
 
 export default Diary;
+
+
+{/* <div className='date'>
+    <select className='date-month' onChange={(e) => changeMonth(e)} value={month}>
+        <option value='January'>January</option>
+        <option value='February'>February</option>
+    </select>
+</div>*/}

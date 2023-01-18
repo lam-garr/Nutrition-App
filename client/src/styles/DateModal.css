@@ -1,0 +1,52 @@
+.date-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    border: 1px solid green;
+    border-radius: 10px;
+    background-color: white;
+    width: 500px;
+    margin: 0;
+    z-index: 100;
+}
+
+.date-modal.active{
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.date-modal-header{
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid grey;
+}
+
+.date-modal-header .date-modal-title{
+    font-size: large;
+    font-weight: bold;
+}
+
+.date-modal-header .date-clse-btn{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-weight: large;
+    font-weight: bold;
+}
+
+.date-modal-body{
+    height: 180px;
+    padding: 10px 10px;
+    margin: 0;
+}
+
+.date-modal-footer{
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid grey;
+}
