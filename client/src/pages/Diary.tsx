@@ -95,6 +95,33 @@ function Diary(prop:diaryProp){
         prop.overlayChange();
     }
 
+    //handling the date for the diary
+
+    const date = new Date();
+
+    //handling for month with default month as initial month
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+    const [ month, setMonth ] = useState(months[date.getMonth()]);
+
+    const changeMonth = () => {
+        setMonth('');
+    }
+
+    //handling for day with default day as initial day
+    const [ day, setDay ] = useState(date.getDate());
+
+    const changeDay = () => {
+        setDay(0);
+    }
+
+    //handling for year with default year as initial year
+    const [ year, setYear ] = useState(date.getFullYear());
+
+    const changeYear = () => {
+        setYear(3000);
+    }
+
     //handling specific macronutrient value along with total calories
 
     //handling for carbs
@@ -133,8 +160,8 @@ function Diary(prop:diaryProp){
             <section className='food-diary-section-one'>
                 <div className='section-one-content'>
                     <div className='date'>
-                        <span>January</span>
-                        <span className='date-day'>5</span>
+                        <span>{month}</span>
+                        <span className='date-day'>{day}</span>
                         <span>2023</span>
                     </div>
                     <div className='sec-one-right'>
@@ -167,7 +194,7 @@ function Diary(prop:diaryProp){
             <section className='food-diary-section-two'>
                 <div className='section-two-content'>
                    {itemData.length ? (<Table deleteHandler={deleteId} itemData={itemData} itemDataHandler={displayItem}/>) : 
-                   <span className='no-items'>There's nothing here, add food to get started!</span>}
+                   (<div className='no-items'><span>There's nothing here, add food to get started!</span></div>)}
                 </div>
             </section>
         </main>
