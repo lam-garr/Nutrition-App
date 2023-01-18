@@ -166,7 +166,8 @@ function Diary(prop:diaryProp){
             </section>
             <section className='food-diary-section-two'>
                 <div className='section-two-content'>
-                    <Table deleteHandler={deleteId} itemData={itemData} itemDataHandler={displayItem}/>
+                   {itemData.length ? (<Table deleteHandler={deleteId} itemData={itemData} itemDataHandler={displayItem}/>) : 
+                   <span className='no-items'>There's nothing here, add food to get started!</span>}
                 </div>
             </section>
         </main>

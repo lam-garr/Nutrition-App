@@ -29,19 +29,23 @@ function Table(prop:propData){
     }
 
     return(
-        <table>
+        <table className='food-table'>
             <tbody>
-            <tr>
+            <tr className='food-table-top'>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Calories</th>
+                <th>Info</th>
+                <th>Delete</th>
             </tr>
             {prop.itemData.map(item => {
                 return(
-                    <tr key={item.id}>
+                    <tr key={item.id} className='food-table-data'>
                         <td>{item.id}</td>
                         <td>{item.name}</td>
-                        <td onClick={()=>getItemData(item.id)} className='tableInfo'>info</td>
-                        <td onClick={()=>sendDelete(item.id)} className='tableDelete'>delete</td>
+                        <td>Calories</td>
+                        <td><button onClick={()=>getItemData(item.id)} className='tableInfo'>Info</button></td>
+                        <td><button onClick={()=>sendDelete(item.id)} className='tableDelete'>Delete</button></td>
                     </tr>
                 )
             })}

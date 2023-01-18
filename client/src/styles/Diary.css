@@ -38,10 +38,7 @@
 }
 
 .food-diary-section-two{
-    border: 1px solid green;
     display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 400px;
     max-width: 1000px;
     margin-bottom: 5px;
@@ -99,4 +96,7 @@
     color: black;
 }
 
-
+.no-items{
+    text-align: center;
+    color: rgb(167, 164, 164);
+}

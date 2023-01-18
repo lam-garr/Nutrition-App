@@ -1,8 +1,34 @@
 .tableInfo{
     cursor: pointer;
+    background: none;
+    border: none;
 }
 
 .tableDelete{
     cursor: pointer;
     color: red;
+    background: none;
+    border: none;
+}
+
+.food-table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.food-table td{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.food-table th{
+    padding: 8px;
+}
+
+.food-table th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: brown;
+    color: white;
 }
