@@ -18,11 +18,8 @@
 }
 
 .collection-section-two{
-    border: 1px solid green;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
     min-height: 400px;
     max-width: 1000px;
     margin-bottom: 5px;
@@ -49,13 +46,14 @@
 .sec-two-p1{
     display: flex;
     justify-content: space-between;
-    border: 1px solid purple;
+    border: none;
     width: 100%;
     padding: 5px;
 }
 
 .menu-title{
     margin-left: 5px;
+    border: none;
 }
 
 .menu{

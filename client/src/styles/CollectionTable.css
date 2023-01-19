@@ -1,0 +1,34 @@
+.colleInfo{
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.colleDelete{
+    cursor: pointer;
+    color: red;
+    background: none;
+    border: none;
+}
+
+.colle-table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.colle-table td{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.colle-table th{
+    padding: 8px;
+}
+
+.colle-table th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: brown;
+    color: white;
+}
