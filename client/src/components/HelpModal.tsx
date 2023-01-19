@@ -32,6 +32,7 @@ function HelpModal(prop:propInterface){
     return(
         <aside className={`help-modal ${prop.helpModalIsOpen?'active':''}`} ref={modalRef}>
             <div className='help-modal-header'>
+                <div></div>
                 <h3 className='help-modal-title'>Help</h3>
                 <button className='help-clse-btn' onClick={prop.helpModalHandler}>&times;</button>
             </div>

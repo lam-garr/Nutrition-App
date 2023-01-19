@@ -6,7 +6,7 @@
     border: 1px solid green;
     border-radius: 10px;
     background-color: white;
-    width: 500px;
+    width: 450px;
     margin: 0;
     z-index: 100;
 }
@@ -38,9 +38,10 @@
 }
 
 .help-modal-body{
-    height: 180px;
+    height: 150px;
     padding: 10px 10px;
     margin: 0;
+    text-align: center;
 }
 
 .help-modal-footer{
