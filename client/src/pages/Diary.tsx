@@ -44,7 +44,7 @@ function Diary(prop:diaryProp){
     //if so, then set stored data to array. Basically populates array with the stored data
     useEffect(() => {
         const data = window.localStorage.getItem('GUEST_DATA');
-        if(data !== null && (JSON.parse(data)).length){
+        if((data !== null) && ((JSON.parse(data)).length)){
             setItemData(JSON.parse(data));
         }
     },[])
@@ -165,7 +165,7 @@ function Diary(prop:diaryProp){
         <main className='page-content'>
             <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData}/>
             <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem} closeModal={changeTableModal}/>
-            <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal}/>
+            <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Please add food to track nutrients. Click info for more details on macro and micro nutrients and delete to delete entry'}/>
             <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} month={month} day={day} year={year}/>
             <section className='food-diary-section-one'>
                 <div className='section-one-content'>

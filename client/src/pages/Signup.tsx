@@ -151,7 +151,7 @@ function Signup(prop: propInterface){
 
     return(
         <main>
-            <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal}/>
+            <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Enter info at own risk, you are responsible for your own data.'}/>
             <div className='content'>
                 <h1>Sign Up</h1>
                 <form onSubmit={handleSubmit}>

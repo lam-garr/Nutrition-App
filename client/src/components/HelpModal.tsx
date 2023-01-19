@@ -4,7 +4,8 @@ import '../styles/HelpModal.css';
 interface propInterface{
     helpModalHandler: (event: React.MouseEvent<HTMLButtonElement>) => void,
     helpModalIsOpen: boolean,
-    closeModal: () => void;
+    closeModal: () => void,
+    message: string;
 }
 
 function HelpModal(prop:propInterface){
@@ -35,7 +36,7 @@ function HelpModal(prop:propInterface){
                 <button className='help-clse-btn' onClick={prop.helpModalHandler}>&times;</button>
             </div>
             <div className='help-modal-body'>
-                No help Available.
+                {prop.message}
             </div>
         </aside>
     )

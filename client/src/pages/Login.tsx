@@ -73,7 +73,7 @@ function Login(prop: propInterface){
 
     return(
         <main>
-            <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal}/>
+            <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Error, please try again later.'}/>
             <div className='content'>
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit}>

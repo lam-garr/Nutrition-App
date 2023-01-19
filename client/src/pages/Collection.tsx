@@ -20,7 +20,7 @@ function Collection(prop:collectionProp){
 
     return(
         <main className='collection-page-content'>
-            <HelpModal helpModalHandler={changeHelpModal} helpModalIsOpen={helpModalOpen} closeModal={changeHelpModal}/>
+            <HelpModal helpModalHandler={changeHelpModal} helpModalIsOpen={helpModalOpen} closeModal={changeHelpModal} message={'Collection of diary entries, click info for more info or delete to delete entry.'}/>
             <section className='collection-section-one'>
                 <div className='sec-one-content'>
                     Collection of User Diaries
