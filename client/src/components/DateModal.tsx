@@ -48,19 +48,31 @@ function DateModal(prop:propInterface){
     return(
         <aside className={`date-modal ${prop.dateModalIsOpen?'active':''}`} ref={modalRef}>
             <div className='date-modal-header'>
+                <div></div>
                 <h3 className='date-modal-title'>Change the Date</h3>
                 <button className='date-clse-btn' onClick={prop.dateModalHandler}>&times;</button>
             </div>
             <div className='date-modal-body'>
                 <label htmlFor='change-month'>Change Month</label>
-                <select className='date-month' id='change-month' onChange={(e) => prop.changeMonth(e)} value={prop.month}>
+                <select className='date-month-sel' id='change-month' onChange={(e) => prop.changeMonth(e)} value={prop.month}>
                     <option value='January'>January</option>
                     <option value='February'>February</option>
+                    <option value='March'>March</option>
+                    <option value='April'>April</option>
+                    <option value='May'>May</option>
+                    <option value='June'>June</option>
+                    <option value='July'>July</option>
+                    <option value='August'>August</option>
+                    <option value='September'>September</option>
+                    <option value='October'>October</option>
+                    <option value='November'>November</option>
+                    <option value='December'>December</option>
                 </select>
                 <label htmlFor='change-date'>Change Date</label>
-                <select className='date-day' id='change-date' onChange={(e) => prop.changeDay(e)} value={prop.day}>
+                <select className='date-day-sel' id='change-date' onChange={(e) => prop.changeDay(e)} value={prop.day}>
                     {dateOptions()}
                 </select> 
+                <button className='date-btn' onClick={prop.dateModalHandler}>OK</button>
             </div>
         </aside>
     )
