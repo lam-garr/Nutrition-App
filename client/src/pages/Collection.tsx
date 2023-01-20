@@ -22,7 +22,7 @@ function Collection(prop:collectionProp){
     }
 
     //sample data 
-    const [ data, setData] = useState<String[]>([]);
+    const [ data, setData] = useState<String[]>(['Monday',"Friday"]);
 
 
 
@@ -40,7 +40,7 @@ function Collection(prop:collectionProp){
                     <div className='sec-two-p1'>
                     <div className='menu-title'>showing ? of ???</div>
                         <div className='menu'>
-                            <span>sort by:</span>
+                            <span className='colle-sort'>sort by:</span>
                             <select>
                                 <option>select</option>
                                 <option>option one</option>

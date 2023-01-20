@@ -100,23 +100,26 @@ function Signup(prop: propInterface){
 
         handleUsernameError("");
 
-        //sample validation(delete later)
-        if(firstnameInput.length < 5){
+        //check if input is longer than 1 character
+        if(firstnameInput.length < 2){
             handleFirstNameError("first name not valid");
             return;
         }
 
+        alert(typeof firstnameInput)
+        alert('hi')
+
         handleFirstNameError("");
 
-        //sample validation(delete later)
-        if(lastnameInput.length < 5){
+        //check if input is longer than 1 character
+        if(lastnameInput.length < 2){
             handleLastNameError("last name not valid");
             return;
         }
 
         handleLastNameError("");
 
-        //sample validation(delete later)
+        //check to see if pw is at least 5 characters
         if(passwordInput.length < 5){
             handlePwError("password not strong enough");
             return;
@@ -124,7 +127,7 @@ function Signup(prop: propInterface){
 
         handlePwError("");
 
-        //sample validation(delete later)
+        //check to see if pw matches
         if(rePasswordInput !== passwordInput){
             handleRePwError("password does not match");
             return;
@@ -132,8 +135,9 @@ function Signup(prop: propInterface){
 
         handleRePwError("");
 
+        //alert user if checkbox is not checked
         if(!checked){
-            console.log("need to check box")
+            alert("need to check box")
             return;
         }
 
