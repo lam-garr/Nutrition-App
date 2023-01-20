@@ -38,7 +38,7 @@ function Collection(prop:collectionProp){
             <section className='collection-section-two'>
                 {data.length ? (<div>
                     <div className='sec-two-p1'>
-                    <div className='menu-title'>showing ? of ???</div>
+                    <div className='menu-title'>showing {data.length} of {data.length}</div>
                         <div className='menu'>
                             <span className='colle-sort'>sort by:</span>
                             <select>

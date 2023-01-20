@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/CollectionTable.css';
 
 interface propData {
@@ -21,11 +22,11 @@ function CollectionTable(prop: propData){
             </tr>
             {prop.itemData.map(item => {
                 return(
-                    <tr key={0} className='colle-table-data'>
+                    <tr className='colle-table-data'>
                         <td>{item}</td>
                         <td>{item}</td>
                         <td>Calories</td>
-                        <td><button className='colleInfo'>Info</button></td>
+                        <td><Link to={`/user/diary/${item}`}><button className='colleInfo'>Info</button></Link></td>
                         <td><button className='colleDelete'>Delete</button></td>
                     </tr>
                 )

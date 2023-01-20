@@ -6,6 +6,7 @@ import LoginPage from './pages/Login';
 import SignupPage from './pages/Signup';
 import NavComponent from './components/Nav';
 import DiaryPage from './pages/Diary';
+import UserDiary from './pages/UserDiary';
 import AccountPage from './pages/Account';
 import CollectionPage from './pages/Collection';
 import Overlay from './components/Overlay';
@@ -38,6 +39,7 @@ function App() {
         <Route path='/user/collection' element={<CollectionPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
         <Route path='/user/account' element={<AccountPage/>}></Route>
         <Route path='/diary' element={<DiaryPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
+        <Route path='/user/diary/:id' element={<UserDiary/>}></Route>
         <Route path='/sign-up' element={<SignupPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
         <Route path='/log-in' element={<LoginPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
         <Route path='/' element={<HomePage/>}></Route>
