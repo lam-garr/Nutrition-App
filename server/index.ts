@@ -5,14 +5,18 @@ import cors from 'cors';
 
 dotenv.config();
 
+//connect to MONGO database
+const mongoDB = `${process.env.MOGNODB}`;
+mongoose.connect(mongoDB);
+const db = mongoose.connection;
+db.on('error', console.log.bind(console, 'db connection error'));
+
 const app: Express = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-const PORT: number = 3000;
-
-app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`)
+app.listen(process.env.PORT, () => {
+    console.log(`Listening on port ${process.env.PORT}`)
 })
