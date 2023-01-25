@@ -7,4 +7,5 @@ const express_1 = __importDefault(require("express"));
 const apiController_1 = require("../controllers/apiController");
 const router = express_1.default.Router();
 router.get('/', apiController_1.GET_index);
+router.get('/nutr', apiController_1.GET_NUTR_info);
 exports.default = router;
