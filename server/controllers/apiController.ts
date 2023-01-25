@@ -3,7 +3,6 @@ import User from '../models/user';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
-import { nextTick } from 'process';
 
 //function for index api call
 export function GET_index(req: Request, res: Response){
@@ -26,6 +25,18 @@ export async function POST_sign_up(req: Request, res: Response, next: NextFuncti
             res.json({message:'Success'});
         }
     })
+}
+
+//function for user log in api call
+export async function POST_log_in(req: Request, res: Response, next: NextFunction){
+    const user = await User.findOne({username: req.body.username});
+
+    if(user &&(await bcrypt.compare(req.body.password, user.password))){
+        const token = jwt.sign(user._id, `${process.env.SECRET}`, {expiresIn: '15m'});
+        res.json({accessToken: token});
+    }else{
+        res.status(400).json({message:'Login Error'});
+    }
 }
 
 //make api call to edamam
