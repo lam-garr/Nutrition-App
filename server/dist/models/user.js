@@ -8,6 +8,8 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const UserSchema = new Schema({
     username: { type: String },
-    password: { type: String }
+    firstName: { type: String },
+    lastName: { type: String },
+    password: {}
 });
 exports.default = mongoose_1.default.model('Nutrition-User', UserSchema);
