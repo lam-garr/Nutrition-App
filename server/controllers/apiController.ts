@@ -43,11 +43,19 @@ export async function POST_log_in(req: Request, res: Response, next: NextFunctio
 
 //make api call to edamam
 export async function GET_NUTR_info(req: Request, res: Response){
-    const ingr:string = '1 lb chicken breast'
+    const ingr = req.query.search;
+    //const ingr = '1 banana';
     const apiResponse: any = await axios(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${ingr}`);
     //let response:any = await apiResponse.json();
     const apiObj: objInterface = createObj(apiResponse.data.totalNutrients, ingr);
-    //console.log(apiObj);
     res.json({data:apiObj});
 }
+
+///[a-zA-Z]+|[0-9]+/g
+/**    const split = (apiObj.calories).match(/[a-z]+|[^a-z]+/gi);
+    if(split){
+        const kcal = `${split[0]} ${split[1]}`
+        console.log(kcal);
+    }
+ */
 

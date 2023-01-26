@@ -1,13 +1,13 @@
 import { objInterface } from "./objInterface"
 
-export function createObj(obj: any, ingr: string):objInterface{
+export function createObj(obj: any, ingr: any):objInterface{
     const nutrObj = {
         id: Math.floor(Math.random() * 100),
         name: `${ingr}`,
         calories: `${obj.ENERC_KCAL.quantity}${obj.ENERC_KCAL.unit}`,
         totalFat: `${obj.FAT.quantity}${obj.FAT.unit}`,
         totalSatFA: `${obj.FASAT.quantity}${obj.FASAT.unit}`,
-        totalTransFA: `${obj.FATRN.quantity}${obj.FATRN.unit}`,
+        totalTransFA: `${obj.FATRN?obj.FATRN.quantity:0}${obj.FATRN?obj.FATRN.unit:'g'}`,
         totalMonoFA: `${obj.FAMS.quantity}${obj.FAMS.unit}`,
         totalPloyFA: `${obj.FAPU.quantity}${obj.FAPU.unit}`,
         carbohydrate: `${obj.CHOCDF.quantity}${obj.CHOCDF.unit}`,
@@ -35,7 +35,7 @@ export function createObj(obj: any, ingr: string):objInterface{
         vitaD2D3: `${obj.VITD.quantity}${obj.VITD.unit}`,
         vitaE: `${obj.TOCPHA.quantity}${obj.TOCPHA.unit}`,
         vitaK: `${obj.VITK1.quantity}${obj.VITK1.unit}`,
-        water: `${obj.WATER.quantity}${obj.WATER.unit}`,
+        water: `${obj.WATER.quantity}${obj.WATER.unit}`
     }
 
     return nutrObj;

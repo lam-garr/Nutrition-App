@@ -60,12 +60,19 @@ exports.POST_log_in = POST_log_in;
 //make api call to edamam
 function GET_NUTR_info(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const ingr = '1 lb chicken breast';
+        const ingr = req.query.search;
+        //const ingr = '1 banana';
         const apiResponse = yield (0, axios_1.default)(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${ingr}`);
         //let response:any = await apiResponse.json();
         const apiObj = (0, createObj_1.createObj)(apiResponse.data.totalNutrients, ingr);
-        console.log(apiObj);
         res.json({ data: apiObj });
     });
 }
 exports.GET_NUTR_info = GET_NUTR_info;
+///[a-zA-Z]+|[0-9]+/g
+/**    const split = (apiObj.calories).match(/[a-z]+|[^a-z]+/gi);
+    if(split){
+        const kcal = `${split[0]} ${split[1]}`
+        console.log(kcal);
+    }
+ */
