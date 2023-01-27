@@ -6,13 +6,9 @@ import TableModal from '../components/TableModal';
 import AddModal from '../components/AddModal';
 import HelpModal from '../components/HelpModal';
 import DateModal from '../components/DateModal';
+import { objInterface } from '../interface';
 import '../styles/Diary.css'
 
-//sample iterface
-interface iData{
-    id: number,
-    name: string;
-}
 
 interface diaryProp{
     overlayChange: () => void,
@@ -21,7 +17,7 @@ interface diaryProp{
 
 function Diary(prop:diaryProp){
 
-    const [ itemData, setItemData ] = useState<iData[]>([]);
+    const [ itemData, setItemData ] = useState<objInterface[]>([]);
 
     //delete item by id
     const deleteId = (id:number) => {
@@ -31,7 +27,7 @@ function Diary(prop:diaryProp){
     //add item
     const addData = (name:string) => {
         const data = {id:Math.floor(Math.random() * 100), name:name};
-        setItemData(prev => [...prev, data]);
+        //setItemData(prev => [...prev, data]);
 
         //clear input data
         setAddInput('');
