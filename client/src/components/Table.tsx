@@ -1,11 +1,12 @@
 import React from 'react';
+import { objInterface } from '../interface';
 import '../styles/Table.css';
 
 interface propData {
     //clickHandler: (event: React.MouseEvent<HTMLButtonElement>, id:string) => void,
     //addHandler: (data:{id: number, name: string}) => void,
     deleteHandler: (id:number) => void,
-    itemData: {id: number, name: string}[],
+    itemData: objInterface[],
     itemDataHandler: (id:number) => void;
 }
 
@@ -32,7 +33,6 @@ function Table(prop:propData){
         <table className='food-table'>
             <tbody>
             <tr className='food-table-top'>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Calories</th>
                 <th>Info</th>
@@ -41,9 +41,8 @@ function Table(prop:propData){
             {prop.itemData.map(item => {
                 return(
                     <tr key={item.id} className='food-table-data'>
-                        <td>{item.id}</td>
                         <td>{item.name}</td>
-                        <td>Calories</td>
+                        <td>{item.calories} kcal</td>
                         <td><button onClick={()=>getItemData(item.id)} className='tableInfo'>Info</button></td>
                         <td><button onClick={()=>sendDelete(item.id)} className='tableDelete'>Delete</button></td>
                     </tr>

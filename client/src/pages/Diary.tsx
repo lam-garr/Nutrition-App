@@ -8,6 +8,8 @@ import HelpModal from '../components/HelpModal';
 import DateModal from '../components/DateModal';
 import { objInterface } from '../interface';
 import '../styles/Diary.css'
+//
+import { createObj } from '../mockObj';
 
 
 interface diaryProp{
@@ -25,9 +27,15 @@ function Diary(prop:diaryProp){
     }
 
     //add item
-    const addData = (name:string) => {
-        const data = {id:Math.floor(Math.random() * 100), name:name};
-        //setItemData(prev => [...prev, data]);
+    const addData = async (ingr: string) => {
+        //api call, uncomment when ready
+       // const response = await fetch(`/api/nutr?search=${ingr}`);
+       // const apiObj = await response.json();
+       // setItemData(prev => [...prev, apiObj.data]);
+
+        const foodItem = createObj();
+
+        setItemData(prev => [...prev, foodItem]);
 
         //clear input data
         setAddInput('');

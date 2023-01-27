@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef} from 'react';
+import { objInterface } from '../interface';
 import '../styles/tableModal.css';
 
 interface propInterface{
     tableModalHandler: (event: React.MouseEvent<HTMLButtonElement>) => void,
     tableModalIsOpen: boolean,
-    itemData: {id: number, name: string},
+    itemData: objInterface,
     closeModal: () => void;
     //tableModalClose: () => void;
 }
@@ -46,22 +47,7 @@ function Modal(prop:propInterface){
                 <button className='clse-btn' onClick={prop.tableModalHandler}>&times;</button>
             </div>
             <div className='modal-body' ref={modalBodyRef}>
-                World World World World World World World World World World World World World World
-                World World World World World World World World World World World World World World
-                World World World World World World World World World World World World World World
-                World World World World World World World World World World World World World World
-                World World World World World World World World World World World World World World
-                World World World World World World World World World World World World World World
-                World World World World World World World World World World World World World World
-                World World World World World World World World World World World World World World
-                World World World World World World World World World World World World World World
-                World World World World World World World World World World World World World World
-                World World World World World World World World World World World World World World
-                World World World World World World World World World World World World World World
-
-                World World World World World World World World World World World World World World
-                World World World World World World World World World World World World World World
-                World World World World World World World World World World World World World World
+               {prop.itemData?prop.itemData.calories:''}
             </div>
             <div className='modal-footer'>
                 {/*add elements here (WIP) */}
