@@ -23,6 +23,13 @@ function Diary(prop:diaryProp){
 
     //delete item by id
     const deleteId = (id:number) => {
+        const delObj = itemData.find(obj => {return obj.id === id});
+        if(delObj){
+            changeCarbs(-Math.abs(delObj.CHOCDF.quantity));
+            changeProtein(-Math.abs(delObj.PROCNT.quantity));
+            changeFat(-Math.abs(delObj.FAT.quantity));
+            changeCalories(-Math.abs(delObj.ENERC_KCAL.quantity));
+        }
         setItemData(prev => {return prev.filter(item => item.id !== id)});
     }
 
@@ -34,8 +41,14 @@ function Diary(prop:diaryProp){
        // setItemData(prev => [...prev, apiObj.data]);
 
         const foodItem = createObj();
-
+        foodItem['name'] = ingr;
         setItemData(prev => [...prev, foodItem]);
+
+        //update calories, carbs, protien, and fats state
+        changeCarbs(foodItem.CHOCDF.quantity);
+        changeProtein(foodItem.PROCNT.quantity);
+        changeFat(foodItem.FAT.quantity);
+        changeCalories(foodItem.ENERC_KCAL.quantity);
 
         //clear input data
         setAddInput('');
@@ -152,7 +165,7 @@ function Diary(prop:diaryProp){
     }
 
     //handling for fat
-    const [ fat, setFat ] = useState(100);
+    const [ fat, setFat ] = useState(0);
 
     const changeFat = (value: number) => {
         setFat(fat + value);

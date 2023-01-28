@@ -47,7 +47,7 @@ function Modal(prop:propInterface){
                 <button className='clse-btn' onClick={prop.tableModalHandler}>&times;</button>
             </div>
             <div className='modal-body' ref={modalBodyRef}>
-               {prop.itemData?prop.itemData.calories:''}
+               {prop.itemData?prop.itemData.id:''}
             </div>
             <div className='modal-footer'>
                 {/*add elements here (WIP) */}
