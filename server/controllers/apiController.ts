@@ -1,7 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import User from '../models/user';
 import { objInterface } from './objInterface';
-import { createObj } from './createObj';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
@@ -47,7 +46,11 @@ export async function GET_NUTR_info(req: Request, res: Response){
     //const ingr = '1 banana';
     const apiResponse: any = await axios(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${ingr}`);
     //let response:any = await apiResponse.json();
-    const apiObj: objInterface = createObj(apiResponse.data.totalNutrients, ingr);
+    //const apiObj: objInterface = createObj(apiResponse.data.totalNutrients, ingr);
+    const apiObj: objInterface = apiResponse.data.totalNutrients;
+    apiObj['id']= Math.floor(Math.random() * 100);
+    apiObj['name']=`${ingr}`;
+
     res.json({data:apiObj});
 }
 

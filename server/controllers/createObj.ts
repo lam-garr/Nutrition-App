@@ -1,6 +1,6 @@
 import { objInterface } from "./objInterface"
 
-export function createObj(obj: any, ingr: any):objInterface{
+export function createObj(obj: any, ingr: any):any{
     const nutrObj = {
         id: Math.floor(Math.random() * 100),
         name: `${ingr}`,

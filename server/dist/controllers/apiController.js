@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GET_NUTR_info = exports.POST_log_in = exports.POST_sign_up = exports.GET_index = void 0;
 const user_1 = __importDefault(require("../models/user"));
-const createObj_1 = require("./createObj");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const axios_1 = __importDefault(require("axios"));
@@ -60,11 +59,14 @@ exports.POST_log_in = POST_log_in;
 //make api call to edamam
 function GET_NUTR_info(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const ingr = req.query.search;
-        //const ingr = '1 banana';
+        //const ingr = req.query.search;
+        const ingr = '1 banana';
         const apiResponse = yield (0, axios_1.default)(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${ingr}`);
         //let response:any = await apiResponse.json();
-        const apiObj = (0, createObj_1.createObj)(apiResponse.data.totalNutrients, ingr);
+        //const apiObj: objInterface = createObj(apiResponse.data.totalNutrients, ingr);
+        const apiObj = apiResponse.data.totalNutrients;
+        apiObj['id'] = 69;
+        apiObj['name'] = ingr;
         res.json({ data: apiObj });
     });
 }
