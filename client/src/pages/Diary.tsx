@@ -36,19 +36,21 @@ function Diary(prop:diaryProp){
     //add item
     const addData = async (ingr: string) => {
         //api call, uncomment when ready
-        //const response = await fetch(`/api/nutr?search=${ingr}`);
-        //const apiObj = await response.json();
-        //setItemData(prev => [...prev, apiObj.data]);
+        setFetching(true);
+        const response = await fetch(`/api/nutr?search=${ingr}`);
+        const apiObj = await response.json();
+        setItemData(prev => [...prev, apiObj.data]);
 
-        const foodItem = createObj();
-        foodItem['name'] = ingr;
-        setItemData(prev => [...prev, foodItem]);
+        //const foodItem = createObj();
+        //foodItem['name'] = ingr;
+        //setItemData(prev => [...prev, foodItem]);
 
         //update calories, carbs, protien, and fats state
-        changeCarbs(foodItem.CHOCDF.quantity);
-        changeProtein(foodItem.PROCNT.quantity);
-        changeFat(foodItem.FAT.quantity);
-        changeCalories(foodItem.ENERC_KCAL.quantity);
+        //**add function to update the array state
+        changeCarbs(apiObj.data.CHOCDF.quantity);
+        changeProtein(apiObj.data.PROCNT.quantity);
+        changeFat(apiObj.data.FAT.quantity);
+        changeCalories(apiObj.data.ENERC_KCAL.quantity);
 
         //clear input data
         setAddInput('');
@@ -56,6 +58,9 @@ function Diary(prop:diaryProp){
         //close modal after adding item to array
         changeAddModal();
     }
+
+    //useState to store whether or not api request is being made, if so disable add button
+    const [ fetching, setFetching ] = useState(false);
 
     //useEffect to check if there is data stored in localStorage
     //if so, then set stored data to array. Basically populates array with the stored data
@@ -86,6 +91,7 @@ function Diary(prop:diaryProp){
         setAddModalOpen(!addModalOpen);
         prop.overlayChange();
         setAddInput('');
+        setFetching(false)
     }
 
     //handle rendering the modal with item data
@@ -180,7 +186,7 @@ function Diary(prop:diaryProp){
 
     return(
         <main className='page-content'>
-            <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData}/>
+            <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData} fethcing={fetching}/>
             <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem} closeModal={changeTableModal}/>
             <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Please add food to track nutrients. Click info for more details on macro and micro nutrients and delete to delete an entry.'}/>
             <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} month={month} day={day} year={year}/>

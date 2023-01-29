@@ -7,7 +7,8 @@ interface propInterface{
     closeModal: () => void,
     changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void,
     value: string,
-    addHandler: (name: string) => void;
+    addHandler: (name: string) => void,
+    fethcing: boolean;
 }
 
 function Modal(prop:propInterface){
@@ -69,7 +70,7 @@ function Modal(prop:propInterface){
                         <hr/>
                         <div className='form-btns'>
                             <div></div>
-                            <button onClick={(e)=>{addData(e, prop.value)}} className='addBtn'>add</button>
+                            <button type='submit' onClick={(e)=>{addData(e, prop.value)}} className='addBtn' disabled={prop.fethcing}>add</button>
                         </div>
                     </form>
             </div>
