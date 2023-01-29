@@ -36,9 +36,9 @@ function Diary(prop:diaryProp){
     //add item
     const addData = async (ingr: string) => {
         //api call, uncomment when ready
-       // const response = await fetch(`/api/nutr?search=${ingr}`);
-       // const apiObj = await response.json();
-       // setItemData(prev => [...prev, apiObj.data]);
+        //const response = await fetch(`/api/nutr?search=${ingr}`);
+        //const apiObj = await response.json();
+        //setItemData(prev => [...prev, apiObj.data]);
 
         const foodItem = createObj();
         foodItem['name'] = ingr;

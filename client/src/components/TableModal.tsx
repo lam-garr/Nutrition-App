@@ -12,6 +12,13 @@ interface propInterface{
 
 function Modal(prop:propInterface){
 
+    //testing
+    if(prop.itemData){
+        Object.entries(prop.itemData).forEach(([key, value])=>{
+            console.log(`${key}:${value}`)
+        })
+    }
+
     const modalRef = useRef<any>(null);
 
     useEffect(()=>{
@@ -47,7 +54,23 @@ function Modal(prop:propInterface){
                 <button className='clse-btn' onClick={prop.tableModalHandler}>&times;</button>
             </div>
             <div className='modal-body' ref={modalBodyRef}>
-               {prop.itemData?prop.itemData.id:''}
+               <table>
+                   <tbody>
+                       <tr>
+                           <th>Name</th>
+                           <th>Quantity</th>
+                       </tr>
+                       {prop.itemData && Object.entries(prop.itemData).map(item => {
+                           console.log(item[0],item[1]);
+                           return(
+                               <tr>
+                                   <td>{item[1].label}</td>
+                                   <td>{item[1].quantity} {item[1].unit}</td>
+                               </tr>
+                           )
+                       })}
+                   </tbody>
+               </table>
             </div>
             <div className='modal-footer'>
                 {/*add elements here (WIP) */}
