@@ -46,6 +46,10 @@ function Diary(prop:diaryProp){
         //const foodItem = createObj();
         //foodItem['name'] = ingr;
         //setItemData(prev => [...prev, foodItem]);
+        //changeCarbs(Math.round(foodItem.CHOCDF.quantity))
+        //changeProtein(Math.round(foodItem.PROCNT.quantity))
+        //changeFat(Math.round(foodItem.FAT.quantity))
+        //changeCalories(Math.round(foodItem.ENERC_KCAL.quantity))
 
         //update nutrients
         changeCarbs(Math.round(apiObj.data.CHOCDF.quantity))

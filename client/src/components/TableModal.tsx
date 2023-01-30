@@ -50,25 +50,28 @@ function Modal(prop:propInterface){
     return(
         <aside className={`modal ${prop.tableModalIsOpen?'active':''}`} ref={modalRef}>
             <div className='modal-header'>
-                <h3 className='modal-title'>{prop.itemData?prop.itemData.id:''}</h3>
+                <h3 className='modal-title'>{prop.itemData?prop.itemData.name:'unavailable'}</h3>
                 <button className='clse-btn' onClick={prop.tableModalHandler}>&times;</button>
             </div>
             <div className='modal-body' ref={modalBodyRef}>
-               <table>
+               <table className='food-info'>
                    <tbody>
-                       <tr>
+                       <tr className='food-info-top'>
                            <th>Name</th>
                            <th>Quantity</th>
                        </tr>
-                       {prop.itemData && Object.entries(prop.itemData).map(item => {
-                           console.log(item[0],item[1]);
-                           return(
-                               <tr>
-                                   <td>{item[1].label}</td>
-                                   <td>{Math.round(((item[1].quantity) * 100)/100)} {item[1].unit}</td>
-                               </tr>
-                           )
-                       })}
+                       {prop.itemData && Object.entries(prop.itemData)
+                            .filter(item => item[0]!=='id')
+                            .filter(item => item[0]!=='name')
+                            .map(item => {
+                                return(
+                                    <tr key={item[1].id} className='food-info-data'>
+                                        <td>{item[1].label}</td>
+                                        <td>{Math.round(((item[1].quantity) * 100)/100)}{item[1].unit}</td>
+                                    </tr>
+                                )
+                            })
+                        }
                    </tbody>
                </table>
             </div>
@@ -80,3 +83,12 @@ function Modal(prop:propInterface){
 }
 
 export default Modal;
+
+//{prop.itemData && Object.entries(prop.itemData).map(item => {
+//    return(
+//        <tr key={item[1].id} className='food-info-data'>
+//            <td>{item[1].label}</td>
+//            <td>{Math.round(((item[1].quantity) * 100)/100)} {item[1].unit}</td>
+//        </tr>
+//    )
+//})}

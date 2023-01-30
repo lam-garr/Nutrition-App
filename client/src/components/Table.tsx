@@ -42,7 +42,7 @@ function Table(prop:propData){
                 return(
                     <tr key={item.id} className='food-table-data'>
                         <td>{item.name}</td>
-                        <td>{item.ENERC_KCAL.quantity} kcal</td>
+                        <td>{Math.round(item.ENERC_KCAL.quantity)} kcal</td>
                         <td><button onClick={()=>getItemData(item.id)} className='tableInfo'>Info</button></td>
                         <td><button onClick={()=>sendDelete(item.id)} className='tableDelete'>Delete</button></td>
                     </tr>

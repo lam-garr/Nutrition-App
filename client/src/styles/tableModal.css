@@ -44,3 +44,25 @@
     overflow-y: scroll;
 }
 
+.food-info{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.food-info td{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.food-info th{
+    padding: 8px;
+}
+
+.food-info th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: brown;
+    color: white;
+}
+
