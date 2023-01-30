@@ -21,15 +21,17 @@ function Diary(prop:diaryProp){
 
     const [ itemData, setItemData ] = useState<objInterface[]>([]);
 
-    //delete item by id
+    //delete item by id 
     const deleteId = (id:number) => {
-        const delObj = itemData.find(obj => {return obj.id === id});
+        const delObj = itemData.find(obj => {return obj.id === id})
+
         if(delObj){
-            changeCarbs(-Math.abs(delObj.CHOCDF.quantity));
-            changeProtein(-Math.abs(delObj.PROCNT.quantity));
-            changeFat(-Math.abs(delObj.FAT.quantity));
-            changeCalories(-Math.abs(delObj.ENERC_KCAL.quantity));
+            changeCarbs(-Math.abs(Math.round(delObj.CHOCDF.quantity)));
+            changeProtein(-Math.abs(Math.round(delObj.PROCNT.quantity)));
+            changeFat(-Math.abs(Math.round(delObj.FAT.quantity)));
+            changeCalories(-Math.abs(Math.round(delObj.ENERC_KCAL.quantity)))
         }
+
         setItemData(prev => {return prev.filter(item => item.id !== id)});
     }
 
@@ -45,12 +47,11 @@ function Diary(prop:diaryProp){
         //foodItem['name'] = ingr;
         //setItemData(prev => [...prev, foodItem]);
 
-        //update calories, carbs, protien, and fats state
-        //**add function to update the array state
-        changeCarbs(apiObj.data.CHOCDF.quantity);
-        changeProtein(apiObj.data.PROCNT.quantity);
-        changeFat(apiObj.data.FAT.quantity);
-        changeCalories(apiObj.data.ENERC_KCAL.quantity);
+        //update nutrients
+        changeCarbs(Math.round(apiObj.data.CHOCDF.quantity))
+        changeProtein(Math.round(apiObj.data.PROCNT.quantity))
+        changeFat(Math.round(apiObj.data.FAT.quantity))
+        changeCalories(Math.round(apiObj.data.ENERC_KCAL.quantity))
 
         //clear input data
         setAddInput('');

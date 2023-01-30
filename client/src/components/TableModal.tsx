@@ -65,7 +65,7 @@ function Modal(prop:propInterface){
                            return(
                                <tr>
                                    <td>{item[1].label}</td>
-                                   <td>{item[1].quantity} {item[1].unit}</td>
+                                   <td>{Math.round(((item[1].quantity) * 100)/100)} {item[1].unit}</td>
                                </tr>
                            )
                        })}
