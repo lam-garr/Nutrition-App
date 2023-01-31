@@ -39,23 +39,23 @@ function Diary(prop:diaryProp){
     const addData = async (ingr: string) => {
         //api call, uncomment when ready
         setFetching(true);
-        const response = await fetch(`/api/nutr?search=${ingr}`);
-        const apiObj = await response.json();
-        setItemData(prev => [...prev, apiObj.data]);
+        //const response = await fetch(`/api/nutr?search=${ingr}`);
+        //const apiObj = await response.json();
+        //setItemData(prev => [...prev, apiObj.data]);
 
-        //const foodItem = createObj();
-        //foodItem['name'] = ingr;
-        //setItemData(prev => [...prev, foodItem]);
-        //changeCarbs(Math.round(foodItem.CHOCDF.quantity))
-        //changeProtein(Math.round(foodItem.PROCNT.quantity))
-        //changeFat(Math.round(foodItem.FAT.quantity))
-        //changeCalories(Math.round(foodItem.ENERC_KCAL.quantity))
+        const foodItem = createObj();
+        foodItem['name'] = ingr;
+        setItemData(prev => [...prev, foodItem]);
+        changeCarbs(Math.round(foodItem.CHOCDF.quantity))
+        changeProtein(Math.round(foodItem.PROCNT.quantity))
+        changeFat(Math.round(foodItem.FAT.quantity))
+        changeCalories(Math.round(foodItem.ENERC_KCAL.quantity))
 
         //update nutrients
-        changeCarbs(Math.round(apiObj.data.CHOCDF.quantity))
-        changeProtein(Math.round(apiObj.data.PROCNT.quantity))
-        changeFat(Math.round(apiObj.data.FAT.quantity))
-        changeCalories(Math.round(apiObj.data.ENERC_KCAL.quantity))
+       // changeCarbs(Math.round(apiObj.data.CHOCDF.quantity))
+        //changeProtein(Math.round(apiObj.data.PROCNT.quantity))
+        //changeFat(Math.round(apiObj.data.FAT.quantity))
+        //changeCalories(Math.round(apiObj.data.ENERC_KCAL.quantity))
 
         //clear input data
         setAddInput('');
@@ -188,6 +188,23 @@ function Diary(prop:diaryProp){
     const changeCalories = (value: number) => {
         setCalories(calories + value);
     }
+
+    //useEffect to update nutrient values from localStorage
+    useEffect(() => {
+        const data = window.localStorage.getItem('GUEST_DATA_NUTR');
+        if((data !== null) && ((JSON.parse(data)).kcal)>0){
+            const parseData = JSON.parse(data);
+            setCarbs(parseData.c);
+            setProtein(parseData.p);
+            setFat(parseData.f);
+            setCalories(parseData.kcal);
+        }
+    },[])
+
+    //useEffect to update value for localStorage whenever value is changed
+    useEffect(() => {
+        window.localStorage.setItem('GUEST_DATA_NUTR', JSON.stringify({c:carbs, p:protein, f:fat, kcal:calories}))
+    },[carbs, protein, fat, calories])
 
     return(
         <main className='page-content'>

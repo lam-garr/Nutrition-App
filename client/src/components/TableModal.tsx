@@ -13,11 +13,11 @@ interface propInterface{
 function Modal(prop:propInterface){
 
     //testing
-    if(prop.itemData){
-        Object.entries(prop.itemData).forEach(([key, value])=>{
-            console.log(`${key}:${value}`)
-        })
-    }
+    //if(prop.itemData){
+    //    Object.entries(prop.itemData).forEach(([key, value])=>{
+    //        console.log(`${key}:${value}`)
+    //    })
+    //}
 
     const modalRef = useRef<any>(null);
 
@@ -64,8 +64,9 @@ function Modal(prop:propInterface){
                             .filter(item => item[0]!=='id')
                             .filter(item => item[0]!=='name')
                             .map(item => {
+                                console.log(`item[0]:${item[0]}, item[1]:${item[1]}`)
                                 return(
-                                    <tr key={item[1].id} className='food-info-data'>
+                                    <tr className='food-info-data'>
                                         <td>{item[1].label}</td>
                                         <td>{Math.round(((item[1].quantity) * 100)/100)}{item[1].unit}</td>
                                     </tr>
