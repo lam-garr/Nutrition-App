@@ -59,18 +59,24 @@ exports.POST_log_in = POST_log_in;
 //make api call to edamam
 function GET_NUTR_info(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        //let ingr = req.query.search;
-        //if(ingr==''){
-        //    ingr = '1 large apple'
-        //}
-        const ingr = '1 banana';
+        let ingr = req.query.search;
+        if (ingr == '') {
+            ingr = '1 large apple';
+        }
+        //const ingr = '1 sofa';
         const apiResponse = yield (0, axios_1.default)(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${ingr}`);
         //let response:any = await apiResponse.json();
         //const apiObj: objInterface = createObj(apiResponse.data.totalNutrients, ingr);
         const apiObj = apiResponse.data.totalNutrients;
-        apiObj['id'] = Math.floor(Math.random() * 9000);
-        apiObj['name'] = `${ingr}`;
-        res.json({ data: apiObj });
+        //check if object has empty properties
+        if (apiObj.ENERC_KCAL) {
+            apiObj['id'] = Math.floor(Math.random() * 9000);
+            apiObj['name'] = `${ingr}`;
+            res.json({ data: apiObj });
+        }
+        else {
+            res.json({ data: 'error with item' });
+        }
     });
 }
 exports.GET_NUTR_info = GET_NUTR_info;
