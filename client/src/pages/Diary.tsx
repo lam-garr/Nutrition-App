@@ -38,6 +38,12 @@ function Diary(prop:diaryProp){
     //add item
     const addData = async (ingr: string) => {
         //api call, uncomment when ready
+
+        if(ingr === ''){
+            setIsEmpty(true);
+            return;
+        }
+
         setFetching(true);
         //const response = await fetch(`/api/nutr?search=${ingr}`);
         //const apiObj = await response.json();
@@ -63,6 +69,9 @@ function Diary(prop:diaryProp){
         //close modal after adding item to array
         changeAddModal();
     }
+
+    //useState to handle if add input is empty
+    const [ isEmpty, setIsEmpty ] = useState(false);
 
     //useState to store whether or not api request is being made, if so disable add button
     const [ fetching, setFetching ] = useState(false);
@@ -96,7 +105,8 @@ function Diary(prop:diaryProp){
         setAddModalOpen(!addModalOpen);
         prop.overlayChange();
         setAddInput('');
-        setFetching(false)
+        setFetching(false);
+        setIsEmpty(false);
     }
 
     //handle rendering the modal with item data
@@ -208,7 +218,7 @@ function Diary(prop:diaryProp){
 
     return(
         <main className='page-content'>
-            <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData} fethcing={fetching}/>
+            <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData} fethcing={fetching} empty={isEmpty}/>
             <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem} closeModal={changeTableModal}/>
             <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Please add food to track nutrients. Click info for more details on macro and micro nutrients and delete to delete an entry.'}/>
             <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} month={month} day={day} year={year}/>

@@ -8,7 +8,8 @@ interface propInterface{
     changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void,
     value: string,
     addHandler: (name: string) => void,
-    fethcing: boolean;
+    fethcing: boolean,
+    empty: boolean;
 }
 
 function Modal(prop:propInterface){
@@ -58,6 +59,7 @@ function Modal(prop:propInterface){
                         <div className='addFormInput'>
                             <label>Enter item name:</label>
                             <input required className='addInput' ref={inputRef} onChange={prop.changeHandler} value={prop.value}></input>
+                            {prop.empty && <span className='add-empty'>Value is not valid, please try again!</span>}
                         </div>
                         <div>
                             <label>choose</label>

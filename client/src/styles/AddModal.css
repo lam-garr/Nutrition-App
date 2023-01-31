@@ -111,3 +111,8 @@
     width: 100%;
     color:green;
 }
+
+.add-empty{
+    color: red;
+    font-size: 10px;
+}
