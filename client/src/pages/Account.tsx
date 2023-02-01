@@ -1,7 +1,21 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Account.css';
 
 function Account(){
+
+    const navigate = useNavigate();
+
+    //check to see if user is logged in
+    useEffect(() => {
+        const data = window.localStorage.getItem('AccessToken');
+        console.log(data)
+        if(!data){
+            navigate('/log-in')
+        }
+    })
+
     return(
         <main>
             <div className='acc-content'>

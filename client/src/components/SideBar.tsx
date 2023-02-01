@@ -1,4 +1,4 @@
-import React, {useEffect, useRef}from 'react';
+import React, {useEffect, useRef, useState}from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/SideBar.css';
 
@@ -27,8 +27,16 @@ function SideBar(prop: propInterface){
         }
     })
 
+    //setState for whether or not user is logged in
+    const [ loggedIn, setLoggedIn ] = useState(false);
+
     //check local storage to see if user is authenticated with access token
-    const loggedIn = false;
+    useEffect(() => {
+        const data = window.localStorage.getItem('AccessToken');
+        if(data){
+            setLoggedIn(true);
+        }
+    },[])
 
     return(
         <aside className={`sidebar ${prop.sideBarOpen?'active':'inactive'}`} ref={sidebarRef}>

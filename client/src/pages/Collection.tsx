@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HelpModal from '../components/HelpModal';
 import CollectionTable from '../components/CollectionTable';
 import '../styles/Collection.css';
@@ -11,7 +12,16 @@ interface collectionProp{
 
 function Collection(prop:collectionProp){
 
-    //useEffect to see wheter or not user is logged in (WIP)
+    const navigate = useNavigate();
+
+    //check to see if user is logged in
+    useEffect(() => {
+        const data = window.localStorage.getItem('AccessToken');
+        console.log(data)
+        if(!data){
+            navigate('/log-in')
+        }
+    })
 
     //open close help modal
     const [helpModalOpen, setHelpModalOpen] = useState(false);
@@ -23,8 +33,6 @@ function Collection(prop:collectionProp){
 
     //sample data 
     const [ data, setData] = useState<String[]>(['Monday',"Friday"]);
-
-
 
     return(
         <main className='collection-page-content'>
