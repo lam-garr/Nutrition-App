@@ -45,23 +45,32 @@ function Diary(prop:diaryProp){
         }
 
         setFetching(true);
-        //const response = await fetch(`/api/nutr?search=${ingr}`);
-        //const apiObj = await response.json();
-        //setItemData(prev => [...prev, apiObj.data]);
+        const response = await fetch(`/api/nutr?search=${ingr}`);
+        const apiObj = await response.json();
+        console.log(apiObj)
 
-        const foodItem = createObj();
-        foodItem['name'] = ingr;
-        setItemData(prev => [...prev, foodItem]);
-        changeCarbs(Math.round(foodItem.CHOCDF.quantity))
-        changeProtein(Math.round(foodItem.PROCNT.quantity))
-        changeFat(Math.round(foodItem.FAT.quantity))
-        changeCalories(Math.round(foodItem.ENERC_KCAL.quantity))
+        //check if returned api object is vali
+        if(apiObj.data === 'error with item'){
+            setIsEmpty(true);
+            setFetching(false);
+            return;
+        }
+
+        setItemData(prev => [...prev, apiObj.data]);
+
+        //const foodItem = createObj();
+        //foodItem['name'] = ingr;
+        //setItemData(prev => [...prev, foodItem]);
+        //changeCarbs(Math.round(foodItem.CHOCDF.quantity))
+        //changeProtein(Math.round(foodItem.PROCNT.quantity))
+       // changeFat(Math.round(foodItem.FAT.quantity))
+       // changeCalories(Math.round(foodItem.ENERC_KCAL.quantity))
 
         //update nutrients
-       // changeCarbs(Math.round(apiObj.data.CHOCDF.quantity))
-        //changeProtein(Math.round(apiObj.data.PROCNT.quantity))
-        //changeFat(Math.round(apiObj.data.FAT.quantity))
-        //changeCalories(Math.round(apiObj.data.ENERC_KCAL.quantity))
+        changeCarbs(Math.round(apiObj.data.CHOCDF.quantity))
+        changeProtein(Math.round(apiObj.data.PROCNT.quantity))
+        changeFat(Math.round(apiObj.data.FAT.quantity))
+        changeCalories(Math.round(apiObj.data.ENERC_KCAL.quantity))
 
         //clear input data
         setAddInput('');
@@ -252,7 +261,7 @@ function Diary(prop:diaryProp){
                         <button>save</button>
                         <button onClick={()=>{changeAddModal()}}>add food</button>
                         </div>
-                        <button className='content-btn' onClick={changeModal}>?</button>
+                        <button className='content-btn' onClick={changeModal}>{`\u003F`}</button>
                     </div>
                 </div>
             </section>

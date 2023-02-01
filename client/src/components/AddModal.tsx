@@ -52,14 +52,14 @@ function Modal(prop:propInterface){
         <aside className={`addModal ${prop.addModalIsOpen?'active':''}`} ref={modalRef}>
             <div className='addModal-header'>
                 <h3 className='addModal-title'>Add an Entry</h3>
-                <button className='clse-btn' onClick={prop.addModalHandler}>&times;</button>
+                <button className='clse-btn' onClick={prop.addModalHandler}>{`\u00D7`}</button>
             </div>
             <div className='addModal-body'>
                     <form className='addForm'>
                         <div className='addFormInput'>
                             <label>Enter item name:</label>
                             <input required className='addInput' ref={inputRef} onChange={prop.changeHandler} value={prop.value}></input>
-                            {prop.empty && <span className='add-empty'>Value is not valid, please try again!</span>}
+                            {prop.empty && <span className='add-empty'>Input is not valid, please try again!</span>}
                         </div>
                         <div>
                             <label>choose</label>
