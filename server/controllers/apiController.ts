@@ -63,6 +63,25 @@ export async function GET_NUTR_info(req: Request, res: Response){
     }
 }
 
+//validate token passed from api call header
+export function GET_validate(req: Request, res: Response){
+    const authHeader = req.headers['authorization'];
+ 
+    if(authHeader){
+        const token = authHeader.split(' ')[1];
+
+        jwt.verify(token, `${process.env.SECRET}`, (err, user) => {
+            if(err){
+                return res.json({message:'error'});
+            }else{
+                return res.json({message:'success'});
+            }
+        })
+    }else{
+        res.json({message:'none'})
+    }
+}
+
 ///[a-zA-Z]+|[0-9]+/g
 /**    const split = (apiObj.calories).match(/[a-z]+|[^a-z]+/gi);
     if(split){

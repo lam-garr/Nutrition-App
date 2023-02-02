@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GET_NUTR_info = exports.POST_log_in = exports.POST_sign_up = exports.GET_index = void 0;
+exports.GET_validate = exports.GET_NUTR_info = exports.POST_log_in = exports.POST_sign_up = exports.GET_index = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -80,6 +80,26 @@ function GET_NUTR_info(req, res) {
     });
 }
 exports.GET_NUTR_info = GET_NUTR_info;
+//validate token passed from api call header
+function GET_validate(req, res) {
+    const authHeader = req.headers['authorization'];
+    console.log(authHeader);
+    if (authHeader) {
+        const token = authHeader.split(' ')[1];
+        jsonwebtoken_1.default.verify(token, `${process.env.SECRET}`, (err, user) => {
+            if (err) {
+                return res.json({ message: 'error' });
+            }
+            else {
+                return res.json({ message: 'success' });
+            }
+        });
+    }
+    else {
+        res.json({ message: 'none' });
+    }
+}
+exports.GET_validate = GET_validate;
 ///[a-zA-Z]+|[0-9]+/g
 /**    const split = (apiObj.calories).match(/[a-z]+|[^a-z]+/gi);
     if(split){
