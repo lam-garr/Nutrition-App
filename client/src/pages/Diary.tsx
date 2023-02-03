@@ -258,7 +258,7 @@ function Diary(prop:diaryProp){
                         </div>
                         <div className='sec-one-buttons'>
                         <button>save</button>
-                        <button onClick={()=>{changeAddModal()}}>add food</button>
+                        <button onClick={()=>{changeAddModal()}} className='diary-add-btn'>add food</button>
                         </div>
                         <button className='content-btn' onClick={changeModal}>{`\u003F`}</button>
                     </div>
