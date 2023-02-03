@@ -48,6 +48,14 @@ function Modal(prop:propInterface){
         }
     })
 
+    const addBtnHandler = () => {
+        if(!prop.fethcing){
+            return 'Add'
+        }else{
+            return 'Waiting'
+        }
+    }
+
     return(
         <aside className={`addModal ${prop.addModalIsOpen?'active':''}`} ref={modalRef}>
             <div className='addModal-header'>
@@ -72,7 +80,7 @@ function Modal(prop:propInterface){
                         <hr/>
                         <div className='form-btns'>
                             <div></div>
-                            <button type='submit' onClick={(e)=>{addData(e, prop.value)}} className='addBtn' disabled={prop.fethcing}>add</button>
+                            <button type='submit' onClick={(e)=>{addData(e, prop.value)}} className='addBtn' disabled={prop.fethcing}>{addBtnHandler()}</button>
                         </div>
                     </form>
             </div>

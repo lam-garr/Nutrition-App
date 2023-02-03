@@ -5,6 +5,9 @@ function Protected({children}:any){
     //check if accessToken is present and validate
     const data = window.localStorage.getItem('AccessToken');
 
+    //false dummy data
+    const isFalse = false;
+
     const validate = async () => {
         const response = await fetch('/api/validate', {
             method:'GET',
@@ -13,13 +16,14 @@ function Protected({children}:any){
                 'Authorization': `Bearer ${data}`
             }
         });
-        console.log(response);
+        const resObj = await response.json();
+        //console.log(resObj.message)
         //if response is error, set handler to false to redirect to log in
     }
 
-    validate()
+    //validate()
 
-    return data ? children : <Navigate to='/log-in'/>;
+    return isFalse ? children : <Navigate to='/log-in'/>;
 }
 
 export default Protected;
