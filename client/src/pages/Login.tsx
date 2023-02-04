@@ -34,33 +34,52 @@ function Login(prop: propInterface){
     }
 
     //password error handling
-    const[ pwErrorMessage, setPwErrorMessage ]= useState('');
+    const [ pwErrorMessage, setPwErrorMessage ] = useState('');
 
     const handlePwError = (message:string) => {
         setPwErrorMessage(message)
     }
 
+    //login error handling
+    const [ apiErrMsg, setApiErrMsg ] = useState(false);
+
     //onsubmit form handling
-    const handleSubmit = (e:any) => {
+    const handleSubmit = async (e:any) => {
         e.preventDefault();
         
-        //sample validation(delete later)
-        if(loginInput.length < 5){
-            handleLoginError("username incorrect");
+        //check if input is valid
+        if(loginInput.length <= 1){
+            handleLoginError("username invalid");
             return;
         }
 
         setLoginErrorMessage('');
-        //sample validation(delete later)
-        if(passwordInput.length < 5){
-            handlePwError('password incorrect');
+
+        //check if password is valid
+        if(passwordInput.length <= 1){
+            handlePwError('password invalid');
             return;
         }
 
         setPwErrorMessage('');
 
-        //call login api (WIP)
-        console.log("ok")
+        //call login api 
+        const loginData = await fetch(`/api/log-in`, {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({username: loginInput, password: passwordInput})
+        })
+
+        if(!loginData.ok){
+            //const errData = await loginData.json();
+            setApiErrMsg(true);
+        }else{
+            const token = await loginData.json();
+            setApiErrMsg(false);
+            //set token returned from api to local storage
+            console.log(token)
+            window.localStorage.setItem('AccessToken', JSON.stringify(token.accessToken))
+        }
     }
 
     //open close modal
@@ -83,6 +102,7 @@ function Login(prop: propInterface){
                         <span className='forgot' onClick={changeModal}>Forgot Password?</span>
                     </div>
                     <button type='submit'>Log In</button>
+                    {apiErrMsg && <span className='apiErr'>Error logging in, please try again</span>}
                 </form>
                 <div className='members'>
                 Not a member? <Link to='/sign-up'>Sign Up</Link>
