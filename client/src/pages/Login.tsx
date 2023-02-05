@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import HelpModal from '../components/HelpModal';
 import '../styles/Login.css';
@@ -43,6 +43,8 @@ function Login(prop: propInterface){
     //login error handling
     const [ apiErrMsg, setApiErrMsg ] = useState(false);
 
+    const navigate = useNavigate();
+
     //onsubmit form handling
     const handleSubmit = async (e:any) => {
         e.preventDefault();
@@ -64,11 +66,13 @@ function Login(prop: propInterface){
         setPwErrorMessage('');
 
         //call login api 
-        const loginData = await fetch(`/api/log-in`, {
+        const loginData = await fetch(`/api/login`, {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username: loginInput, password: passwordInput})
         })
+
+        console.log(loginData.ok)
 
         if(!loginData.ok){
             //const errData = await loginData.json();
@@ -77,8 +81,10 @@ function Login(prop: propInterface){
             const token = await loginData.json();
             setApiErrMsg(false);
             //set token returned from api to local storage
-            console.log(token)
-            window.localStorage.setItem('AccessToken', JSON.stringify(token.accessToken))
+            console.log(token.AccessToken)
+            window.localStorage.setItem('AccessToken', JSON.stringify(token.AccessToken))
+            //navigate to diary page
+            navigate('/');
         }
     }
 
@@ -101,8 +107,10 @@ function Login(prop: propInterface){
                     <div className='help'>
                         <span className='forgot' onClick={changeModal}>Forgot Password?</span>
                     </div>
-                    <button type='submit'>Log In</button>
+                    <div className='submit'>
                     {apiErrMsg && <span className='apiErr'>Error logging in, please try again</span>}
+                    <button className='submitBtn' type='submit'>Log In</button>
+                    </div>
                 </form>
                 <div className='members'>
                 Not a member? <Link to='/sign-up'>Sign Up</Link>

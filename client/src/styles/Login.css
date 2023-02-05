@@ -32,9 +32,9 @@
     background: inherit;
 }
 
-.content button{
+.submitBtn{
     font-size: 1rem;
-    margin-top: 1.8rem;
+    margin-top: 1rem;
     padding: 10px 0;
     border-radius: 20px;
     outline: none;
@@ -101,4 +101,18 @@
 .forgot{
     color: blue;
     cursor: pointer;
+}
+
+.apiErr{
+    color: red;
+    font-size: 0.7rem;
+    padding-top: 10px;
+}
+
+.submit{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }

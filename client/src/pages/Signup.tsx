@@ -167,7 +167,7 @@ function Signup(prop: propInterface){
                     <div className='terms'>
                     <label><input type='checkbox' id='checkbox' onChange={handleCheckBox}/>I agree to the </label><span className='term-serv-click' onClick={changeModal}>terms and conditions</span><span className='term-serv-end'>.</span>
                     </div>
-                    <button type='submit'>Sign Up</button>
+                    <button className='signupBtn' type='submit'>Sign Up</button>
                 </form>
                 <div className='members'>
                     <p>Already a member?<Link to='/log-in'>Login Here</Link></p>
