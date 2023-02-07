@@ -34,7 +34,6 @@ form input{
 
 .signupBtn{
     font-size: 1rem;
-    margin-top: 1.8rem;
     padding: 10px 0;
     border-radius: 20px;
     outline: none;
@@ -93,4 +92,24 @@ form input{
 .term-serv-end{
     font-size: 0.7rem;
     cursor: pointer;
+}
+
+.checkErr{
+    color: red;
+    font-size: 0.7rem;
+}
+
+.sign-up-err{
+    color: red;
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+}
+
+.sign-up-btn-handler{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
 }

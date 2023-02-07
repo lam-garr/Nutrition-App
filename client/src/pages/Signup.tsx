@@ -86,33 +86,37 @@ function Signup(prop: propInterface){
 
     const handleCheckBox = (e:any) => {
         setChecked(!checked);
+        setCheckErr(false);
     }
+
+    //terms & conditions handling after sumbit
+    const  [ checkErr, setCheckErr ] = useState(false);
+
+    //sign up error handling
+    const [ signUpErr, setSignUpErr ] = useState(false);
 
     //onsubmit form handling
     const handleSubmit = (e:any) => {
         e.preventDefault();
 
-        //sample validation(delete later)
-        if(usernameInput.length < 5){
+        //check if input is valid
+        if(usernameInput.length <= 3){
             handleUsernameError("username not valid");
             return;
         }
 
         handleUsernameError("");
 
-        //check if input is longer than 1 character
-        if(firstnameInput.length < 2){
+        //check if input is valid
+        if(firstnameInput.length <= 1){
             handleFirstNameError("first name not valid");
             return;
         }
 
-        alert(typeof firstnameInput)
-        alert('hi')
-
         handleFirstNameError("");
 
-        //check if input is longer than 1 character
-        if(lastnameInput.length < 2){
+        //check if input is valid
+        if(lastnameInput.length <= 1){
             handleLastNameError("last name not valid");
             return;
         }
@@ -137,7 +141,7 @@ function Signup(prop: propInterface){
 
         //alert user if checkbox is not checked
         if(!checked){
-            alert("need to check box")
+            setCheckErr(true);
             return;
         }
 
@@ -164,10 +168,14 @@ function Signup(prop: propInterface){
                     <Input changeHandler={handleLastnameChange} value={lastnameInput} type='text' placeholder='Last Name' errorMessage={lastNameErrorMessage} required={true}/>
                     <Input changeHandler={handlePasswordChange} value={passwordInput} type='password' placeholder='Password' errorMessage={pwErrorMessage} required={true}/>
                     <Input changeHandler={handleRePasswordChange} value={rePasswordInput} type='password' placeholder='Re-Enter Password' errorMessage={rePwErrorMessage} required={true}/>
+                    {checkErr && <span className='checkErr'>Terms and conditions needs to be checked</span>}
                     <div className='terms'>
                     <label><input type='checkbox' id='checkbox' onChange={handleCheckBox}/>I agree to the </label><span className='term-serv-click' onClick={changeModal}>terms and conditions</span><span className='term-serv-end'>.</span>
                     </div>
-                    <button className='signupBtn' type='submit'>Sign Up</button>
+                    <div className='sign-up-btn-handler'>
+                    {signUpErr && <span className='sign-up-err'>Error logging in, please try again</span>}
+                        <button className='signupBtn' type='submit'>Sign Up</button>
+                    </div>
                 </form>
                 <div className='members'>
                     <p>Already a member?<Link to='/log-in'>Login Here</Link></p>
