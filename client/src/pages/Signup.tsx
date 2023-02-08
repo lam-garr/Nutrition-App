@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import HelpModal from '../components/HelpModal';
 import '../styles/Signup.css';
@@ -95,8 +95,10 @@ function Signup(prop: propInterface){
     //sign up error handling
     const [ signUpErr, setSignUpErr ] = useState(false);
 
+    const navigate = useNavigate();
+
     //onsubmit form handling
-    const handleSubmit = (e:any) => {
+    const handleSubmit = async (e:any) => {
         e.preventDefault();
 
         //check if input is valid
@@ -146,7 +148,22 @@ function Signup(prop: propInterface){
         }
 
         //call api
-        console.log('ok');
+        const signupData = await fetch(`/api/sign-up`, {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({username: usernameInput,
+                                firstname: firstnameInput,
+                                lastname: lastnameInput,
+                                password: passwordInput})
+        })
+
+        if(!signupData.ok){
+            setSignUpErr(true);
+        }else{
+            setSignUpErr(false);
+            //navigate to log in page
+            navigate('/');
+        }
     }
 
     //open close modal

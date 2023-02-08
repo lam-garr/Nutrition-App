@@ -72,7 +72,6 @@ function Login(prop: propInterface){
             body: JSON.stringify({username: loginInput, password: passwordInput})
         })
 
-        console.log(loginData.ok)
 
         if(!loginData.ok){
             //const errData = await loginData.json();
