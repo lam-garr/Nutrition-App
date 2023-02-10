@@ -32,10 +32,27 @@ function SideBar(prop: propInterface){
 
     //check local storage to see if user is authenticated with access token
     useEffect(() => {
+
         const data = window.localStorage.getItem('AccessToken');
-        if(data){
-            setLoggedIn(true);
+        
+        const validateTk = async () => {
+
+            const response = await fetch('/api/validate', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${data}`
+                }
+            });
+
+            const resObj = await response.json();
+
+            if(resObj){
+                setLoggedIn(true);
+            }
         }
+
+        //validateTk();
     },[])
 
     return(

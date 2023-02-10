@@ -1,12 +1,13 @@
 import React from 'react';
+import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
 function Protected({children}:any){
     //check if accessToken is present and validate
     const data = window.localStorage.getItem('AccessToken');
 
-    //false dummy data
-    const isFalse = false;
+    //useState to handle validated token return
+    const [ validated, setValidated ] = useState(false);
 
     const validate = async () => {
         const response = await fetch('/api/validate', {
@@ -19,11 +20,14 @@ function Protected({children}:any){
         const resObj = await response.json();
         //console.log(resObj.message)
         //if response is error, set handler to false to redirect to log in
+        if(resObj){
+            setValidated(true);
+        }
     }
 
-    //validate()
+    //validate();
 
-    return isFalse ? children : <Navigate to='/log-in'/>;
+    return validated ? children : <Navigate to='/log-in'/>;
 }
 
 export default Protected;
