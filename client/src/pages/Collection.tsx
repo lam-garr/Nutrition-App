@@ -29,6 +29,7 @@ function Collection(prop:collectionProp){
                 <div className='sec-one-content'>
                     Collection of User Diaries
                 </div>
+                <button className='sec-one-add-btn'>add new entry</button>
                 <button className='sec-one-btn' onClick={() => {changeHelpModal()}}>?</button>
             </section>
             <section className='collection-section-two'>

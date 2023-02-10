@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Table from '../components/Table';
 import TableModal from '../components/TableModal';
 import AddModal from '../components/AddModal';
@@ -10,7 +9,6 @@ import { objInterface } from '../interface';
 import '../styles/Diary.css'
 //
 import { createObj } from '../mockObj';
-
 
 interface diaryProp{
     overlayChange: () => void,
@@ -257,7 +255,7 @@ function Diary(prop:diaryProp){
                             </div>
                         </div>
                         <div className='sec-one-buttons'>
-                        <button>save</button>
+                        <button onClick={() => window.localStorage.removeItem('GUEST_DATA')}>save</button>
                         <button onClick={()=>{changeAddModal()}} className='diary-add-btn'>add food</button>
                         </div>
                         <button className='content-btn' onClick={changeModal}>{`\u003F`}</button>

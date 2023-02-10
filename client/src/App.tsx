@@ -37,10 +37,10 @@ function App() {
     <SideBar clickHandler={sidebarChange} closeHandler={sidebarChange} sideBarOpen={sidebarOpen}/>
     <Overlay isOpen={overlayOpen}/>
       <Routes>
-        <Route path='/user/collection' element={<Protected><CollectionPage overlayChange={childClickChange} overlayOpen={overlayOpen}/></Protected>}></Route>
+        <Route path='/user/collection' element={<CollectionPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
         <Route path='/user/account' element={<Protected><AccountPage/></Protected>}></Route>
         <Route path='/diary' element={<DiaryPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
-        <Route path='/user/diary/:id' element={<Protected><UserDiary/></Protected>}></Route>
+        <Route path='/user/diary/:id' element={<Protected><UserDiary overlayChange={childClickChange} overlayOpen={overlayOpen}/></Protected>}></Route>
         <Route path='/sign-up' element={<SignupPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
         <Route path='/log-in' element={<LoginPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
         <Route path='/' element={<HomePage/>}></Route>
