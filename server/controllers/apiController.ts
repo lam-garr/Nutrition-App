@@ -16,8 +16,8 @@ export async function POST_sign_up(req: Request, res: Response, next: NextFuncti
 
     const user = new User({
         username: req.body.username,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
+        //firstName: req.body.firstName,
+        //lastName: req.body.lastName,
         password: hashedPw
     }).save(err => {
         if(err){
@@ -29,11 +29,11 @@ export async function POST_sign_up(req: Request, res: Response, next: NextFuncti
 }
 
 //function for user log in api call
-export async function POST_log_in(req: Request, res: Response, next: NextFunction){
+export async function POST_log_in(req: Request, res: Response){
     const user = await User.findOne({username: req.body.username});
 
     if(user &&(await bcrypt.compare(req.body.password, user.password))){
-        const token = jwt.sign(user._id, `${process.env.SECRET}`, {expiresIn: '15m'});
+        const token = jwt.sign({user}, `${process.env.SECRET}`, {expiresIn: '15m'});
         res.json({accessToken: token});
     }else{
         res.status(400).json({message:'Login Error'});
@@ -82,6 +82,24 @@ export function GET_validate(req: Request, res: Response){
     }
 }
 
+//test fn to return accesstoken
+export function TOKEN(req: Request, res: Response){
+    if(req.body.username === 'fuck'){
+        res.json({AccessToken:'696969420'})
+    }else{
+        res.status(400).json({message:'error'})
+    }
+}
+
+//return collection of diary entries
+export function GET_collection(req: Request, res: Response){
+    const myArr = [
+        {id: 1, day:"day1", entries:[]},
+        {id: 2, day:"day2", entries:[]}
+    ]
+
+    res.json({content:myArr});
+}
 ///[a-zA-Z]+|[0-9]+/g
 /**    const split = (apiObj.calories).match(/[a-z]+|[^a-z]+/gi);
     if(split){
@@ -89,4 +107,3 @@ export function GET_validate(req: Request, res: Response){
         console.log(kcal);
     }
  */
-

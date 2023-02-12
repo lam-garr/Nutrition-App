@@ -28,14 +28,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv = __importStar(require("dotenv"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const apiRoutes_1 = __importDefault(require("./routes/apiRoutes"));
 const cors_1 = __importDefault(require("cors"));
 dotenv.config();
 //connect to MONGO database
-/**const mongoDB = `${process.env.MOGNODB}`;
-mongoose.connect(mongoDB);
-const db = mongoose.connection;
-db.on('error', console.log.bind(console, 'db connection error')); */
+const mongoDB = `${process.env.MONGODB}`;
+mongoose_1.default.connect(mongoDB);
+const db = mongoose_1.default.connection;
+db.on('error', console.log.bind(console, 'db connection error'));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());

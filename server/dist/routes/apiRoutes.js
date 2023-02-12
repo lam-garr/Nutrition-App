@@ -11,4 +11,5 @@ router.get('/nutr', apiController_1.GET_NUTR_info);
 router.post('/sign-up', apiController_1.POST_sign_up);
 router.post('/log-in', apiController_1.POST_log_in);
 router.get('/validate', apiController_1.GET_validate);
+router.post('/login', apiController_1.TOKEN);
 exports.default = router;

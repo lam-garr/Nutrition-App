@@ -7,10 +7,10 @@ import cors from 'cors';
 dotenv.config();
 
 //connect to MONGO database
-/**const mongoDB = `${process.env.MOGNODB}`;
+const mongoDB = `${process.env.MONGODB}`;
 mongoose.connect(mongoDB);
 const db = mongoose.connection;
-db.on('error', console.log.bind(console, 'db connection error')); */
+db.on('error', console.log.bind(console, 'db connection error'));
 
 const app: Express = express();
 

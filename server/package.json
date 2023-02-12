@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "mongoose": "^6.8.4"
+    "mongoose": "^6.9.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -23,6 +23,7 @@
     "axios": "^1.2.3",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "curl": "^0.1.4",
     "dotenv": "^16.0.3",
     "jsonwebtoken": "^9.0.0",
     "nodemon": "^2.0.20",
