@@ -4,7 +4,7 @@ import '../styles/CollectionTable.css';
 
 interface propData {
     //deleteHandler: (id:number) => void,
-    itemData:String[],
+    itemData:any[],
    // itemDataHandler: (id:number) => void;
 }
 
@@ -23,10 +23,10 @@ function CollectionTable(prop: propData){
             {prop.itemData.map(item => {
                 return(
                     <tr className='colle-table-data'>
-                        <td>{item}</td>
-                        <td>{item}</td>
+                        <td>{item.id}</td>
+                        <td>{item.day}</td>
                         <td>Calories</td>
-                        <td><Link to={`/user/diary/${item}`}><button className='colleInfo'>Info</button></Link></td>
+                        <td><Link to={`/user/diary/${item.id}`}><button className='colleInfo'>Info</button></Link></td>
                         <td><button className='colleDelete'>Delete</button></td>
                     </tr>
                 )
