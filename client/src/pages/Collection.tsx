@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HelpModal from '../components/HelpModal';
 import CollectionTable from '../components/CollectionTable';
 import '../styles/Collection.css';
@@ -22,7 +23,9 @@ function Collection(prop:collectionProp){
     //diary entries, set from database
     const [ data, setData] = useState<any[]>([]);
 
-    //disable add btn if making api call
+    //disable add btn if making api call with useState
+    const [ fetching, setFetching ] = useState(false);
+
 
     //useEffect to get data from database, then set to state
     useEffect(() => {
@@ -42,8 +45,11 @@ function Collection(prop:collectionProp){
                 //!!!
                 setData(resObj.myArr);
             }
+
+            setFetching(false);
         }
 
+        setFetching(true);
         fetchData();
     },[])
 
@@ -81,10 +87,40 @@ function Collection(prop:collectionProp){
                 //!!
                 setData(resObj.arrTwo)
             }
+
+            setFetching(false);
         }
 
+        setFetching(true);
         fetchChange();
     }, [sortBy])
+
+    const navigate = useNavigate();
+
+    //creates new entry in server and navigates to new diary page
+    const addEntryHandler = async () => {
+
+        setFetching(true);
+
+        const postEntry = await fetch(`api/new-entry`,{
+            method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${data}`
+                }
+        })
+
+        const resObj = await postEntry.json();
+
+        if(resObj && resObj.ok){
+            setFetching(false);
+            console.log('ok');
+        }else{
+            setFetching(false);
+            console.log('bubu')
+            return;
+        }
+    }
 
     return(
         <main className='collection-page-content'>
@@ -93,7 +129,7 @@ function Collection(prop:collectionProp){
                 <div className='sec-one-content'>
                     Collection of User Diaries
                 </div>
-                <button className='sec-one-add-btn'>+</button>
+                <button className='sec-one-add-btn' onClick={addEntryHandler} disabled={fetching}>+</button>
                 <button className='sec-one-btn' onClick={() => {changeHelpModal()}}>?</button>
             </section>
             <section className='collection-section-two'>

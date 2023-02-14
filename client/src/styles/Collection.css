@@ -86,3 +86,9 @@
     cursor: pointer;
     background-color: rgb(18, 117, 18);
 }
+
+.sec-one-add-btn:disabled{
+    color: rgb(90, 90, 90);
+    background-color: rgb(158, 158, 158);
+    cursor: not-allowed;
+}
