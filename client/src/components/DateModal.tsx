@@ -10,7 +10,8 @@ interface propInterface{
     changeYear: (event: React.ChangeEvent<HTMLSelectElement>) => void,
     month: string,
     day: number,
-    year: number;
+    year: number,
+    create?: () => void;
 }
 
 function DateModal(prop:propInterface){
@@ -49,11 +50,11 @@ function DateModal(prop:propInterface){
         <aside className={`date-modal ${prop.dateModalIsOpen?'active':''}`} ref={modalRef}>
             <div className='date-modal-header'>
                 <div></div>
-                <h3 className='date-modal-title'>Change the Date</h3>
+                <h3 className='date-modal-title'>Select the Date</h3>
                 <button className='date-clse-btn' onClick={prop.dateModalHandler}>&times;</button>
             </div>
             <div className='date-modal-body'>
-                <label htmlFor='change-month'>Change Month</label>
+                <label htmlFor='change-month'>Select Month</label>
                 <select className='date-month-sel' id='change-month' onChange={(e) => prop.changeMonth(e)} value={prop.month}>
                     <option value='January'>January</option>
                     <option value='February'>February</option>
@@ -68,11 +69,11 @@ function DateModal(prop:propInterface){
                     <option value='November'>November</option>
                     <option value='December'>December</option>
                 </select>
-                <label htmlFor='change-date'>Change Date</label>
+                <label htmlFor='change-date'>Select Date</label>
                 <select className='date-day-sel' id='change-date' onChange={(e) => prop.changeDay(e)} value={prop.day}>
                     {dateOptions()}
                 </select> 
-                <button className='date-btn' onClick={prop.dateModalHandler}>OK</button>
+                <button className='date-btn' onClick={prop.create}>OK</button>
             </div>
         </aside>
     )

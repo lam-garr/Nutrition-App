@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HelpModal from '../components/HelpModal';
 import CollectionTable from '../components/CollectionTable';
+import DateModal from '../components/DateModal';
 import '../styles/Collection.css';
 
 interface collectionProp{
@@ -67,6 +68,8 @@ function Collection(prop:collectionProp){
 
     //useEffect for when sorting select element changes
     useEffect(() => {
+        //setFetching(true);
+
         const fetchChange = async () => {
             const response = await fetch(`/api/sort-colle?sort=${sortBy}`, {
                 method: 'GET',
@@ -88,36 +91,77 @@ function Collection(prop:collectionProp){
                 setData(resObj.arrTwo)
             }
 
-            setFetching(false);
         }
 
-        setFetching(true);
         fetchChange();
     }, [sortBy])
 
     const navigate = useNavigate();
 
-    //creates new entry in server and navigates to new diary page
-    const addEntryHandler = async () => {
+    //handles date selector for new entry ******************
+    const addEntryHandler = () => {
 
         setFetching(true);
 
-        const postEntry = await fetch(`api/new-entry`,{
+        changeDate();
+    }
+
+    //useState to select dates for new entry
+    const [ month, setMonth ] = useState("");
+
+    const changeMonth = (e:any) => {
+        setMonth(e.target.value);
+    }
+
+    const [ day, setDay ] = useState(0);
+
+    const changeDay = (e:any) => {
+        setDay(e.target.value);
+    }
+
+    const [ year, setYear ] = useState(2023);
+
+    const changeYear = (e:any) => {
+        setYear(e.target.value);
+    }
+
+    //handle date modal open
+    const [ dateOpen, setDateOpen ] = useState(false);
+
+    const changeDate = () => {
+        setDateOpen(!dateOpen);
+        prop.overlayChange();
+    }
+
+    //call api to create entry after selectig date
+    const createEntry = async () => {
+        changeDate();
+        setFetching(true);
+
+        const postEntry = await fetch(`/api/new-entry`,{
             method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${data}`
-                }
+                },
+            body: JSON.stringify({
+                month: month,
+                day: day,
+                year: year})
         })
 
+        console.log("after call")
+        
         const resObj = await postEntry.json();
 
-        if(resObj && resObj.ok){
+        //use returned id to navigate
+        setFetching(false);
+
+        if(resObj && resObj.good != null){
             setFetching(false);
-            console.log('ok');
+            navigate(`/user/diary/${resObj.good}`)
         }else{
             setFetching(false);
-            console.log('bubu')
             return;
         }
     }
@@ -125,6 +169,7 @@ function Collection(prop:collectionProp){
     return(
         <main className='collection-page-content'>
             <HelpModal helpModalHandler={changeHelpModal} helpModalIsOpen={helpModalOpen} closeModal={changeHelpModal} message={'Collection of diary entries, click view to view diary or delete to delete entry.'}/>
+            <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} month={month} day={day} year={year} create={createEntry}/>
             <section className='collection-section-one'>
                 <div className='sec-one-content'>
                     Collection of User Diaries
