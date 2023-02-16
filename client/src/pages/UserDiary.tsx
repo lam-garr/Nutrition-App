@@ -6,6 +6,7 @@ import TableModal from '../components/TableModal';
 import AddModal from '../components/AddModal';
 import HelpModal from '../components/HelpModal';
 import DateModal from '../components/DateModal';
+import StorageModal from '../components/StorageModal';
 import '../styles/UserDiary.css';
 import { objInterface } from '../interface';
 
@@ -142,6 +143,24 @@ function UserDiary(prop: userDiaryProp){
         prop.overlayChange();
     }
 
+    //open close storage modal
+    const [ storeOpen, setStoreOpen ] = useState(false);
+
+    const changeStoreModal = () => {
+        setStoreOpen(!storeOpen);
+        prop.overlayChange();
+    }
+
+    //function to execute if user wants to use stored data
+    const populateData = () => {
+        console.log('ok');
+    }
+
+    //** */
+    useEffect(() => {
+        changeStoreModal();
+    },[])
+
     //handling the date for the diary
 
     const date = new Date();
@@ -228,8 +247,9 @@ function UserDiary(prop: userDiaryProp){
         <main className='page-content'>
             <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData} fethcing={fetching} empty={isEmpty}/>
             <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem} closeModal={changeTableModal}/>
-            <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Please add food to track nutrients. Click info for more details on macro and micro nutrients and delete to delete an entry.'}/>
+            <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Please add food to track nutrients. Click info for more details on macro and micro nutrients and delete to delete an entry. Click save to save your data.'}/>
             <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} month={month} day={day} year={year}/>
+            <StorageModal modalHandler={changeStoreModal} modalIsOpen={storeOpen} closeModal={changeStoreModal} populate={populateData}/>
             <section className='food-diary-section-one'>
                 <div className='section-one-content'>
                     <div className='date' onClick={changeDate}>
@@ -275,3 +295,6 @@ function UserDiary(prop: userDiaryProp){
 }
 
 export default UserDiary;
+
+//instead of guest, have user, then ask if they want guset
+//will have to save to persist

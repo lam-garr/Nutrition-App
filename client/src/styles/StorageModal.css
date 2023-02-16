@@ -1,0 +1,93 @@
+.store-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    border: 1px solid green;
+    border-radius: 10px;
+    background-color: white;
+    width: 580px;
+    height: 250px;
+    margin: 0;
+    z-index: 100;
+}
+
+.store-modal.active{
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.store-modal-header{
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid grey;
+}
+
+.store-modal-header .store-modal-title{
+    font-size: large;
+    font-weight: bold;
+}
+
+.store-modal-header .store-clse-btn{
+    cursor: not-allowed;
+    border: none;
+    outline: none;
+    background: none;
+    font-weight: large;
+    font-weight: bold;
+}
+
+.store-modal-body{
+    height: 200px;
+    padding: 10px 10px;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.store-body-p1{
+    font-size: 20px;
+    line-height: 27px;
+}
+
+.store-body-p2{
+    font-size: 5.5px;
+}
+
+.store-body-btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 250px;
+}
+
+.store-btn-yes{
+    font-size: 15px;
+    padding: 5px 0;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    width: 95px;
+    height: 25px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(18, 117, 18);
+} 
+
+.store-btn-no{
+    font-size: 15px;
+    padding: 5px 0;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    width: 95px;
+    height: 25px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(18, 117, 18);
+}
