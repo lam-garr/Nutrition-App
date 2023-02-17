@@ -12,6 +12,7 @@ import CollectionPage from './pages/Collection';
 import Overlay from './components/Overlay';
 import SideBar from './components/SideBar';
 import Protected from './pages/Protected';
+import Authed from './pages/Authed';
 import './styles/App.css';
 
 function App() {
@@ -39,10 +40,10 @@ function App() {
       <Routes>
         <Route path='/user/collection' element={<CollectionPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
         <Route path='/user/account' element={<Protected><AccountPage/></Protected>}></Route>
-        <Route path='/diary' element={<DiaryPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
+        <Route path='/diary' element={<Authed><DiaryPage overlayChange={childClickChange} overlayOpen={overlayOpen}/></Authed>}></Route>
         <Route path='/user/diary/:id' element={<UserDiary overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
         <Route path='/sign-up' element={<SignupPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
-        <Route path='/log-in' element={<LoginPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
+        <Route path='/log-in' element={<Authed><LoginPage overlayChange={childClickChange} overlayOpen={overlayOpen}/></Authed>}></Route>
         <Route path='/' element={<HomePage/>}></Route>
       </Routes>
     </BrowserRouter>

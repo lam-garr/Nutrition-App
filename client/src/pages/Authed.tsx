@@ -2,11 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
-function Protected({children}:any){
-    //check if accessToken is present and validate
+function Authed({children}: any){
+
     const data = window.localStorage.getItem('AccessToken');
 
-    //useState to handle validated token return
     const [ validated, setValidated ] = useState(false);
 
     const validate = async () => {
@@ -20,15 +19,14 @@ function Protected({children}:any){
         const resObj = await response.json();
         console.log(resObj.message)
         
-        if(resObj && resObj === 'success'){
+        if(resObj && resObj.message === 'success'){
             setValidated(true);
         }
     }
 
     validate();
 
-    return validated ? children : <Navigate to='/log-in'/>;
+    return validated ? <Navigate to='/user/collection'/> : children;
 }
 
-export default Protected;
-
+export default Authed;
