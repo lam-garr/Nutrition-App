@@ -68,7 +68,6 @@ function Collection(prop:collectionProp){
 
     //useEffect for when sorting select element changes
     useEffect(() => {
-        //setFetching(true);
 
         const fetchChange = async () => {
             const response = await fetch(`/api/sort-colle?sort=${sortBy}`, {
@@ -91,8 +90,10 @@ function Collection(prop:collectionProp){
                 setData(resObj.arrTwo)
             }
 
+            setFetching(false);
         }
 
+        setFetching(true);
         fetchChange();
     }, [sortBy])
 
