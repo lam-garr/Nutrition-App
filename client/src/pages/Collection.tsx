@@ -170,7 +170,7 @@ function Collection(prop:collectionProp){
     return(
         <main className='collection-page-content'>
             <HelpModal helpModalHandler={changeHelpModal} helpModalIsOpen={helpModalOpen} closeModal={changeHelpModal} message={'Collection of diary entries, click view to view diary or delete to delete entry.'}/>
-            <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} month={month} day={day} year={year} create={createEntry}/>
+            <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} create={createEntry}/>
             <section className='collection-section-one'>
                 <div className='sec-one-content'>
                     Collection of User Diaries

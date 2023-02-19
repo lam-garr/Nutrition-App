@@ -89,15 +89,6 @@ function UserDiary(prop: userDiaryProp){
     //useState to store whether or not api request is being made, if so disable add button
     const [ fetching, setFetching ] = useState(false);
 
-    //useEffect to check if there is data stored in localStorage
-    //if so, then set stored data to array, then clear localStorage
-    useEffect(() => {
-        const data = window.localStorage.getItem('GUEST_DATA');
-        if((data !== null) && ((JSON.parse(data)).length)){
-            setItemData(JSON.parse(data));
-        }
-        window.localStorage.removeItem('GUEST_DATA');
-    },[])
 
     //open close table modal handler
     const [ tableModalOpen, setTableModalOpen ] = useState(false);
@@ -153,36 +144,49 @@ function UserDiary(prop: userDiaryProp){
 
     //function to execute if user wants to use stored data
     const populateData = () => {
-        console.log('ok');
+        //close modal then populate & persist data to db from local storage
+        changeStoreModal();
+
+        setFetching(true);
+
+        const data = window.localStorage.getItem('GUEST_DATA');
+        if((data !== null) && ((JSON.parse(data)).length))
+            //setItemData(JSON.parse(data));
+            window.localStorage.removeItem('GUEST_DATA')
+            console.log('deleted')
+        }
+
+        setFetching(false);
+        //make api call every time state is changed
     }
 
-    //** */
+    //will check if there is data in local storage
     useEffect(() => {
-        changeStoreModal();
+        const data = window.localStorage.getItem('GUEST_DATA');
+        if((data !== null) && ((JSON.parse(data)).length)){
+            changeStoreModal();
+        }
     },[])
+
+    //useEffect to persist to db every time array state changes
 
     //handling the date for the diary
 
-    const date = new Date();
-
-    //handling for month with default month as initial month
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
-    const [ month, setMonth ] = useState(months[date.getMonth()]);
+    const [ month, setMonth ] = useState();
 
     const changeMonth = (e:any) => {
         setMonth(e.target.value);
     }
 
-    //handling for day with default day as initial day
-    const [ day, setDay ] = useState(date.getDate());
+    //handling for day
+    const [ day, setDay ] = useState();
 
     const changeDay = (e:any) => {
         setDay(e.target.value);
     }
 
-    //handling for year with default year as initial year
-    const [ year, setYear ] = useState(date.getFullYear());
+    //handling for year
+    const [ year, setYear ] = useState();
 
     const changeYear = (e:any) => {
         setYear(e.target.value);
@@ -248,7 +252,7 @@ function UserDiary(prop: userDiaryProp){
             <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData} fethcing={fetching} empty={isEmpty}/>
             <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem} closeModal={changeTableModal}/>
             <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Please add food to track nutrients. Click info for more details on macro and micro nutrients and delete to delete an entry. Click save to save your data.'}/>
-            <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} month={month} day={day} year={year}/>
+            <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear}/>
             <StorageModal modalHandler={changeStoreModal} modalIsOpen={storeOpen} closeModal={changeStoreModal} populate={populateData}/>
             <section className='food-diary-section-one'>
                 <div className='section-one-content'>
