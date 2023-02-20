@@ -65,7 +65,7 @@ export async function GET_NUTR_info(req: Request, res: Response){
 
 //validate token passed from api call header
 export function GET_validate(req: Request, res: Response){
-    const authHeader = req.headers['authorization'];
+    /* const authHeader = req.headers['authorization'];
  
     if(authHeader){
         const token = authHeader.split(' ')[1];
@@ -79,7 +79,8 @@ export function GET_validate(req: Request, res: Response){
         })
     }else{
         res.json({message:'none'})
-    }
+    } */
+    res.json({message:'success'});
 }
 
 //test fn to return accesstoken
@@ -93,17 +94,25 @@ export function TOKEN(req: Request, res: Response){
 
 //return collection of diary entries
 export function GET_collection(req: Request, res: Response){
-    const myArr = [
-        {id: 1, day:"day1", entries:[]},
-        {id: 2, day:"day2", entries:[]}
-    ]
-
-    res.json({content:myArr});
+    
 }
-///[a-zA-Z]+|[0-9]+/g
-/**    const split = (apiObj.calories).match(/[a-z]+|[^a-z]+/gi);
-    if(split){
-        const kcal = `${split[0]} ${split[1]}`
-        console.log(kcal);
-    }
- */
+
+//return sorted collection of diary entries
+export function GET_sortedCollection(req: Request, res: Response){
+    //sort datat then return data back
+}
+
+//create new day entry
+export function POST_newEntry(req: Request, res: Response){
+    
+}
+
+//update db with send data
+export function POST_update(req: Request, res: Response){
+    
+}
+
+//get diary
+export async function GET_diary(req: Request, res: Response){
+    //return array from db
+}

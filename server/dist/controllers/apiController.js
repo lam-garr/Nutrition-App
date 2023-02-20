@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TOKEN = exports.GET_validate = exports.GET_NUTR_info = exports.POST_log_in = exports.POST_sign_up = exports.GET_index = void 0;
+exports.GET_diary = exports.POST_update = exports.POST_newEntry = exports.GET_sortedCollection = exports.GET_collection = exports.TOKEN = exports.GET_validate = exports.GET_NUTR_info = exports.POST_log_in = exports.POST_sign_up = exports.GET_index = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -82,21 +82,22 @@ function GET_NUTR_info(req, res) {
 exports.GET_NUTR_info = GET_NUTR_info;
 //validate token passed from api call header
 function GET_validate(req, res) {
-    const authHeader = req.headers['authorization'];
-    if (authHeader) {
+    /* const authHeader = req.headers['authorization'];
+ 
+    if(authHeader){
         const token = authHeader.split(' ')[1];
-        jsonwebtoken_1.default.verify(token, `${process.env.SECRET}`, (err, user) => {
-            if (err) {
-                return res.json({ message: 'error' });
+
+        jwt.verify(token, `${process.env.SECRET}`, (err, user) => {
+            if(err){
+                return res.json({message:'error'});
+            }else{
+                return res.json({message:'success'});
             }
-            else {
-                return res.json({ message: 'success' });
-            }
-        });
-    }
-    else {
-        res.json({ message: 'none' });
-    }
+        })
+    }else{
+        res.json({message:'none'})
+    } */
+    res.json({ message: 'success' });
 }
 exports.GET_validate = GET_validate;
 //test fn to return accesstoken
@@ -109,6 +110,57 @@ function TOKEN(req, res) {
     }
 }
 exports.TOKEN = TOKEN;
+//return collection of diary entries
+function GET_collection(req, res) {
+    const myArr = [{ id: 1, day: "day1", entries: [] }, { id: 2, day: "day2", entries: [] }];
+    res.json({ myArr });
+}
+exports.GET_collection = GET_collection;
+//return sorted collection of diary entries
+function GET_sortedCollection(req, res) {
+    const sortBy = req.query.sort;
+    const arrOne = [{ id: 420, day: "day420", entries: [] }, { id: 69, day: "day69", entries: [] }];
+    const arrTwo = [{ id: 1, day: "fuckyou", entries: [] }, { id: 2, day: "youbitch", entries: [] }];
+    if (sortBy === 'calorie high') {
+        res.json({ arrOne });
+    }
+    if (sortBy === 'calorie low') {
+        res.json({ arrTwo });
+    }
+}
+exports.GET_sortedCollection = GET_sortedCollection;
+//create new day entry
+function POST_newEntry(req, res) {
+    console.log(`${req.body.month} + ${req.body.day} + ${req.body.year}`);
+    res.json({ good: "true" });
+}
+exports.POST_newEntry = POST_newEntry;
+//update db with send data
+function POST_update(req, res) {
+    //const data = JSON.parse(req.body.diary);
+    res.json({ message: "okie dokie" });
+}
+exports.POST_update = POST_update;
+//get diary
+function GET_diary(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const myArr = [];
+        const ingr = '1 large orange';
+        const apiResponse = yield (0, axios_1.default)(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${ingr}`);
+        const apiObj = apiResponse.data.totalNutrients;
+        apiObj['id'] = Math.floor(Math.random() * 9000);
+        apiObj['name'] = `${ingr}`;
+        myArr.push(apiObj);
+        const apiResponseTwo = yield (0, axios_1.default)(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${ingr}`);
+        const apiObjTwo = apiResponse.data.totalNutrients;
+        apiObjTwo['id'] = Math.floor(Math.random() * 9000);
+        apiObjTwo['name'] = `${ingr}`;
+        myArr.push(apiObjTwo);
+        console.log(myArr);
+        res.json({ diary: myArr });
+    });
+}
+exports.GET_diary = GET_diary;
 ///[a-zA-Z]+|[0-9]+/g
 /**    const split = (apiObj.calories).match(/[a-z]+|[^a-z]+/gi);
     if(split){
