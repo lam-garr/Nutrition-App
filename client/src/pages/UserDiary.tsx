@@ -27,22 +27,29 @@ function UserDiary(prop: userDiaryProp){
     const [ itemData, setItemData ] = useState<objInterface[]>([]);
 
     //delete item by id 
-    const deleteId = (id:number) => {
-        const delObj = itemData.find(obj => {return obj.id === id})
+    const deleteId = async (id:number) => {
 
-        if(delObj){
-            changeCarbs(-Math.abs(Math.round(delObj.CHOCDF.quantity)));
-            changeProtein(-Math.abs(Math.round(delObj.PROCNT.quantity)));
-            changeFat(-Math.abs(Math.round(delObj.FAT.quantity)));
-            changeCalories(-Math.abs(Math.round(delObj.ENERC_KCAL.quantity)))
+        //setFetching(true);
+
+        const response = await fetch(`/api/delete-item`,{
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({itemId:id})
+        });
+        const apiObj = await response.json();
+
+        //will always return true
+        if(apiObj){
+            update();
         }
 
-        setItemData(prev => {return prev.filter(item => item.id !== id)});
+
+        //const delObj = itemData.find(obj => {return obj.id === id})
+        //setItemData(prev => {return prev.filter(item => item.id !== id)});
     }
 
     //add item
     const addData = async (ingr: string) => {
-        //api call, uncomment when ready
 
         if(ingr === ''){
             setIsEmpty(true);
@@ -58,8 +65,8 @@ function UserDiary(prop: userDiaryProp){
         const apiObj = await response.json();
 
         //check if returned api object is vali
-        if(apiObj && apiObj.message){
-            console.log(apiObj.message)
+        if(apiObj && apiObj.err){
+            console.log(apiObj.err)
             setIsEmpty(true);
             setFetching(false);
             return;
@@ -68,13 +75,9 @@ function UserDiary(prop: userDiaryProp){
         //call fn to update array with api call
         //setUpdate(!update);
         update();
-        setFetching(true);
 
-        //update nutrients
-        /* changeCarbs(Math.round(apiObj.data.CHOCDF.quantity))
-        changeProtein(Math.round(apiObj.data.PROCNT.quantity))
-        changeFat(Math.round(apiObj.data.FAT.quantity))
-        changeCalories(Math.round(apiObj.data.ENERC_KCAL.quantity)) */
+        //change the button to add new item
+        //setFetching(true);
 
         //clear input data
         setAddInput('');
@@ -212,14 +215,14 @@ function UserDiary(prop: userDiaryProp){
     const [ protein, setProtein ] = useState(0);
 
     const changeProtein = (value: number) => {
-        setProtein(protein + value);
+        setProtein(value);
     }
 
     //handling for fat
     const [ fat, setFat ] = useState(0);
 
     const changeFat = (value: number) => {
-        setFat(fat + value);
+        setFat(value);
     }
 
     //handling for total calories
@@ -252,10 +255,18 @@ function UserDiary(prop: userDiaryProp){
         }
     }
 
+    //update values whenever itemData array state is changed
     useEffect(() => {
-                    //update values based on data from db
-                    const kcal = itemData.reduce((num, item) => num + item.ENERC_KCAL.quantity, 0);
-                    setCalories(kcal);
+        //update values based on data from db
+        const newCarb = itemData.reduce((total, item) => total + item.CHOCDF.quantity, 0);
+        const newPro = itemData.reduce((total, item) => total + item.PROCNT.quantity, 0);
+        const newFat = itemData.reduce((total, item) => total + item.FAT.quantity, 0);
+        const newKcal = itemData.reduce((total, item) => total + item.ENERC_KCAL.quantity, 0);
+
+        changeCarbs(newCarb);
+        changeProtein(newPro);
+        changeFat(newFat);
+        changeCalories(newKcal);
     },[itemData])
 
     return(
