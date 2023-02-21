@@ -26,6 +26,7 @@ function CollectionTable(prop: propData){
                         <td>{item.id}</td>
                         <td>{item.day}</td>
                         <td>Calories</td>
+                        {/**craete new page for existing colle */}
                         <td><Link to={`/user/diary/${item.id}`}><button className='colleInfo'>Info</button></Link></td>
                         <td><button className='colleDelete'>Delete</button></td>
                     </tr>

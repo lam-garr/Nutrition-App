@@ -108,13 +108,13 @@ function Collection(prop:collectionProp){
     }
 
     //useState to select dates for new entry
-    const [ month, setMonth ] = useState("");
+    const [ month, setMonth ] = useState("January");
 
     const changeMonth = (e:any) => {
         setMonth(e.target.value);
     }
 
-    const [ day, setDay ] = useState(0);
+    const [ day, setDay ] = useState(1);
 
     const changeDay = (e:any) => {
         setDay(e.target.value);

@@ -50,31 +50,31 @@ function UserDiary(prop: userDiaryProp){
         }
 
         setFetching(true);
-        const response = await fetch(`/api/nutr?search=${ingr}`);
+        const response = await fetch(`/api/update`,{
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({item:ingr})
+        });
         const apiObj = await response.json();
 
         //check if returned api object is vali
-        if(apiObj.data === 'error with item'){
+        if(apiObj && apiObj.message){
+            console.log(apiObj.message)
             setIsEmpty(true);
             setFetching(false);
             return;
         }
 
-        setItemData(prev => [...prev, apiObj.data]);
-
-        //const foodItem = createObj();
-        //foodItem['name'] = ingr;
-        //setItemData(prev => [...prev, foodItem]);
-        //changeCarbs(Math.round(foodItem.CHOCDF.quantity))
-        //changeProtein(Math.round(foodItem.PROCNT.quantity))
-        //changeFat(Math.round(foodItem.FAT.quantity))
-        //changeCalories(Math.round(foodItem.ENERC_KCAL.quantity))
+        //call fn to update array with api call
+        //setUpdate(!update);
+        update();
+        setFetching(true);
 
         //update nutrients
-        changeCarbs(Math.round(apiObj.data.CHOCDF.quantity))
+        /* changeCarbs(Math.round(apiObj.data.CHOCDF.quantity))
         changeProtein(Math.round(apiObj.data.PROCNT.quantity))
         changeFat(Math.round(apiObj.data.FAT.quantity))
-        changeCalories(Math.round(apiObj.data.ENERC_KCAL.quantity))
+        changeCalories(Math.round(apiObj.data.ENERC_KCAL.quantity)) */
 
         //clear input data
         setAddInput('');
@@ -82,6 +82,9 @@ function UserDiary(prop: userDiaryProp){
         //close modal after adding item to array
         changeAddModal();
     }
+
+    //useState to handle updating values
+    //const [ update, setUpdate ] = useState(false);
 
     //useState to handle if add input is empty
     const [ isEmpty, setIsEmpty ] = useState(false);
@@ -150,14 +153,12 @@ function UserDiary(prop: userDiaryProp){
         setFetching(true);
 
         const data = window.localStorage.getItem('GUEST_DATA');
-        if((data !== null) && ((JSON.parse(data)).length))
+        if((data !== null) && ((JSON.parse(data)).length)){
             //setItemData(JSON.parse(data));
             window.localStorage.removeItem('GUEST_DATA')
-            console.log('deleted')
         }
 
         setFetching(false);
-        //make api call every time state is changed
     }
 
     //will check if there is data in local storage
@@ -167,8 +168,6 @@ function UserDiary(prop: userDiaryProp){
             changeStoreModal();
         }
     },[])
-
-    //useEffect to persist to db every time array state changes
 
     //handling the date for the diary
 
@@ -227,25 +226,37 @@ function UserDiary(prop: userDiaryProp){
     const [ calories, setCalories ] = useState(0);
 
     const changeCalories = (value: number) => {
-        setCalories(calories + value);
+        setCalories(value);
     }
 
-    //useEffect to update nutrient values from localStorage
-    useEffect(() => {
-        const data = window.localStorage.getItem('GUEST_DATA_NUTR');
-        if((data !== null) && ((JSON.parse(data)).kcal)>0){
-            const parseData = JSON.parse(data);
-            setCarbs(parseData.c);
-            setProtein(parseData.p);
-            setFat(parseData.f);
-            setCalories(parseData.kcal);
-        }
-    },[])
+    const update = async () => {
+        const response = await fetch(`/api/user-diary`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id:param.id})
+        })
 
-    //useEffect to update value for localStorage whenever value is changed
+        const resObj = await response.json();
+
+        console.log(resObj)
+
+        setFetching(false);
+
+        if(resObj !== null){
+            //set data from db to array
+            setItemData(resObj.diary);
+
+            console.log(itemData);
+        }
+    }
+
     useEffect(() => {
-        window.localStorage.setItem('GUEST_DATA_NUTR', JSON.stringify({c:carbs, p:protein, f:fat, kcal:calories}))
-    },[carbs, protein, fat, calories])
+                    //update values based on data from db
+                    const kcal = itemData.reduce((num, item) => num + item.ENERC_KCAL.quantity, 0);
+                    setCalories(kcal);
+    },[itemData])
 
     return(
         <main className='page-content'>
@@ -296,9 +307,30 @@ function UserDiary(prop: userDiaryProp){
             </section>
         </main>
     )
+    
 }
 
 export default UserDiary;
 
-//instead of guest, have user, then ask if they want guset
-//will have to save to persist
+
+//useEffect to persist data to db every time array state changes
+/* useEffect(() => {
+    console.log('before call')
+    const updateDb = async () => {
+        const response = await fetch(`/api/update`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({diary:itemData})
+        })
+
+        const resObj = await response.json();
+
+        if(resObj !== null){
+            console.log(resObj.message);
+        }
+    }
+
+    updateDb();
+},[itemData]) */

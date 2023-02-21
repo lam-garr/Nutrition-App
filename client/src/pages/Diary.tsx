@@ -207,6 +207,7 @@ function Diary(prop:diaryProp){
 
     //useEffect to update nutrient values from localStorage
     useEffect(() => {
+        setFetching(true);
         const data = window.localStorage.getItem('GUEST_DATA_NUTR');
         if((data !== null) && ((JSON.parse(data)).kcal)>0){
             const parseData = JSON.parse(data);
@@ -215,6 +216,7 @@ function Diary(prop:diaryProp){
             setFat(parseData.f);
             setCalories(parseData.kcal);
         }
+        setFetching(false);
     },[])
 
     //useEffect to update value for localStorage whenever value is changed
