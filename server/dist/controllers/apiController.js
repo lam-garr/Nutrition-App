@@ -112,59 +112,59 @@ function TOKEN(req, res) {
 exports.TOKEN = TOKEN;
 //return collection of diary entries
 function GET_collection(req, res) {
+    //wip
     const myArr = [{ id: 1, day: "day1", entries: [] }, { id: 2, day: "day2", entries: [] }];
     res.json({ myArr });
 }
 exports.GET_collection = GET_collection;
 //return sorted collection of diary entries
 function GET_sortedCollection(req, res) {
-    const sortBy = req.query.sort;
-    const arrOne = [{ id: 420, day: "day420", entries: [] }, { id: 69, day: "day69", entries: [] }];
-    const arrTwo = [{ id: 1, day: "fuckyou", entries: [] }, { id: 2, day: "youbitch", entries: [] }];
-    if (sortBy === 'calorie high') {
-        res.json({ arrOne });
-    }
-    if (sortBy === 'calorie low') {
-        res.json({ arrTwo });
-    }
+    //wip
 }
 exports.GET_sortedCollection = GET_sortedCollection;
 //create new day entry
 function POST_newEntry(req, res) {
-    console.log(`${req.body.month} + ${req.body.day} + ${req.body.year}`);
     res.json({ good: "true" });
 }
 exports.POST_newEntry = POST_newEntry;
-//update db with send data
+//add data to user diary array
 function POST_update(req, res) {
-    //const data = JSON.parse(req.body.diary);
-    res.json({ message: "okie dokie" });
+    return __awaiter(this, void 0, void 0, function* () {
+        const apiResponse = yield (0, axios_1.default)(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${req.body.item}`);
+        const apiObj = apiResponse.data.totalNutrients;
+        //check if object has empty properties
+        if (apiObj.ENERC_KCAL) {
+            apiObj['id'] = Math.floor(Math.random() * 9000);
+            apiObj['name'] = `${req.body.item}`;
+            console.log(apiObj);
+            //add item to db array
+            res.status(200).json({ data: apiObj });
+        }
+        else {
+            res.status(404).json({ message: 'error with item' });
+        }
+    });
 }
 exports.POST_update = POST_update;
 //get diary
 function GET_diary(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const myArr = [];
-        const ingr = '1 large orange';
+        //wip
+        let myArr = [];
+        const ingr = '1 large apple';
         const apiResponse = yield (0, axios_1.default)(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${ingr}`);
         const apiObj = apiResponse.data.totalNutrients;
-        apiObj['id'] = Math.floor(Math.random() * 9000);
+        apiObj['id'] = 69;
         apiObj['name'] = `${ingr}`;
         myArr.push(apiObj);
-        const apiResponseTwo = yield (0, axios_1.default)(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${ingr}`);
-        const apiObjTwo = apiResponse.data.totalNutrients;
-        apiObjTwo['id'] = Math.floor(Math.random() * 9000);
-        apiObjTwo['name'] = `${ingr}`;
-        myArr.push(apiObjTwo);
-        console.log(myArr);
+        const ingrtwo = '1 large orange';
+        const apiResponsetwo = yield (0, axios_1.default)(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${ingrtwo}`);
+        const apiObjtwo = apiResponsetwo.data.totalNutrients;
+        apiObjtwo['id'] = 420;
+        apiObjtwo['name'] = `${ingrtwo}`;
+        myArr.push(apiObjtwo);
         res.json({ diary: myArr });
+        //return array from db
     });
 }
 exports.GET_diary = GET_diary;
-///[a-zA-Z]+|[0-9]+/g
-/**    const split = (apiObj.calories).match(/[a-z]+|[^a-z]+/gi);
-    if(split){
-        const kcal = `${split[0]} ${split[1]}`
-        console.log(kcal);
-    }
- */

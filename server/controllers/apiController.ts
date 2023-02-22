@@ -16,8 +16,8 @@ export async function POST_sign_up(req: Request, res: Response, next: NextFuncti
 
     const user = new User({
         username: req.body.username,
-        //firstName: req.body.firstName,
-        //lastName: req.body.lastName,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         password: hashedPw
     }).save(err => {
         if(err){
@@ -65,7 +65,7 @@ export async function GET_NUTR_info(req: Request, res: Response){
 
 //validate token passed from api call header
 export function GET_validate(req: Request, res: Response){
-    /* const authHeader = req.headers['authorization'];
+    const authHeader = req.headers['authorization'];
  
     if(authHeader){
         const token = authHeader.split(' ')[1];
@@ -79,8 +79,8 @@ export function GET_validate(req: Request, res: Response){
         })
     }else{
         res.json({message:'none'})
-    } */
-    res.json({message:'success'});
+    } 
+    //res.json({message:'success'});
 }
 
 //test fn to return accesstoken
@@ -93,26 +93,52 @@ export function TOKEN(req: Request, res: Response){
 }
 
 //return collection of diary entries
-export function GET_collection(req: Request, res: Response){
-    
+export async function GET_collection(req: Request, res: Response){
+    const user = await User.findOne({token: req.token});
+
+    if(user){
+        res.json({myArr:user.myData})
+    }else{
+        res.status(403);
+    }
 }
 
 //return sorted collection of diary entries
 export function GET_sortedCollection(req: Request, res: Response){
-    //sort datat then return data back
+    //wip
 }
 
-//create new day entry
-export function POST_newEntry(req: Request, res: Response){
-    
+//create new day entry and push to array
+export async function POST_newEntry(req: Request, res: Response){
+    const user = await User.findOne({token: req.token});
+
+    if(user){
+        const newEntry = {id:Math.floor(Math.random() * 9000), day:`${req.body.day}/${req.body.month}/${req.body.year}`, diary:[]};
+        user.myData.push(newEntry);
+        user.markModified("myData");
+        user.save();
+        res.status(203).json({id:newEntry.id});
+    }
 }
 
-//update db with send data
-export function POST_update(req: Request, res: Response){
-    
+//add data to user diary array
+export async function POST_update(req: Request, res: Response){
+    const apiResponse: any = await axios(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${req.body.item}`);
+    const apiObj: objInterface = apiResponse.data.totalNutrients;
+
+    //check if object has empty properties
+    if(apiObj.ENERC_KCAL){
+        apiObj['id']= Math.floor(Math.random() * 9000);
+        apiObj['name']=`${req.body.item}`;
+        console.log(apiObj)
+        //add item to db array
+        res.status(200).json({data:apiObj});
+    }else{
+        res.status(404).json({err:'error with item'});
+    }
 }
 
 //get diary
 export async function GET_diary(req: Request, res: Response){
-    //return array from db
+    
 }

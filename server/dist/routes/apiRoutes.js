@@ -16,5 +16,5 @@ router.get('/collections', apiController_1.GET_collection);
 router.get('/sort-colle', apiController_1.GET_sortedCollection);
 router.post('/new-entry', apiController_1.POST_newEntry);
 router.post('/update', apiController_1.POST_update);
-router.get('/populate', apiController_1.GET_diary);
+router.post('/user-diary', apiController_1.GET_diary);
 exports.default = router;

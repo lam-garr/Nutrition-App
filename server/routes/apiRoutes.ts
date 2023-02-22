@@ -23,6 +23,6 @@ router.post('/new-entry', POST_newEntry);
 
 router.post('/update', POST_update);
 
-router.get('/populate', GET_diary);
+router.post('/user-diary', GET_diary);
 
 export default router;
