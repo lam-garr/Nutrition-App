@@ -142,3 +142,23 @@ export async function POST_update(req: Request, res: Response){
 export async function GET_diary(req: Request, res: Response){
     
 }
+
+//middleware to validate JWT
+export async function verifyToken(req: Request, res: Response, next: NextFunction){
+    const authHeader = req.headers["authorization"];
+
+    if(authHeader){
+        const token = authHeader.split(" ")[1];
+
+        jwt.verify(token, 'secret', (err, user)=>{
+            if(err){
+                return res.status(403).json(err);
+            }
+            req.token = token;
+            next();
+        })
+    }
+}
+
+
+    

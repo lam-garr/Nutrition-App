@@ -1,5 +1,5 @@
 import express from 'express';
-import { GET_index, GET_NUTR_info, POST_sign_up, POST_log_in, GET_validate, TOKEN, GET_collection, GET_sortedCollection, POST_newEntry, POST_update, GET_diary } from '../controllers/apiController';
+import { GET_index, GET_NUTR_info, POST_sign_up, POST_log_in, GET_validate, TOKEN, GET_collection, GET_sortedCollection, POST_newEntry, POST_update, GET_diary, verifyToken } from '../controllers/apiController';
 
 const router = express.Router();
 
@@ -15,14 +15,14 @@ router.get('/validate', GET_validate);
 
 router.post('/login', TOKEN);
 
-router.get('/collections', GET_collection);
+router.get('/collections', verifyToken, GET_collection);
 
-router.get('/sort-colle', GET_sortedCollection);
+router.get('/sort-colle', verifyToken, GET_sortedCollection);
 
-router.post('/new-entry', POST_newEntry);
+router.post('/new-entry', verifyToken, POST_newEntry);
 
-router.post('/update', POST_update);
+router.post('/update', verifyToken, POST_update);
 
-router.post('/user-diary', GET_diary);
+router.post('/user-diary', verifyToken, GET_diary);
 
 export default router;
