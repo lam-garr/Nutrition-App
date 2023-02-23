@@ -162,7 +162,7 @@ function Signup(prop: propInterface){
         }else{
             setSignUpErr(false);
             //navigate to log in page
-            navigate('/');
+            navigate('/log-in');
         }
     }
 

@@ -17,10 +17,11 @@ function Authed({children}: any){
             }
         });
         const resObj = await response.json();
-        console.log(resObj.message)
         
         if(resObj && resObj.message === 'success'){
             setValidated(true);
+        }else{
+            setValidated(false);
         }
     }
 

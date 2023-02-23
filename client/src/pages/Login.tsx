@@ -66,24 +66,28 @@ function Login(prop: propInterface){
         setPwErrorMessage('');
 
         //call login api 
-        const loginData = await fetch(`/api/login`, {
+        const loginData = await fetch(`/api/log-in`, {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username: loginInput, password: passwordInput})
         })
 
+        const dataObj = await loginData.json();
 
-        if(!loginData.ok){
+        console.log(dataObj)
+
+        if(dataObj && dataObj.message === 'Login Error'){
             //const errData = await loginData.json();
+            console.log(dataObj.message);
+            setLoginInput('');
+            setPasswordInput('');
             setApiErrMsg(true);
         }else{
-            const token = await loginData.json();
             setApiErrMsg(false);
             //set token returned from api to local storage
-            console.log(token.AccessToken)
-            window.localStorage.setItem('AccessToken', JSON.stringify(token.AccessToken))
+            window.localStorage.setItem('AccessToken', JSON.stringify(dataObj.accessToken))
             //navigate to diary page
-            navigate('/');
+            navigate('/user/collection');
         }
     }
 

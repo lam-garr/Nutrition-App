@@ -22,7 +22,7 @@ function Collection(prop:collectionProp){
     }
 
     //diary entries, set from database
-    const [ data, setData] = useState<any[]>([]);
+    const [ data, setData] = useState([]);
 
     //disable add btn if making api call with useState
     const [ fetching, setFetching ] = useState(false);
@@ -32,19 +32,22 @@ function Collection(prop:collectionProp){
     useEffect(() => {
 
         const fetchData = async () => {
+            const storageToken = window.localStorage.getItem('AccessToken');
+
             const response = await fetch("/api/collections", {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${data}`
+                    'Authorization': `Bearer ${storageToken}`
                 }
             })
 
             const resObj = await response.json();
-
-            if(resObj !== null){
+            console.log(`resObj from collections is: ${resObj.myArr}`)
+            if(resObj){
                 //!!!
                 setData(resObj.myArr);
+                console.log(`fater set is: ${data}`)
             }
 
             setFetching(false);
@@ -70,11 +73,12 @@ function Collection(prop:collectionProp){
     useEffect(() => {
 
         const fetchChange = async () => {
+            const storageToken = window.localStorage.getItem('AccessToken');
             const response = await fetch(`/api/sort-colle?sort=${sortBy}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${data}`
+                    'Authorization': `Bearer ${storageToken}`
                 }
             })
     
@@ -139,34 +143,36 @@ function Collection(prop:collectionProp){
         changeDate();
         setFetching(true);
 
+        const storageToken = window.localStorage.getItem('AccessToken');
+
         const postEntry = await fetch(`/api/new-entry`,{
             method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${data}`
+                    'Authorization': `Bearer ${storageToken}`
                 },
             body: JSON.stringify({
                 month: month,
                 day: day,
                 year: year})
         })
-
-        console.log("after call")
         
         const resObj = await postEntry.json();
 
         //use returned id to navigate
         setFetching(false);
 
-        if(resObj && resObj.good != null){
+        console.log(resObj.id)
+        if(resObj && resObj.id !== null){
             setFetching(false);
-            navigate(`/user/diary/${resObj.good}`)
+            navigate(`/user/diary/${resObj.id}`)
         }else{
             setFetching(false);
             return;
         }
     }
 
+    console.log(`data is: ${data}`)
     return(
         <main className='collection-page-content'>
             <HelpModal helpModalHandler={changeHelpModal} helpModalIsOpen={helpModalOpen} closeModal={changeHelpModal} message={'Collection of diary entries, click view to view diary or delete to delete entry.'}/>
@@ -179,7 +185,7 @@ function Collection(prop:collectionProp){
                 <button className='sec-one-btn' onClick={() => {changeHelpModal()}}>?</button>
             </section>
             <section className='collection-section-two'>
-                {data.length ? (<div>
+                {data ? (<div>
                     <div className='sec-two-p1'>
                     <div className='menu-title'>showing {data.length} of {data.length}</div>
                         <div className='menu'>

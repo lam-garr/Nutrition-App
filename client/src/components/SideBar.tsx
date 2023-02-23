@@ -47,8 +47,10 @@ function SideBar(prop: propInterface){
 
             const resObj = await response.json();
 
-            if(resObj){
+            if(resObj && resObj.message === 'success'){
                 setLoggedIn(true);
+            }else{
+                setLoggedIn(false);
             }
         }
 
