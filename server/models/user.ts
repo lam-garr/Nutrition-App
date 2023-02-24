@@ -7,7 +7,6 @@ const UserSchema = new Schema({
     password: {},
     firstName: {type: String},
     lastName: {type:String},
-    token: {type: String},
     myData: []
 })
 

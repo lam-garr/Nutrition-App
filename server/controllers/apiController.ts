@@ -94,13 +94,13 @@ export function TOKEN(req: Request, res: Response){
 
 //return collection of diary entries
 export async function GET_collection(req: Request, res: Response){
-    const user = await User.findOne({token: req.token});
+    /* const user = await User.findOne({token: req.user});
 
     if(user){
         res.json({myArr:user.myData})
     }else{
         res.status(403);
-    }
+    } */
 }
 
 //return sorted collection of diary entries
@@ -110,7 +110,7 @@ export function GET_sortedCollection(req: Request, res: Response){
 
 //create new day entry and push to array
 export async function POST_newEntry(req: Request, res: Response){
-    const user = await User.findOne({token: req.token});
+    /* const user = await User.findOne({token: req.token});
 
     if(user){
         const newEntry = {id:Math.floor(Math.random() * 9000), day:`${req.body.day}/${req.body.month}/${req.body.year}`, diary:[]};
@@ -118,7 +118,9 @@ export async function POST_newEntry(req: Request, res: Response){
         user.markModified("myData");
         user.save();
         res.status(203).json({id:newEntry.id});
-    }
+    }else{
+        res.status(400);
+    } */
 }
 
 //add data to user diary array
@@ -150,13 +152,15 @@ export async function verifyToken(req: Request, res: Response, next: NextFunctio
     if(authHeader){
         const token = authHeader.split(" ")[1];
 
-        jwt.verify(token, 'secret', (err, user)=>{
+        jwt.verify(token, `${process.env.SECRET}`, (err, user)=>{
             if(err){
                 return res.status(403).json(err);
             }
-            req.token = token;
+            req.user = user;
             next();
         })
+    }else{
+        res.status(400);
     }
 }
 

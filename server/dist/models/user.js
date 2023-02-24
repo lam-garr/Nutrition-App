@@ -7,6 +7,9 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const UserSchema = new Schema({
     username: { type: String, required: true },
-    password: {}
+    password: {},
+    firstName: { type: String },
+    lastName: { type: String },
+    myData: []
 });
 exports.default = mongoose_1.default.model('NutritionUser', UserSchema);
