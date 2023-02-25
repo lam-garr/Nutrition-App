@@ -3,18 +3,25 @@ import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
 function Protected({children}:any){
-    //check if accessToken is present and validate
-    const data = window.localStorage.getItem('AccessToken');
 
     //useState to handle validated token return
     const [ validated, setValidated ] = useState(false);
 
     const validate = async () => {
+        //check if accessToken is present and validate
+        const data = window.localStorage.getItem('AccessToken');
+
+        let dataToken;
+
+        if(data){
+            dataToken = JSON.parse(data);
+        }
+
         const response = await fetch('/api/validate', {
             method:'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${data}`
+                'Authorization': `Bearer ${dataToken}`
             }
         });
         const resObj = await response.json();

@@ -6,23 +6,36 @@ function Account(){
 
     const [ user, setUser ] = useState('');
 
+    const [ arr, setArr ] = useState<any[]>([]);
+
     useEffect(() => {
 
-        const data = window.localStorage.getItem('AccessToken');
-
         const fetchData = async () => {
-            const response = await fetch('/api/user', {
-                method: 'GET',
+            const data = window.localStorage.getItem('AccessToken');
+
+            let dataToken;
+
+            if(data){
+                dataToken = JSON.parse(data);
+            }
+
+            const response = await fetch('/api/testing', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${data}`
+                    'Authorization': `Bearer ${dataToken}`
                 }
             });
 
             const resObj = await response.json();
 
-            if(resObj && resObj.user != null){
-                setUser(resObj.user);
+            if(resObj){
+                setUser(resObj.user.username);
+                //console.log(`resObj.user : ${resObj.user}`);
+                //console.log(`resObj.user._id : ${resObj.user._id}`);
+                //console.log(`resObj.user.username : ${resObj.user.username}`)
+                console.log(resObj.user.myData)
+                console.log(resObj.user.myData[0].id)
             }
         }
 
@@ -35,6 +48,7 @@ function Account(){
                 <h1>Account</h1>
                 <div>
                     <span>{`id: ${user}`}</span>
+                    {arr}
                 </div>
                 <button className='acc-dltBtn' disabled={true}>Delete account</button>
             </div>

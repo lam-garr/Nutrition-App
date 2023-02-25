@@ -22,7 +22,7 @@ function Collection(prop:collectionProp){
     }
 
     //diary entries, set from database
-    const [ data, setData] = useState([]);
+    const [ data, setData] = useState<any[]>([]);
 
     //disable add btn if making api call with useState
     const [ fetching, setFetching ] = useState(false);
@@ -30,29 +30,36 @@ function Collection(prop:collectionProp){
 
     //useEffect to get data from database, then set to state
     useEffect(() => {
-
         const fetchData = async () => {
-            const storageToken = window.localStorage.getItem('AccessToken');
 
-            const response = await fetch("/api/collections", {
-                method: 'GET',
+            const dd = window.localStorage.getItem('AccessToken');
+
+            let dataToken;
+
+            if(dd){
+                dataToken = JSON.parse(dd);
+            }
+
+            const response = await fetch('/api/testing', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${storageToken}`
+                    'Authorization': `Bearer ${dataToken}`
                 }
-            })
+            });
 
             const resObj = await response.json();
-            console.log(`resObj from collections is: ${resObj.myArr}`)
+
+            console.log(data)
+            console.log(resObj)
             if(resObj){
-                //!!!
-                setData(resObj.myArr);
-                console.log(`fater set is: ${data}`)
+                setData(resObj.user.myData);
             }
 
             setFetching(false);
         }
-
+    
+        console.log('called');
         setFetching(true);
         fetchData();
     },[])
@@ -70,7 +77,7 @@ function Collection(prop:collectionProp){
     }
 
     //useEffect for when sorting select element changes
-    useEffect(() => {
+    /* useEffect(() => {
 
         const fetchChange = async () => {
             const storageToken = window.localStorage.getItem('AccessToken');
@@ -99,7 +106,7 @@ function Collection(prop:collectionProp){
 
         setFetching(true);
         fetchChange();
-    }, [sortBy])
+    }, [sortBy]) */
 
     const navigate = useNavigate();
 
@@ -138,18 +145,24 @@ function Collection(prop:collectionProp){
         prop.overlayChange();
     }
 
-    //call api to create entry after selectig date
+    //call api to create entry after selecting date
     const createEntry = async () => {
         changeDate();
         setFetching(true);
 
-        const storageToken = window.localStorage.getItem('AccessToken');
+        const data = window.localStorage.getItem('AccessToken');
+
+        let token;
+
+        if(data){
+            token = JSON.parse(data);
+        }
 
         const postEntry = await fetch(`/api/new-entry`,{
             method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${storageToken}`
+                    'Authorization': `Bearer ${token}`
                 },
             body: JSON.stringify({
                 month: month,
@@ -166,13 +179,15 @@ function Collection(prop:collectionProp){
         if(resObj && resObj.id !== null){
             setFetching(false);
             navigate(`/user/diary/${resObj.id}`)
+            console.log(resObj.arr)
+            setData(resObj.arr)
+            console.log(data)
         }else{
             setFetching(false);
             return;
         }
     }
 
-    console.log(`data is: ${data}`)
     return(
         <main className='collection-page-content'>
             <HelpModal helpModalHandler={changeHelpModal} helpModalIsOpen={helpModalOpen} closeModal={changeHelpModal} message={'Collection of diary entries, click view to view diary or delete to delete entry.'}/>
@@ -185,7 +200,7 @@ function Collection(prop:collectionProp){
                 <button className='sec-one-btn' onClick={() => {changeHelpModal()}}>?</button>
             </section>
             <section className='collection-section-two'>
-                {data ? (<div>
+                {data.length ? (<div>
                     <div className='sec-two-p1'>
                     <div className='menu-title'>showing {data.length} of {data.length}</div>
                         <div className='menu'>

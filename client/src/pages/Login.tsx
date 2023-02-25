@@ -74,11 +74,8 @@ function Login(prop: propInterface){
 
         const dataObj = await loginData.json();
 
-        console.log(dataObj)
-
         if(dataObj && dataObj.message === 'Login Error'){
             //const errData = await loginData.json();
-            console.log(dataObj.message);
             setLoginInput('');
             setPasswordInput('');
             setApiErrMsg(true);
@@ -86,7 +83,7 @@ function Login(prop: propInterface){
             setApiErrMsg(false);
             //set token returned from api to local storage
             window.localStorage.setItem('AccessToken', JSON.stringify(dataObj.accessToken))
-            //navigate to diary page
+            //navigate to collection page
             navigate('/user/collection');
         }
     }
