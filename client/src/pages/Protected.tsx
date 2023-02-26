@@ -25,7 +25,7 @@ function Protected({children}:any){
             }
         });
         const resObj = await response.json();
-        console.log(resObj.message)
+        //console.log(resObj.message)
         
         if(resObj && resObj === 'success'){
             setValidated(true);

@@ -31,7 +31,7 @@ function Collection(prop:collectionProp){
     //useEffect to get data from database, then set to state
     useEffect(() => {
         const fetchData = async () => {
-
+            console.log('its here')
             const dd = window.localStorage.getItem('AccessToken');
 
             let dataToken;
@@ -50,16 +50,14 @@ function Collection(prop:collectionProp){
 
             const resObj = await response.json();
 
-            console.log(data)
-            console.log(resObj)
+            console.log(resObj.user.myData)
             if(resObj){
                 setData(resObj.user.myData);
             }
 
             setFetching(false);
         }
-    
-        console.log('called');
+
         setFetching(true);
         fetchData();
     },[])
@@ -175,13 +173,12 @@ function Collection(prop:collectionProp){
         //use returned id to navigate
         setFetching(false);
 
-        console.log(resObj.id)
         if(resObj && resObj.id !== null){
             setFetching(false);
-            navigate(`/user/diary/${resObj.id}`)
-            console.log(resObj.arr)
-            setData(resObj.arr)
-            console.log(data)
+            //navigate(`/user/diary/${resObj.id}`)
+            //reset jwt after update
+            console.log(resObj.accessToken)
+            window.localStorage.setItem('AccessToken', JSON.stringify(resObj.accessToken))
         }else{
             setFetching(false);
             return;
