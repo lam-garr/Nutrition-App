@@ -40,7 +40,7 @@ function Collection(prop:collectionProp){
                 dataToken = JSON.parse(dd);
             }
 
-            const response = await fetch('/api/testing', {
+            const response = await fetch('/api/collections', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,9 +50,9 @@ function Collection(prop:collectionProp){
 
             const resObj = await response.json();
 
-            console.log(resObj.user.myData)
+            console.log(resObj)
             if(resObj){
-                setData(resObj.user.myData);
+                setData(resObj.myArr);
             }
 
             setFetching(false);
@@ -177,8 +177,8 @@ function Collection(prop:collectionProp){
             setFetching(false);
             //navigate(`/user/diary/${resObj.id}`)
             //reset jwt after update
-            console.log(resObj.accessToken)
-            window.localStorage.setItem('AccessToken', JSON.stringify(resObj.accessToken))
+            console.log(resObj.id)
+            console.log(resObj.username)
         }else{
             setFetching(false);
             return;
@@ -188,7 +188,7 @@ function Collection(prop:collectionProp){
     return(
         <main className='collection-page-content'>
             <HelpModal helpModalHandler={changeHelpModal} helpModalIsOpen={helpModalOpen} closeModal={changeHelpModal} message={'Collection of diary entries, click view to view diary or delete to delete entry.'}/>
-            <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} create={createEntry}/>
+            <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} create={createEntry} month={month} day={day}/>
             <section className='collection-section-one'>
                 <div className='sec-one-content'>
                     Collection of User Diaries
