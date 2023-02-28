@@ -175,10 +175,8 @@ function Collection(prop:collectionProp){
 
         if(resObj && resObj.id !== null){
             setFetching(false);
-            //navigate(`/user/diary/${resObj.id}`)
-            //reset jwt after update
-            console.log(resObj.id)
-            console.log(resObj.username)
+            navigate({pathname: `/user/diary/${resObj.id}`},
+            {state: {option: 'new'}})
         }else{
             setFetching(false);
             return;

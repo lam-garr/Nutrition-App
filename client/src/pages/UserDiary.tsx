@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import Table from '../components/Table';
 import TableModal from '../components/TableModal';
 import AddModal from '../components/AddModal';
@@ -18,7 +18,7 @@ interface userDiaryProp{
 function UserDiary(prop: userDiaryProp){
 
     const param = useParams();
-    console.log(param.id);
+    const location = useLocation();
     //destructuring
     //const { id } : { id : string } = useparams();
     //**********************************************************************/
@@ -56,15 +56,22 @@ function UserDiary(prop: userDiaryProp){
             return;
         }
 
+        const dd = window.localStorage.getItem('AccessToken');
+        let dataToken;
+        if(dd){
+            dataToken = JSON.parse(dd);
+        }
+
         setFetching(true);
         const response = await fetch(`/api/update`,{
             method: 'POST',
-            headers:{'Content-Type': 'application/json'},
-            body: JSON.stringify({item:ingr})
+            headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
+            body: JSON.stringify({item:ingr, id:param.id})
         });
+        
         const apiObj = await response.json();
-
-        //check if returned api object is vali
+        console.log(apiObj)
+        //check if returned api object is valid
         if(apiObj && apiObj.err){
             console.log(apiObj.err)
             setIsEmpty(true);
@@ -72,12 +79,9 @@ function UserDiary(prop: userDiaryProp){
             return;
         }
 
-        //call fn to update array with api call
-        //setUpdate(!update);
-        update();
-
-        //change the button to add new item
-        //setFetching(true);
+        if(apiObj){
+            setItemData(apiObj.myArr);
+        }
 
         //clear input data
         setAddInput('');
@@ -157,7 +161,7 @@ function UserDiary(prop: userDiaryProp){
 
         const data = window.localStorage.getItem('GUEST_DATA');
         if((data !== null) && ((JSON.parse(data)).length)){
-            //setItemData(JSON.parse(data));
+            setItemData(JSON.parse(data));
             window.localStorage.removeItem('GUEST_DATA')
         }
 
@@ -167,9 +171,11 @@ function UserDiary(prop: userDiaryProp){
     //will check if there is data in local storage
     useEffect(() => {
         const data = window.localStorage.getItem('GUEST_DATA');
-        if((data !== null) && ((JSON.parse(data)).length)){
+
+        if((location.state.option === 'new') && (data !== null) && ((JSON.parse(data)).length)){
             changeStoreModal();
         }
+
     },[])
 
     //handling the date for the diary
