@@ -29,18 +29,24 @@ function UserDiary(prop: userDiaryProp){
     //delete item by id 
     const deleteId = async (id:number) => {
 
-        //setFetching(true);
+        setFetching(true);
+
+        const dd = window.localStorage.getItem('AccessToken');
+        let dataToken;
+        if(dd){
+            dataToken = JSON.parse(dd);
+        }
 
         const response = await fetch(`/api/delete-item`,{
             method: 'POST',
-            headers:{'Content-Type': 'application/json'},
-            body: JSON.stringify({itemId:id})
+            headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
+            body: JSON.stringify({delId:id, diaryId:param.id})
         });
         const apiObj = await response.json();
 
         //will always return true
         if(apiObj){
-            update();
+            setItemData(apiObj.myArr)
         }
 
 
@@ -68,9 +74,9 @@ function UserDiary(prop: userDiaryProp){
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({item:ingr, id:param.id})
         });
-        
+
         const apiObj = await response.json();
-        console.log(apiObj)
+
         //check if returned api object is valid
         if(apiObj && apiObj.err){
             console.log(apiObj.err)
@@ -80,6 +86,7 @@ function UserDiary(prop: userDiaryProp){
         }
 
         if(apiObj){
+            //!!!!!!! need to round the values being set!!!!
             setItemData(apiObj.myArr);
         }
 
@@ -159,6 +166,7 @@ function UserDiary(prop: userDiaryProp){
 
         setFetching(true);
 
+        //send data from localStorage to backend then set with returned array
         const data = window.localStorage.getItem('GUEST_DATA');
         if((data !== null) && ((JSON.parse(data)).length)){
             setItemData(JSON.parse(data));
@@ -175,6 +183,30 @@ function UserDiary(prop: userDiaryProp){
         if((location.state.option === 'new') && (data !== null) && ((JSON.parse(data)).length)){
             changeStoreModal();
         }
+
+        const fetchData = async () => {
+            const dd = window.localStorage.getItem('AccessToken');
+
+            let dataToken;
+
+            if(dd){
+                dataToken = JSON.parse(dd);
+            }
+
+            const response = await fetch('/api/user-diary', {
+                method: 'POST',
+                headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
+                body: JSON.stringify({diaryId:param.id})
+            });
+
+            const resObj = await response.json();
+
+            if(resObj && resObj.myArr.length){
+                setItemData(resObj.myArr);
+            }
+        }
+
+        fetchData();
 
     },[])
 
@@ -214,7 +246,7 @@ function UserDiary(prop: userDiaryProp){
     const [ carbs, setCarbs ] = useState(0);
 
     const changeCarbs = (value: number) => {
-        setCarbs(carbs + value);
+        setCarbs(value);
     }
 
     //handling for protein
@@ -264,15 +296,17 @@ function UserDiary(prop: userDiaryProp){
     //update values whenever itemData array state is changed
     useEffect(() => {
         //update values based on data from db
+        console.log(itemData);
         const newCarb = itemData.reduce((total, item) => total + item.CHOCDF.quantity, 0);
         const newPro = itemData.reduce((total, item) => total + item.PROCNT.quantity, 0);
         const newFat = itemData.reduce((total, item) => total + item.FAT.quantity, 0);
         const newKcal = itemData.reduce((total, item) => total + item.ENERC_KCAL.quantity, 0);
+        console.log(newCarb)
 
-        changeCarbs(newCarb);
-        changeProtein(newPro);
-        changeFat(newFat);
-        changeCalories(newKcal);
+        changeCarbs(Math.round(newCarb));
+        changeProtein(Math.round(newPro));
+        changeFat(Math.round(newFat));
+        changeCalories(Math.round(newKcal));
     },[itemData])
 
     return(
