@@ -31,7 +31,6 @@ function Collection(prop:collectionProp){
     //useEffect to get data from database, then set to state
     useEffect(() => {
         const fetchData = async () => {
-            console.log('its here')
             const dd = window.localStorage.getItem('AccessToken');
 
             let dataToken;
@@ -75,10 +74,17 @@ function Collection(prop:collectionProp){
     }
 
     //useEffect for when sorting select element changes
-    /* useEffect(() => {
+    useEffect(() => {
 
         const fetchChange = async () => {
-            const storageToken = window.localStorage.getItem('AccessToken');
+            const dd = window.localStorage.getItem('AccessToken');
+
+            let storageToken;
+
+            if(dd){
+                storageToken = JSON.parse(dd);
+            }
+
             const response = await fetch(`/api/sort-colle?sort=${sortBy}`, {
                 method: 'GET',
                 headers: {
@@ -89,14 +95,14 @@ function Collection(prop:collectionProp){
     
             const resObj = await response.json();
     
-            if(resObj && resObj.arrOne){
+            if(resObj && resObj.arrHigh){
                 //!!!
-                setData(resObj.arrOne);
+                setData(resObj.arrHigh);
             }
     
-            if(resObj && resObj.arrTwo){
+            if(resObj && resObj.arrLow){
                 //!!
-                setData(resObj.arrTwo)
+                setData(resObj.arrLow)
             }
 
             setFetching(false);
@@ -104,7 +110,7 @@ function Collection(prop:collectionProp){
 
         setFetching(true);
         fetchChange();
-    }, [sortBy]) */
+    }, [sortBy])
 
     const navigate = useNavigate();
 

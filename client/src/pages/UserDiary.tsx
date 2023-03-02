@@ -179,7 +179,7 @@ function UserDiary(prop: userDiaryProp){
     //will check if there is data in local storage
     useEffect(() => {
         const data = window.localStorage.getItem('GUEST_DATA');
-
+        console.log(location.state)
         if((location.state.option === 'new') && (data !== null) && ((JSON.parse(data)).length)){
             changeStoreModal();
         }

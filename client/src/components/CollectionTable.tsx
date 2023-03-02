@@ -25,9 +25,8 @@ function CollectionTable(prop: propData){
                     <tr className='colle-table-data'>
                         <td>{item.id}</td>
                         <td>{item.day}</td>
-                        <td>Calories</td>
-                        {/**craete new page for existing colle */}
-                        <td><Link to={`/user/diary/${item.id}`}><button className='colleInfo'>Info</button></Link></td>
+                        <td>{item.calories}</td>
+                        <td><Link to={`/user/diary/${item.id}`} state={{option: 'exist'}}><button className='colleInfo'>Info</button></Link></td>
                         <td><button className='colleDelete'>Delete</button></td>
                     </tr>
                 )
