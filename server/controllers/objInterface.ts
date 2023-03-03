@@ -1,5 +1,5 @@
 export interface objInterface {
-    id: number,
+    id: string,
     name: string,
     ENERC_KCAL: {label: string, quantity: number, unit: string},
     FAT: {label: string, quantity: number, unit: string},

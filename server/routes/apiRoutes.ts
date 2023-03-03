@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { GET_index, GET_NUTR_info, POST_sign_up, POST_log_in, GET_validate, TOKEN, GET_collection, GET_sortedCollection, POST_newEntry, POST_update, GET_diary, verifyToken } from '../controllers/apiController';
+import { GET_index, GET_NUTR_info, POST_sign_up, POST_log_in, GET_validate, TOKEN, POST_collection, GET_sortedCollection, POST_newEntry, POST_update, POST_diary, verifyToken, POST_deleteItem } from '../controllers/apiController';
+import User from '../models/user';
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.post('/log-in', POST_log_in);
 
 router.get('/validate', GET_validate);
 
-router.get('/collections', verifyToken, GET_collection);
+router.post('/collections', verifyToken, POST_collection);
 
 router.get('/sort-colle', verifyToken, GET_sortedCollection);
 
@@ -21,11 +22,9 @@ router.post('/new-entry', verifyToken, POST_newEntry);
 
 router.post('/update', verifyToken, POST_update);
 
-router.post('/user-diary', verifyToken, GET_diary);
+router.post('/delete-item', verifyToken, POST_deleteItem);
 
-router.post('/testing', verifyToken, (req: Request, res: Response) => {
-    console.log(req.user);
-    res.json(req.user);
-})
+router.post('/user-diary', verifyToken, POST_diary);
+
 
 export default router;
