@@ -31,10 +31,10 @@ function UserDiary(prop: userDiaryProp){
 
         setFetching(true);
 
-        const dd = window.localStorage.getItem('AccessToken');
+        const token = window.localStorage.getItem('AccessToken');
         let dataToken;
-        if(dd){
-            dataToken = JSON.parse(dd);
+        if(token){
+            dataToken = JSON.parse(token);
         }
 
         const response = await fetch(`/api/delete-item`,{
@@ -62,10 +62,10 @@ function UserDiary(prop: userDiaryProp){
             return;
         }
 
-        const dd = window.localStorage.getItem('AccessToken');
+        const token = window.localStorage.getItem('AccessToken');
         let dataToken;
-        if(dd){
-            dataToken = JSON.parse(dd);
+        if(token){
+            dataToken = JSON.parse(token);
         }
 
         setFetching(true);
@@ -86,7 +86,6 @@ function UserDiary(prop: userDiaryProp){
         }
 
         if(apiObj){
-            //!!!!!!! need to round the values being set!!!!
             setItemData(apiObj.myArr);
         }
 
@@ -96,9 +95,6 @@ function UserDiary(prop: userDiaryProp){
         //close modal after adding item to array
         changeAddModal();
     }
-
-    //useState to handle updating values
-    //const [ update, setUpdate ] = useState(false);
 
     //useState to handle if add input is empty
     const [ isEmpty, setIsEmpty ] = useState(false);
@@ -160,7 +156,7 @@ function UserDiary(prop: userDiaryProp){
     }
 
     //function to execute if user wants to use stored data
-    const populateData = () => {
+    const populateData = async () => {
         //close modal then populate & persist data to db from local storage
         changeStoreModal();
 
@@ -168,10 +164,28 @@ function UserDiary(prop: userDiaryProp){
 
         //send data from localStorage to backend then set with returned array
         const data = window.localStorage.getItem('GUEST_DATA');
-        if((data !== null) && ((JSON.parse(data)).length)){
-            setItemData(JSON.parse(data));
-            window.localStorage.removeItem('GUEST_DATA')
+
+        const token = window.localStorage.getItem('AccessToken');
+
+        let dataToken;
+
+        if(token){
+            dataToken = JSON.parse(token);
         }
+
+        const response = await fetch('/api/set-storage', {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
+            body: JSON.stringify({storageData:data})
+        });
+
+        const resObj = await response.json();
+
+        if(resObj && resObj.myArr.length){
+            setItemData(resObj.myArr);
+        }
+
+        window.localStorage.removeItem('GUEST_DATA');
 
         setFetching(false);
     }
@@ -184,13 +198,14 @@ function UserDiary(prop: userDiaryProp){
             changeStoreModal();
         }
 
+        //split useeffect 
         const fetchData = async () => {
-            const dd = window.localStorage.getItem('AccessToken');
+            const token = window.localStorage.getItem('AccessToken');
 
             let dataToken;
 
-            if(dd){
-                dataToken = JSON.parse(dd);
+            if(token){
+                dataToken = JSON.parse(token);
             }
 
             const response = await fetch('/api/user-diary', {
@@ -203,6 +218,8 @@ function UserDiary(prop: userDiaryProp){
 
             if(resObj && resObj.myArr.length){
                 setItemData(resObj.myArr);
+                //extract mm/dd/yy and then set
+                console.log(resObj.date)
             }
         }
 
