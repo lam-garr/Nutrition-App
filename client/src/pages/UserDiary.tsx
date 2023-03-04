@@ -193,12 +193,13 @@ function UserDiary(prop: userDiaryProp){
     //will check if there is data in local storage
     useEffect(() => {
         const data = window.localStorage.getItem('GUEST_DATA');
-        console.log(location.state)
         if((location.state.option === 'new') && (data !== null) && ((JSON.parse(data)).length)){
             changeStoreModal();
         }
+    },[])
 
-        //split useeffect 
+    //populates data with data from db
+    useEffect(() => {
         const fetchData = async () => {
             const token = window.localStorage.getItem('AccessToken');
 
@@ -227,8 +228,7 @@ function UserDiary(prop: userDiaryProp){
         }
 
         fetchData();
-
-    },[])
+    }, [])
 
     //handling the date for the diary
 
@@ -262,6 +262,8 @@ function UserDiary(prop: userDiaryProp){
 
     //save date to db
     const saveDate = async () => {
+        changeDate();
+        console.log('indise change')
         const token = window.localStorage.getItem('AccessToken');
         let dataToken;
         if(token){
@@ -272,14 +274,15 @@ function UserDiary(prop: userDiaryProp){
         const response = await fetch(`/api/update-date`,{
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
-            body: JSON.stringify({newDate:day, newMonth: month, diaryId: param.id})
+            body: JSON.stringify({newDay:day, newMonth: month, diaryId: param.id})
         });
-
+        console.log('after call')
         const apiObj = await response.json();
 
         if(!apiObj.ok){
             console.log('error with setting date')
         }
+        console.log('ok call')
     }
 
     //handling specific macronutrient value along with total calories
@@ -351,6 +354,57 @@ function UserDiary(prop: userDiaryProp){
         changeCalories(Math.round(newKcal));
     },[itemData])
 
+    //useState to handle sorting selector change
+    const [ sortBy, setSortBy ] = useState("select");
+
+    const changeSortBy = async (e:any) => {
+
+        if(e.target.value === 'select'){
+            return;
+        }
+
+        setSortBy(e.target.value);
+    }
+
+    //useEffect for when sorting select element changes
+    useEffect(() => {
+
+        const fetchChange = async () => {
+            const dd = window.localStorage.getItem('AccessToken');
+
+            let storageToken;
+
+            if(dd){
+                storageToken = JSON.parse(dd);
+            }
+
+            const response = await fetch(`/api/sort-diary?sort=${sortBy}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${storageToken}`
+                },
+                body: JSON.stringify({diaryId: param.id})
+            })
+    
+            const resObj = await response.json();
+    
+            if(resObj && resObj.arrHigh){
+                setItemData(resObj.arrHigh);
+            }
+    
+            if(resObj && resObj.arrLow){
+                setItemData(resObj.arrLow)
+            }
+
+            setFetching(false);
+        }
+
+        setFetching(true);
+        fetchChange();
+    }, [sortBy])
+
+
     return(
         <main className='page-content'>
             <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData} fethcing={fetching} empty={isEmpty}/>
@@ -394,7 +448,20 @@ function UserDiary(prop: userDiaryProp){
             </section>
             <section className='food-diary-section-two'>
                 <div className='section-two-content'>
-                   {itemData.length ? (<Table deleteHandler={deleteId} itemData={itemData} itemDataHandler={displayItem}/>) : 
+                   {itemData.length ? (<div>
+                    <div className='food-diary-menu-content'>
+                    <div className='menu-title-content'>showing {itemData.length} of {itemData.length}</div>
+                        <div className='menu-content'>
+                            <span className='colle-sort-content'>sort by:</span>
+                            <select onChange={(e:any) => changeSortBy(e)} value={sortBy}>
+                                <option>select</option>
+                                <option>calorie high</option>
+                                <option>calorie low</option>
+                            </select>
+                        </div>
+                    </div>
+                       <Table deleteHandler={deleteId} itemData={itemData} itemDataHandler={displayItem}/>
+                        </div>) : 
                    (<div className='no-items'><span>There's nothing here, add food to get started!</span></div>)}
                 </div>
             </section>
