@@ -176,7 +176,7 @@ function Collection(prop:collectionProp){
         
         const resObj = await postEntry.json();
 
-        //use returned id to navigate
+        //use returned id to navigate to diary page
         setFetching(false);
 
         if(resObj && resObj.id !== null){
@@ -187,6 +187,30 @@ function Collection(prop:collectionProp){
             setFetching(false);
             return;
         }
+    }
+
+    //delete diary by id
+    const deleteDiary = async (id: number) => {
+        setFetching(true);
+
+        const token = window.localStorage.getItem('AccessToken');
+        let dataToken;
+        if(token){
+            dataToken = JSON.parse(token);
+        }
+
+        const response = await fetch(`/api/delete-diary`,{
+            method: 'POST',
+            headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
+            body: JSON.stringify({delId:id})
+        });
+        const apiObj = await response.json();
+
+        if(apiObj){
+            setData(apiObj.myArr)
+        }
+
+        setFetching(false);
     }
 
     return(
@@ -214,7 +238,7 @@ function Collection(prop:collectionProp){
                         </div>
                     </div>
                     <div className='sec-two-content'>
-                        <CollectionTable itemData={data}/>
+                        <CollectionTable itemData={data} deleteHandler={deleteDiary}/>
                     </div>
                 </div>) : 
                 (<div className='no-items'><span>There's nothing here, start a diary to get started!</span></div>)}     

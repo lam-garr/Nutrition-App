@@ -44,14 +44,10 @@ function UserDiary(prop: userDiaryProp){
         });
         const apiObj = await response.json();
 
-        //will always return true
         if(apiObj){
             setItemData(apiObj.myArr)
         }
 
-
-        //const delObj = itemData.find(obj => {return obj.id === id})
-        //setItemData(prev => {return prev.filter(item => item.id !== id)});
     }
 
     //add item
