@@ -8,6 +8,7 @@ import { v4 as uuid } from 'uuid';
 import { ObjectId } from 'mongodb';
 import mongo from 'mongodb'
 import axios from 'axios';
+import { request } from 'http';
 
 //function for index api call
 export function GET_index(req: Request, res: Response){
@@ -178,7 +179,6 @@ export async function POST_deleteItem(req: Request, res: Response){
         target.calories = target.diary.reduce((total: number, item: objInterface) => total + Math.round(item.ENERC_KCAL.quantity), 0);
         user.markModified("myData");
         user.save()
-        console.log('before del')
         res.json({myArr:target.diary})
     }else{
         res.status(404);
@@ -191,12 +191,6 @@ export async function POST_diary(req: Request, res: Response){
 
     if(user){
         const target = user.myData.find(obj => obj.id === req.body.diaryId);
-        //console.log('before diary')
-        //const day = target.day.split("/");
-        //const datOne = day[0];
-        //const datTwo = day[1];
-        //const datTree = day[2];
-        //console.log(datOne + ' ' + datTwo + ' ' + datTree)
         res.json({myArr:target.diary, date: target.day})
     }else{
         res.status(404);
@@ -216,6 +210,25 @@ export async function verifyToken(req: Request, res: Response, next: NextFunctio
             req.id = user;
             next();
         })
+    }else{
+        res.status(400);
+    }
+}
+
+//update date being passed into req.body to db
+export async function POST_date(req: Request, res: Response){
+    const user = await User.findOne({myID:req.id.id});
+
+    if(user){
+        const target = user.myData.find(obj => obj.id === req.body.diaryId);
+
+        target.day = `${req.body.day}/${req.body.month}/2023`;
+
+        user.markModified("myData");
+
+        user.save()
+
+        res.status(200);
     }else{
         res.status(400);
     }

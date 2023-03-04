@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { GET_index, GET_NUTR_info, POST_sign_up, POST_log_in, GET_validate, TOKEN, POST_collection, GET_sortedCollection, POST_newEntry, POST_update, POST_diary, verifyToken, POST_deleteItem } from '../controllers/apiController';
+import { GET_index, GET_NUTR_info, POST_sign_up, POST_log_in, GET_validate, TOKEN, POST_collection, GET_sortedCollection, POST_newEntry, POST_update, POST_diary, verifyToken, POST_deleteItem, POST_date } from '../controllers/apiController';
 import User from '../models/user';
 
 const router = express.Router();
@@ -26,5 +26,6 @@ router.post('/delete-item', verifyToken, POST_deleteItem);
 
 router.post('/user-diary', verifyToken, POST_diary);
 
+router.post('/update-date', verifyToken, POST_date);
 
 export default router;
