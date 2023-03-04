@@ -27,6 +27,8 @@ router.post('/new-entry', apiController_1.verifyToken, apiController_1.POST_newE
 router.post('/update', apiController_1.verifyToken, apiController_1.POST_update);
 router.post('/delete-item', apiController_1.verifyToken, apiController_1.POST_deleteItem);
 router.post('/user-diary', apiController_1.verifyToken, apiController_1.POST_diary);
+router.post('/update-date', apiController_1.verifyToken, apiController_1.POST_date);
+router.post('/sort-diary', apiController_1.verifyToken, apiController_1.POST_sortDiary);
 router.post('/testing', apiController_1.verifyToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield user_1.default.findOne({ myID: req.id.id });
     if (user) {

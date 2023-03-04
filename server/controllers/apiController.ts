@@ -222,8 +222,8 @@ export async function POST_date(req: Request, res: Response){
     if(user){
         const target = user.myData.find(obj => obj.id === req.body.diaryId);
 
-        target.day = `${req.body.day}/${req.body.month}/2023`;
-
+        target.day = `${req.body.newDay}/${req.body.newMonth}/2023`;
+        console.log(target.day)
         user.markModified("myData");
 
         user.save()
@@ -231,6 +231,22 @@ export async function POST_date(req: Request, res: Response){
         res.status(200);
     }else{
         res.status(400);
+    }
+}
+
+//return sorted items
+export async function POST_sortDiary(req: Request, res: Response){
+    const user = await User.findOne({myID:req.id.id});
+
+    if(user && req.query.sort === 'calorie high'){
+        const target = user.myData.find(obj => obj.id === req.body.diaryId);
+        //const target = user.myData.find(obj => obj.id === '0347d1f0-e511-4b0d-b9b0-84c6da9c3271');
+        res.json({arrHigh: target.diary.sort((a: objInterface, b: objInterface) => b.ENERC_KCAL.quantity - a.ENERC_KCAL.quantity)})
+    }
+
+    if(user && req.query.sort === 'calorie low'){
+        const target = user.myData.find(obj => obj.id === req.body.diaryId);
+        res.json({arrHigh: target.diary.sort((a: objInterface, b: objInterface) => a.ENERC_KCAL.quantity - b.ENERC_KCAL.quantity)})
     }
 }
 

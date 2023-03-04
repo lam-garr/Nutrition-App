@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyToken = exports.POST_diary = exports.POST_deleteItem = exports.POST_update = exports.POST_newEntry = exports.GET_sortedCollection = exports.POST_collection = exports.TOKEN = exports.GET_validate = exports.GET_NUTR_info = exports.POST_log_in = exports.POST_sign_up = exports.GET_index = void 0;
+exports.POST_sortDiary = exports.POST_date = exports.verifyToken = exports.POST_diary = exports.POST_deleteItem = exports.POST_update = exports.POST_newEntry = exports.GET_sortedCollection = exports.POST_collection = exports.TOKEN = exports.GET_validate = exports.GET_NUTR_info = exports.POST_log_in = exports.POST_sign_up = exports.GET_index = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -198,7 +198,6 @@ function POST_deleteItem(req, res) {
             target.calories = target.diary.reduce((total, item) => total + Math.round(item.ENERC_KCAL.quantity), 0);
             user.markModified("myData");
             user.save();
-            console.log('before del');
             res.json({ myArr: target.diary });
         }
         else {
@@ -213,12 +212,6 @@ function POST_diary(req, res) {
         const user = yield user_1.default.findOne({ myID: req.id.id });
         if (user) {
             const target = user.myData.find(obj => obj.id === req.body.diaryId);
-            //console.log('before diary')
-            //const day = target.day.split("/");
-            //const datOne = day[0];
-            //const datTwo = day[1];
-            //const datTree = day[2];
-            //console.log(datOne + ' ' + datTwo + ' ' + datTree)
             res.json({ myArr: target.diary, date: target.day });
         }
         else {
@@ -247,5 +240,39 @@ function verifyToken(req, res, next) {
     });
 }
 exports.verifyToken = verifyToken;
+//update date being passed into req.body to db
+function POST_date(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = yield user_1.default.findOne({ myID: req.id.id });
+        if (user) {
+            const target = user.myData.find(obj => obj.id === req.body.diaryId);
+            target.day = `${req.body.newDay}/${req.body.newMonth}/2023`;
+            console.log(target.day);
+            user.markModified("myData");
+            user.save();
+            res.status(200);
+        }
+        else {
+            res.status(400);
+        }
+    });
+}
+exports.POST_date = POST_date;
+//return sorted items
+function POST_sortDiary(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = yield user_1.default.findOne({ myID: req.id.id });
+        if (user && req.query.sort === 'calorie high') {
+            const target = user.myData.find(obj => obj.id === req.body.diaryId);
+            //const target = user.myData.find(obj => obj.id === '0347d1f0-e511-4b0d-b9b0-84c6da9c3271');
+            res.json({ arrHigh: target.diary.sort((a, b) => b.ENERC_KCAL.quantity - a.ENERC_KCAL.quantity) });
+        }
+        if (user && req.query.sort === 'calorie low') {
+            const target = user.myData.find(obj => obj.id === req.body.diaryId);
+            res.json({ arrHigh: target.diary.sort((a, b) => a.ENERC_KCAL.quantity - b.ENERC_KCAL.quantity) });
+        }
+    });
+}
+exports.POST_sortDiary = POST_sortDiary;
 //after an update re sign with jwt, send token back to front end and re-set it to localstorage
 //63fc20a1f0bad1b9a8c2589a
