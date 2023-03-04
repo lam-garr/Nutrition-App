@@ -10,7 +10,8 @@ interface propInterface{
     changeYear: (event: React.ChangeEvent<HTMLSelectElement>) => void,
     create?: () => void,
     month?: string,
-    day?: number;
+    day?: number,
+    updateDate?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 function DateModal(prop:propInterface){
@@ -72,7 +73,8 @@ function DateModal(prop:propInterface){
                 <select className='date-day-sel' id='change-date' onChange={(e) => prop.changeDay(e)} value={prop.day}>
                     {dateOptions()}
                 </select> 
-                <button className='date-btn' onClick={prop.create}>OK</button>
+                {prop.updateDate ? <button className='date-btn' onClick={prop.updateDate}>OK</button>:
+                <button className='date-btn' onClick={prop.create}>OK</button>}
             </div>
         </aside>
     )

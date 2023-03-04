@@ -218,8 +218,11 @@ function UserDiary(prop: userDiaryProp){
 
             if(resObj && resObj.myArr.length){
                 setItemData(resObj.myArr);
-                //extract mm/dd/yy and then set
-                console.log(resObj.date)
+                //extract dd/mm/yy and then set
+                const splitDate = (resObj.date).split('/');
+                setDay(splitDate[0]);
+                setMonth(splitDate[1]);
+                setYear(splitDate[2]);
             }
         }
 
@@ -255,6 +258,28 @@ function UserDiary(prop: userDiaryProp){
     const changeDate = () => {
         setDateOpen(!dateOpen);
         prop.overlayChange();
+    }
+
+    //save date to db
+    const saveDate = async () => {
+        const token = window.localStorage.getItem('AccessToken');
+        let dataToken;
+        if(token){
+            dataToken = JSON.parse(token);
+        }
+
+        setFetching(true);
+        const response = await fetch(`/api/update-date`,{
+            method: 'POST',
+            headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
+            body: JSON.stringify({newDate:day, newMonth: month, diaryId: param.id})
+        });
+
+        const apiObj = await response.json();
+
+        if(!apiObj.ok){
+            console.log('error with setting date')
+        }
     }
 
     //handling specific macronutrient value along with total calories
@@ -331,7 +356,7 @@ function UserDiary(prop: userDiaryProp){
             <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData} fethcing={fetching} empty={isEmpty}/>
             <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem} closeModal={changeTableModal}/>
             <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Please add food to track nutrients. Click info for more details on macro and micro nutrients and delete to delete an entry. Click save to save your data.'}/>
-            <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear}/>
+            <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} updateDate={saveDate}/>
             <StorageModal modalHandler={changeStoreModal} modalIsOpen={storeOpen} closeModal={changeStoreModal} populate={populateData}/>
             <section className='food-diary-section-one'>
                 <div className='section-one-content'>
