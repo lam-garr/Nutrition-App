@@ -250,5 +250,19 @@ export async function POST_sortDiary(req: Request, res: Response){
     }
 }
 
+//delete diary entry by id
+export async function POST_deleteDiary(req: Request, res: Response){
+    const user = await User.findOne({myID:req.id.id});
+
+    if(user){
+        user.myData = user.myData.filter((obj: entryInterface) => obj.id !== req.body.delId);
+        user.markModified("myData");
+        user.save();
+        res.json({myArr:user.myData})
+    }else{
+        res.status(404);
+    }
+}
+
 //after an update re sign with jwt, send token back to front end and re-set it to localstorage
 //63fc20a1f0bad1b9a8c2589a

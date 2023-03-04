@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.POST_sortDiary = exports.POST_date = exports.verifyToken = exports.POST_diary = exports.POST_deleteItem = exports.POST_update = exports.POST_newEntry = exports.GET_sortedCollection = exports.POST_collection = exports.TOKEN = exports.GET_validate = exports.GET_NUTR_info = exports.POST_log_in = exports.POST_sign_up = exports.GET_index = void 0;
+exports.POST_deleteDiary = exports.POST_sortDiary = exports.POST_date = exports.verifyToken = exports.POST_diary = exports.POST_deleteItem = exports.POST_update = exports.POST_newEntry = exports.GET_sortedCollection = exports.POST_collection = exports.TOKEN = exports.GET_validate = exports.GET_NUTR_info = exports.POST_log_in = exports.POST_sign_up = exports.GET_index = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -274,5 +274,21 @@ function POST_sortDiary(req, res) {
     });
 }
 exports.POST_sortDiary = POST_sortDiary;
+//delete diary entry by id
+function POST_deleteDiary(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = yield user_1.default.findOne({ myID: req.id.id });
+        if (user) {
+            user.myData = user.myData.filter((obj) => obj.id !== req.body.delId);
+            user.markModified("myData");
+            user.save();
+            res.json({ myArr: user.myData });
+        }
+        else {
+            res.status(404);
+        }
+    });
+}
+exports.POST_deleteDiary = POST_deleteDiary;
 //after an update re sign with jwt, send token back to front end and re-set it to localstorage
 //63fc20a1f0bad1b9a8c2589a
