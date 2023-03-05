@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.POST_deleteDiary = exports.POST_sortDiary = exports.POST_date = exports.verifyToken = exports.POST_diary = exports.POST_deleteItem = exports.POST_update = exports.POST_newEntry = exports.GET_sortedCollection = exports.POST_collection = exports.TOKEN = exports.GET_validate = exports.GET_NUTR_info = exports.POST_log_in = exports.POST_sign_up = exports.GET_index = void 0;
 const user_1 = __importDefault(require("../models/user"));
+const sortArray_1 = require("./sortArray");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const uuid_1 = require("uuid");
@@ -100,7 +101,6 @@ function GET_validate(req, res) {
     else {
         res.json({ message: 'none' });
     }
-    //res.json({message:'success'});
 }
 exports.GET_validate = GET_validate;
 //test fn to return accesstoken
@@ -129,18 +129,12 @@ exports.POST_collection = POST_collection;
 //return sorted collection of diary entries
 function GET_sortedCollection(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        //takes in an array and returns it sorted
-        //res.json(req.body.arr.sort((a,b)=>a-b))
-        //function compare(a,b){
-        //return a.y-b.y
-        //}
         const user = yield user_1.default.findOne({ myID: req.id.id });
         if (user && req.query.sort === 'calorie high') {
-            //const target = user.myData.find(obj => obj.id === '0347d1f0-e511-4b0d-b9b0-84c6da9c3271');
-            res.json({ arrHigh: user.myData.sort((a, b) => b.calories - a.calories) });
+            res.json({ arrData: user.myData.sort((a, b) => b.calories - a.calories) });
         }
         if (user && req.query.sort === 'calorie low') {
-            res.json({ arrLow: user.myData.sort((a, b) => a.calories - b.calories) });
+            res.json({ arrData: user.myData.sort((a, b) => a.calories - b.calories) });
         }
     });
 }
@@ -179,7 +173,7 @@ function POST_update(req, res) {
             target.calories = target.diary.reduce((total, item) => total + Math.round(item.ENERC_KCAL.quantity), 0);
             user.markModified("myData");
             user.save();
-            res.status(200).json({ myArr: target.diary });
+            res.status(200).json({ myArr: (0, sortArray_1.sortArray)(target.diary, req.body.sort) });
         }
         else {
             res.status(404).json({ err: 'error with item' });
@@ -198,7 +192,7 @@ function POST_deleteItem(req, res) {
             target.calories = target.diary.reduce((total, item) => total + Math.round(item.ENERC_KCAL.quantity), 0);
             user.markModified("myData");
             user.save();
-            res.json({ myArr: target.diary });
+            res.json({ myArr: (0, sortArray_1.sortArray)(target.diary, req.body.sort) });
         }
         else {
             res.status(404);
@@ -262,14 +256,20 @@ exports.POST_date = POST_date;
 function POST_sortDiary(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const user = yield user_1.default.findOne({ myID: req.id.id });
-        if (user && req.query.sort === 'calorie high') {
+        //remove equas and just apss to function, it will return and do everything.
+        /* if(user && req.query.sort === 'calorie high'){
             const target = user.myData.find(obj => obj.id === req.body.diaryId);
             //const target = user.myData.find(obj => obj.id === '0347d1f0-e511-4b0d-b9b0-84c6da9c3271');
-            res.json({ arrHigh: target.diary.sort((a, b) => b.ENERC_KCAL.quantity - a.ENERC_KCAL.quantity) });
+            res.json({arrHigh: target.diary.sort((a: objInterface, b: objInterface) => b.ENERC_KCAL.quantity - a.ENERC_KCAL.quantity)})
         }
-        if (user && req.query.sort === 'calorie low') {
+    
+        if(user && req.query.sort === 'calorie low'){
             const target = user.myData.find(obj => obj.id === req.body.diaryId);
-            res.json({ arrHigh: target.diary.sort((a, b) => a.ENERC_KCAL.quantity - b.ENERC_KCAL.quantity) });
+            res.json({arrHigh: target.diary.sort((a: objInterface, b: objInterface) => a.ENERC_KCAL.quantity - b.ENERC_KCAL.quantity)})
+        } */
+        if (user) {
+            const target = user.myData.find(obj => obj.id === req.body.diaryId);
+            res.json({ arrData: (0, sortArray_1.sortArray)(target.diary, req.body.sort) });
         }
     });
 }

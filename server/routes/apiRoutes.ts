@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { GET_index, GET_NUTR_info, POST_sign_up,
-    POST_log_in, GET_validate, TOKEN,
+    POST_log_in, GET_validate,
     POST_collection, GET_sortedCollection, POST_newEntry,
     POST_update, POST_diary, verifyToken, POST_deleteItem,
     POST_date, POST_sortDiary, POST_deleteDiary } from '../controllers/apiController';
