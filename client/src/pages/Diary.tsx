@@ -7,8 +7,6 @@ import HelpModal from '../components/HelpModal';
 import DateModal from '../components/DateModal';
 import { objInterface } from '../interface';
 import '../styles/Diary.css'
-//
-import { createObj } from '../mockObj';
 
 interface diaryProp{
     overlayChange: () => void,
@@ -35,7 +33,6 @@ function Diary(prop:diaryProp){
 
     //add item
     const addData = async (ingr: string) => {
-        //api call, uncomment when ready
 
         if(ingr === ''){
             setIsEmpty(true);
@@ -54,14 +51,6 @@ function Diary(prop:diaryProp){
         }
 
         setItemData(prev => [...prev, apiObj.data]);
-
-        //const foodItem = createObj();
-        //foodItem['name'] = ingr;
-        //setItemData(prev => [...prev, foodItem]);
-        //changeCarbs(Math.round(foodItem.CHOCDF.quantity))
-        //changeProtein(Math.round(foodItem.PROCNT.quantity))
-        //changeFat(Math.round(foodItem.FAT.quantity))
-        //changeCalories(Math.round(foodItem.ENERC_KCAL.quantity))
 
         //update nutrients
         changeCarbs(Math.round(apiObj.data.CHOCDF.quantity))
@@ -83,7 +72,7 @@ function Diary(prop:diaryProp){
     const [ fetching, setFetching ] = useState(false);
 
     //useEffect to check if there is data stored in localStorage
-    //if so, then set stored data to array. Basically populates array with the stored data
+    //if so, then set stored data to array.
     useEffect(() => {
         const data = window.localStorage.getItem('GUEST_DATA');
         if((data !== null) && ((JSON.parse(data)).length)){

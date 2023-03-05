@@ -19,10 +19,6 @@ function UserDiary(prop: userDiaryProp){
 
     const param = useParams();
     const location = useLocation();
-    //destructuring
-    //const { id } : { id : string } = useparams();
-    //**********************************************************************/
-
 
     const [ itemData, setItemData ] = useState<objInterface[]>([]);
 
@@ -399,53 +395,53 @@ function UserDiary(prop: userDiaryProp){
 
 
     return(
-        <main className='page-content'>
+        <main className='user-page-content'>
             <AddModal addModalHandler={changeAddModal} addModalIsOpen={addModalOpen} closeModal={changeAddModal} changeHandler={handleInputChange} value={addInput} addHandler={addData} fethcing={fetching} empty={isEmpty}/>
             <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem} closeModal={changeTableModal}/>
             <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Please add food to track nutrients. Click info for more details on macro and micro nutrients and delete to delete an entry. Click save to save your data.'}/>
             <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} updateDate={saveDate}/>
             <StorageModal modalHandler={changeStoreModal} modalIsOpen={storeOpen} closeModal={changeStoreModal} populate={populateData}/>
-            <section className='food-diary-section-one'>
-                <div className='section-one-content'>
-                    <div className='date' onClick={changeDate}>
+            <section className='user-food-diary-section-one'>
+                <div className='user-section-one-content'>
+                    <div className='user-date' onClick={changeDate}>
                         <span>{month}</span>
-                        <span className='date-day'>{day}</span>
+                        <span className='user-date-day'>{day}</span>
                         <span>{year}</span>
                     </div>
-                    <div className='sec-one-right'>
-                    <div className='sec-one-stats'>
-                            <div className='sec-one-carbs'>
-                                <div className='carb-data'>{carbs}g</div>
+                    <div className='user-sec-one-right'>
+                    <div className='user-sec-one-stats'>
+                            <div className='user-sec-one-carbs'>
+                                <div className='user-carb-data'>{carbs}g</div>
                                 <span>carbohydrates</span>
                             </div>
-                            <div className='sec-one-protein'>
-                                <div className='protein-data'>{protein}g</div>
+                            <div className='user-sec-one-protein'>
+                                <div className='user-protein-data'>{protein}g</div>
                                 <span>protein</span>
                             </div>
-                            <div className='sec-one-fat'>
-                                <div className='fat-data'>{fat}g</div>
-                                <span className='fat-span'>fat</span>
+                            <div className='user-sec-one-fat'>
+                                <div className='user-fat-data'>{fat}g</div>
+                                <span className='user-fat-span'>fat</span>
                             </div>
-                            <div className='sec-one-cal'>
-                                <div className='cal-data'>{calories}</div>
+                            <div className='user-sec-one-cal'>
+                                <div className='user-cal-data'>{calories}</div>
                                 <span>calories</span>
                             </div>
                         </div>
-                        <div className='sec-one-buttons'>
+                        <div className='user-sec-one-buttons'>
                         <button>save</button>
-                        <button onClick={()=>{changeAddModal()}} className='diary-add-btn'>add food</button>
+                        <button onClick={()=>{changeAddModal()}} className='user-diary-add-btn'>add food</button>
                         </div>
-                        <button className='content-btn' onClick={changeModal}>{`\u003F`}</button>
+                        <button className='user-content-btn' onClick={changeModal}>{`\u003F`}</button>
                     </div>
                 </div>
             </section>
-            <section className='food-diary-section-two'>
-                <div className='section-two-content'>
+            <section className='user-food-diary-section-two'>
+                <div className='user-section-two-content'>
                    {itemData.length ? (<div>
-                    <div className='food-diary-menu-content'>
-                    <div className='menu-title-content'>showing {itemData.length} of {itemData.length}</div>
-                        <div className='menu-content'>
-                            <span className='colle-sort-content'>sort by:</span>
+                    <div className='user-food-diary-menu-content'>
+                    <div className='user-menu-title-content'>showing {itemData.length} of {itemData.length}</div>
+                        <div className='user-menu-content'>
+                            <span className='user-colle-sort-content'>sort by:</span>
                             <select onChange={(e:any) => changeSortBy(e)} value={sortBy}>
                                 <option>select</option>
                                 <option>calorie high</option>
@@ -455,7 +451,7 @@ function UserDiary(prop: userDiaryProp){
                     </div>
                        <Table deleteHandler={deleteId} itemData={itemData} itemDataHandler={displayItem}/>
                         </div>) : 
-                   (<div className='no-items'><span>There's nothing here, add food to get started!</span></div>)}
+                   (<div className='user-no-items'><span>There's nothing here, add food to get started!</span></div>)}
                 </div>
             </section>
         </main>
@@ -464,26 +460,3 @@ function UserDiary(prop: userDiaryProp){
 }
 
 export default UserDiary;
-
-
-//useEffect to persist data to db every time array state changes
-/* useEffect(() => {
-    console.log('before call')
-    const updateDb = async () => {
-        const response = await fetch(`/api/update`,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({diary:itemData})
-        })
-
-        const resObj = await response.json();
-
-        if(resObj !== null){
-            console.log(resObj.message);
-        }
-    }
-
-    updateDb();
-},[itemData]) */

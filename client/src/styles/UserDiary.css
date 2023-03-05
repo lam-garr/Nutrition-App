@@ -1,4 +1,151 @@
-.food-diary-menu-content{
+.user-page-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-food-diary-section-one{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    max-width: 1000px;
+    margin-bottom: 10px;
+}
+
+.user-sec-one-right{
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-sec-one-stats{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.user-sec-one-stats span{
+    font-weight: 500;
+}
+
+.user-cal-data{
+    font-weight: 700;
+}
+
+.user-content-btn{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    border: none;
+    cursor: pointer;
+    margin: 2px;
+    background-color: rgb(218, 214, 214);
+}
+
+.user-food-diary-section-two{
+    display: flex;
+    min-height: 400px;
+    max-width: 1000px;
+    margin-bottom: 5px;
+}
+
+.user-section-one-content{
+    height: 120px;
+    width: 530px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+}
+
+.user-date{
+    border: 1px solid black;
+    height: 70px;
+    width: 95px;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.user-date-day{
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.user-sec-one-buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 275px;
+    padding-bottom: 10px;
+}
+
+.user-section-two-content{
+    min-height: 300px;
+    width: 800px;
+}
+
+.user-sec-one-fat, .user-sec-one-cal, .user-sec-one-protein, .user-sec-one-carbs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-cal-data, .user-carb-data, .user-fat-data, .user-protein-data{
+    display: flex;
+    justify-content: center;
+    color: black;
+}
+
+.user-no-items{
+    text-align: center;
+    color: rgb(167, 164, 164);
+    width: 100%;
+}
+
+.user-diary-add-btn{
+    font-size: 15px;
+    padding: 5px 0;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    width: 110px;
+    height: 25px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(18, 117, 18);
+}
+
+.user-sec-one-btn{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    border: none;
+    cursor: pointer;
+    margin: 2px;
+    background-color: rgb(218, 214, 214);
+}
+
+.user-food-diary-menu-content{
     display: flex;
     justify-content: space-between;
     border: none;
@@ -6,15 +153,15 @@
     padding: 5px;
 }
 
-.menu-title-content{
+.user-menu-title-content{
     margin-left: 5px;
     border: none;
 }
 
-.menu-content{
+.user-menu-content{
     margin-right: 5px;
 }
 
-.colle-sort-content{
+.user-colle-sort-content{
     margin-right: 5px;
 }
