@@ -95,14 +95,8 @@ function Collection(prop:collectionProp){
     
             const resObj = await response.json();
     
-            if(resObj && resObj.arrHigh){
-                //!!!
-                setData(resObj.arrHigh);
-            }
-    
-            if(resObj && resObj.arrLow){
-                //!!
-                setData(resObj.arrLow)
+            if(resObj){
+                setData(resObj.arrData);
             }
 
             setFetching(false);

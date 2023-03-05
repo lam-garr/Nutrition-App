@@ -40,7 +40,7 @@ function UserDiary(prop: userDiaryProp){
         const response = await fetch(`/api/delete-item`,{
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
-            body: JSON.stringify({delId:id, diaryId:param.id})
+            body: JSON.stringify({delId:id, diaryId:param.id, sort:sortBy})
         });
         const apiObj = await response.json();
 
@@ -68,7 +68,7 @@ function UserDiary(prop: userDiaryProp){
         const response = await fetch(`/api/update`,{
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
-            body: JSON.stringify({item:ingr, id:param.id})
+            body: JSON.stringify({item:ingr, id:param.id, sort:sortBy})
         });
 
         const apiObj = await response.json();
@@ -153,6 +153,7 @@ function UserDiary(prop: userDiaryProp){
 
     //function to execute if user wants to use stored data
     const populateData = async () => {
+        console.log('inside storage')
         //close modal then populate & persist data to db from local storage
         changeStoreModal();
 
@@ -213,7 +214,7 @@ function UserDiary(prop: userDiaryProp){
 
             const resObj = await response.json();
 
-            if(resObj && resObj.myArr.length){
+            if(resObj){
                 setItemData(resObj.myArr);
                 //extract dd/mm/yy and then set
                 const splitDate = (resObj.date).split('/');
@@ -380,17 +381,13 @@ function UserDiary(prop: userDiaryProp){
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${storageToken}`
                 },
-                body: JSON.stringify({diaryId: param.id})
+                body: JSON.stringify({diaryId: param.id, sort: sortBy})
             })
     
             const resObj = await response.json();
     
-            if(resObj && resObj.arrHigh){
-                setItemData(resObj.arrHigh);
-            }
-    
-            if(resObj && resObj.arrLow){
-                setItemData(resObj.arrLow)
+            if(resObj){
+                setItemData(resObj.arrData);
             }
 
             setFetching(false);
