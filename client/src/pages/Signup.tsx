@@ -97,6 +97,9 @@ function Signup(prop: propInterface){
 
     const navigate = useNavigate();
 
+    //disable signup button during api call
+    const [ fetching, setFetching ] = useState(false);
+
     //onsubmit form handling
     const handleSubmit = async (e:any) => {
         e.preventDefault();
@@ -147,6 +150,8 @@ function Signup(prop: propInterface){
             return;
         }
 
+        setFetching(true);
+
         //call api
         const signupData = await fetch(`/api/sign-up`, {
             method: 'post',
@@ -161,6 +166,7 @@ function Signup(prop: propInterface){
             setSignUpErr(true);
         }else{
             setSignUpErr(false);
+            setFetching(false);
             //navigate to log in page
             navigate('/log-in');
         }
@@ -191,7 +197,7 @@ function Signup(prop: propInterface){
                     </div>
                     <div className='sign-up-btn-handler'>
                     {signUpErr && <span className='sign-up-err'>Error logging in, please try again</span>}
-                        <button className='signupBtn' type='submit'>Sign Up</button>
+                        <button className='signupBtn' type='submit' disabled={fetching}>Sign Up</button>
                     </div>
                 </form>
                 <div className='members'>

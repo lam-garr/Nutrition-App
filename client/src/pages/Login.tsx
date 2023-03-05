@@ -45,6 +45,9 @@ function Login(prop: propInterface){
 
     const navigate = useNavigate();
 
+    //disable login button during api call
+    const [ fetching, setFetching ] = useState(false);
+
     //onsubmit form handling
     const handleSubmit = async (e:any) => {
         e.preventDefault();
@@ -65,6 +68,8 @@ function Login(prop: propInterface){
 
         setPwErrorMessage('');
 
+        setFetching(true);
+
         //call login api 
         const loginData = await fetch(`/api/log-in`, {
             method: 'post',
@@ -83,6 +88,7 @@ function Login(prop: propInterface){
             setApiErrMsg(false);
             //set token returned from api to local storage
             window.localStorage.setItem('AccessToken', JSON.stringify(dataObj.accessToken))
+            setFetching(false);
             //navigate to collection page
             navigate('/user/collection');
         }
@@ -109,7 +115,7 @@ function Login(prop: propInterface){
                     </div>
                     <div className='submit'>
                     {apiErrMsg && <span className='apiErr'>Error logging in, please try again</span>}
-                    <button className='submitBtn' type='submit'>Log In</button>
+                    <button className='submitBtn' type='submit' disabled={fetching}>Log In</button>
                     </div>
                 </form>
                 <div className='members'>
