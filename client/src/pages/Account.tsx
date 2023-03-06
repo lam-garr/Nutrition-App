@@ -39,7 +39,7 @@ function Account(){
             }
         }
 
-        fetchData();
+        //fetchData();
     })
 
     return(

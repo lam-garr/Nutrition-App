@@ -50,7 +50,7 @@
     cursor: not-allowed;
 }
 
-.content button:hover{
+.content button:hover:enabled{
     color: rgb(228, 228, 228);
     background-color: rgb(12, 136, 12);
 }

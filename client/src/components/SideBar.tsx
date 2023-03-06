@@ -30,10 +30,23 @@ function SideBar(prop: propInterface){
     //setState for whether or not user is logged in
     const [ loggedIn, setLoggedIn ] = useState(false);
 
+    //state for access token
+    const [ accessToken, setAccessToken ] = useState(window.localStorage.getItem('AccessToken'));
+
     //check local storage to see if user is authenticated with access token
     useEffect(() => {
 
+        /* console.log('inside useeffect')
         const data = window.localStorage.getItem('AccessToken');
+
+        let dataToken: any;
+
+        if(data && data.length){
+            dataToken = JSON.parse(data);
+            //setAccessToken(JSON.parse(data))
+            console.log(data)
+            setLoggedIn(true);
+        }
         
         const validateTk = async () => {
 
@@ -41,7 +54,7 @@ function SideBar(prop: propInterface){
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${data}`
+                    'Authorization': `Bearer ${dataToken}`
                 }
             });
 
@@ -54,8 +67,23 @@ function SideBar(prop: propInterface){
             }
         }
 
-        //validateTk();
-    },[])
+        validateTk(); */
+
+        const data = window.localStorage.getItem('AccessToken');
+        if(data && data.length){
+            setLoggedIn(true);
+        }else{
+            setLoggedIn(false);
+        }
+
+    },[prop.sideBarOpen])
+
+    const signOut = () => {
+        setLoggedIn(false);
+        setAccessToken(null)
+        window.localStorage.removeItem('AccessToken');
+        prop.closeHandler();
+    }
 
     return(
         <aside className={`sidebar ${prop.sideBarOpen?'active':'inactive'}`} ref={sidebarRef}>
@@ -67,7 +95,7 @@ function SideBar(prop: propInterface){
             <Link to={'/diary'}><button onClick={prop.closeHandler}>Food Diary</button></Link>
             {loggedIn && <Link to={'/user/collection'}><button onClick={prop.closeHandler}>Diary Entries</button></Link>}
             {loggedIn && <Link to={'/user/account'}><button onClick={prop.closeHandler}>Account</button></Link>}
-            {loggedIn ? (<Link to={'log-in'}><button onClick={prop.closeHandler}>Sign Out</button></Link>)
+            {loggedIn ? (<Link to={'log-in'}><button onClick={signOut}>Sign Out</button></Link>)
              : (<Link to={'/log-in'}><button onClick={prop.closeHandler}>Log In</button></Link>)}
         </aside>
     )
