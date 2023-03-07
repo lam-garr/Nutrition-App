@@ -102,6 +102,14 @@ function Login(prop: propInterface){
         prop.overlayChange();
     }
 
+    const handleLoading = () => {
+        if(fetching){
+            return 'Loading';
+        }else{
+            return 'Log In';
+        }
+    }
+
     return(
         <main>
             <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Error, please try again later.'}/>
@@ -115,7 +123,7 @@ function Login(prop: propInterface){
                     </div>
                     <div className='submit'>
                     {apiErrMsg && <span className='apiErr'>Error logging in, please try again</span>}
-                    <button className='submitBtn' type='submit' disabled={fetching}>Log In</button>
+                    <button className='submitBtn' type='submit' disabled={fetching}>{handleLoading()}</button>
                     </div>
                 </form>
                 <div className='members'>

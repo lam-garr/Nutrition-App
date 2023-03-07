@@ -180,6 +180,14 @@ function Signup(prop: propInterface){
         prop.overlayChange();
     }
 
+    const handleFetching = () => {
+        if(fetching){
+            return 'Loading';
+        }else{
+            return 'Sign Up';
+        }
+    }
+
     return(
         <main>
             <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Enter info at own risk, you are responsible for your own data.'}/>
@@ -197,7 +205,7 @@ function Signup(prop: propInterface){
                     </div>
                     <div className='sign-up-btn-handler'>
                     {signUpErr && <span className='sign-up-err'>Error logging in, please try again</span>}
-                        <button className='signupBtn' type='submit' disabled={fetching}>Sign Up</button>
+                        <button className='signupBtn' type='submit' disabled={fetching}>{handleFetching()}</button>
                     </div>
                 </form>
                 <div className='members'>
@@ -209,9 +217,3 @@ function Signup(prop: propInterface){
 }
 
 export default Signup;
-
-//<Input type='text' placeholder='Username' error={false} errorMessage={''} required={true}/>
-  //                  <Input type='text' placeholder='First Name' error={false} errorMessage={''} required={true}/>
-    //              <Input type='text' placeholder='Last Name' error={false} errorMessage={''} required={true}/>
-     //               <Input type='password' placeholder='Password' error={false} errorMessage={''} required={true}/>
-       //             <Input type='password' placeholder='Re-Enter Password' error={false} errorMessage={''} required={true}/>

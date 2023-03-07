@@ -1,39 +1,51 @@
 import React from 'react';
-import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 
-function Authed({children}: any){
+function Authed(){
 
+    //useState to handle validated token return
     const [ validated, setValidated ] = useState(false);
 
-    const validate = async () => {
-        const data = window.localStorage.getItem('AccessToken');
+    //state to handle api await
+    const [ fetching, setFetching ] = useState(true);
 
-        let dataToken;
+    useEffect(() => {
+        const validate = async () => {
+            //check if accessToken is present and validate
+            const data = window.localStorage.getItem('AccessToken');
     
-        if(data){
-            dataToken = JSON.parse(data);
-        }
-        
-        const response = await fetch('/api/validate', {
-            method:'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${dataToken}`
+            let dataToken;
+    
+            if(data){
+                dataToken = JSON.parse(data);
             }
-        });
-        const resObj = await response.json();
-        
-        if(resObj && resObj.message === 'success'){
-            setValidated(true);
-        }else{
-            setValidated(false);
+    
+            const response = await fetch('/api/validate', {
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${dataToken}`
+                }
+            });
+            const resObj = await response.json();
+            
+            if(resObj && resObj.message === 'success'){
+                setValidated(true);
+                setFetching(false);
+            }else{
+                setFetching(false);
+            }
         }
+    
+        validate();
+    },[])
+
+    if(fetching){
+        return null;
     }
 
-    validate();
-
-    return validated ? <Navigate to='/user/collection'/> : children;
+    return validated ? <Navigate to='/user/collection'/> : <Outlet/>;
 }
 
 export default Authed;

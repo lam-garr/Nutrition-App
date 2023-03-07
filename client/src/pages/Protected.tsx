@@ -7,6 +7,9 @@ function Protected(){
     //useState to handle validated token return
     const [ validated, setValidated ] = useState(false);
 
+    //state to handle api await
+    const [ fetching, setFetching ] = useState(true);
+
     useEffect(() => {
         const validate = async () => {
             //check if accessToken is present and validate
@@ -26,19 +29,22 @@ function Protected(){
                 }
             });
             const resObj = await response.json();
-            console.log(resObj.message)
             
             if(resObj && resObj.message === 'success'){
-                console.log('inside success')
                 setValidated(true);
-                console.log(validated)
+                setFetching(false);
+            }else{
+                setFetching(false);
             }
         }
     
         validate();
     },[])
 
-    console.log(validated);
+    if(fetching){
+        return null;
+    }
+
     return validated ? <Outlet/> : <Navigate to='/log-in'/>;
 }
 

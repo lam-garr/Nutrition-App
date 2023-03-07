@@ -40,12 +40,14 @@ function App() {
       <Routes>
         <Route element={<Protected/>}>
           <Route path='/user/collection' element={<CollectionPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
+          <Route path='/user/diary/:id' element={<UserDiary overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
           <Route path='/user/account' element={<AccountPage/>}></Route>
         </Route>
-        <Route path='/diary' element={<DiaryPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
-        <Route path='/user/diary/:id' element={<UserDiary overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
-        <Route path='/sign-up' element={<SignupPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
-        <Route path='/log-in' element={<LoginPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
+        <Route element={<Authed/>}>
+          <Route path='/diary' element={<DiaryPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>       
+          <Route path='/sign-up' element={<SignupPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
+          <Route path='/log-in' element={<LoginPage overlayChange={childClickChange} overlayOpen={overlayOpen}/>}></Route>
+        </Route>
         <Route path='/' element={<HomePage/>}></Route>
       </Routes>
     </BrowserRouter>

@@ -4,9 +4,9 @@ import '../styles/Account.css';
 
 function Account(){
 
-    const [ user, setUser ] = useState('');
+    const [ username, setUsername ] = useState('');
 
-    const [ arr, setArr ] = useState<any[]>([]);
+    const [ fetching, setFetching ] = useState(true);
 
     useEffect(() => {
 
@@ -19,8 +19,8 @@ function Account(){
                 dataToken = JSON.parse(data);
             }
 
-            const response = await fetch('/api/testing', {
-                method: 'POST',
+            const response = await fetch('/api/user-account', {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${dataToken}`
@@ -30,16 +30,12 @@ function Account(){
             const resObj = await response.json();
 
             if(resObj){
-                setUser(resObj.user.username);
-                //console.log(`resObj.user : ${resObj.user}`);
-                //console.log(`resObj.user._id : ${resObj.user._id}`);
-                //console.log(`resObj.user.username : ${resObj.user.username}`)
-                console.log(resObj.user.myData)
-                console.log(resObj.user.myData[0].id)
+                setUsername(resObj.username);
+                setFetching(false);
             }
         }
 
-        //fetchData();
+        fetchData();
     })
 
     return(
@@ -47,8 +43,7 @@ function Account(){
             <div className='acc-content'>
                 <h1>Account</h1>
                 <div>
-                    <span>{`id: ${user}`}</span>
-                    {arr}
+                    {fetching !== true && <span>{username}</span>}
                 </div>
                 <button className='acc-dltBtn' disabled={true}>Delete account</button>
             </div>
