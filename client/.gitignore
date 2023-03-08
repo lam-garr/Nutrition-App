@@ -25,3 +25,4 @@ yarn-error.log*
 
 mockObj.ts
 UserEntry.tsx
+declaractions.d.ts
