@@ -26,6 +26,7 @@
     "cors": "^2.8.5",
     "curl": "^0.1.4",
     "dotenv": "^16.0.3",
+    "express-validator": "^6.15.0",
     "jsonwebtoken": "^9.0.0",
     "nodemon": "^2.0.20",
     "supertest": "^6.3.3",

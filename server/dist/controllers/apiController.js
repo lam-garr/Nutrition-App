@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.POST_deleteDiary = exports.POST_sortDiary = exports.POST_date = exports.verifyToken = exports.POST_diary = exports.POST_deleteItem = exports.POST_update = exports.POST_newEntry = exports.GET_sortedCollection = exports.POST_collection = exports.TOKEN = exports.GET_validate = exports.GET_NUTR_info = exports.POST_log_in = exports.POST_sign_up = exports.GET_index = void 0;
+exports.GET_userInfo = exports.POST_deleteDiary = exports.POST_sortDiary = exports.POST_date = exports.verifyToken = exports.POST_diary = exports.POST_deleteItem = exports.POST_update = exports.POST_newEntry = exports.GET_sortedCollection = exports.POST_collection = exports.GET_validate = exports.GET_NUTR_info = exports.POST_log_in = exports.POST_sign_up = exports.GET_index = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const sortArray_1 = require("./sortArray");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
@@ -67,7 +67,6 @@ function GET_NUTR_info(req, res) {
         if (ingr == '') {
             ingr = '1 large apple';
         }
-        //const ingr = '1 sofa';
         const apiResponse = yield (0, axios_1.default)(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${ingr}`);
         //let response:any = await apiResponse.json();
         //const apiObj: objInterface = createObj(apiResponse.data.totalNutrients, ingr);
@@ -103,16 +102,6 @@ function GET_validate(req, res) {
     }
 }
 exports.GET_validate = GET_validate;
-//test fn to return accesstoken
-function TOKEN(req, res) {
-    if (req.body.username === 'fuck') {
-        res.json({ AccessToken: '696969420' });
-    }
-    else {
-        res.status(400).json({ message: 'error' });
-    }
-}
-exports.TOKEN = TOKEN;
 //return collection of diary entries
 function POST_collection(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -188,7 +177,6 @@ function POST_deleteItem(req, res) {
         if (user) {
             const target = user.myData.find(obj => obj.id === req.body.diaryId);
             target.diary = target.diary.filter((obj) => obj.id !== req.body.delId);
-            //target.calories = target.calories + (-Math.abs(Math.round(0)));
             target.calories = target.diary.reduce((total, item) => total + Math.round(item.ENERC_KCAL.quantity), 0);
             user.markModified("myData");
             user.save();
@@ -256,17 +244,6 @@ exports.POST_date = POST_date;
 function POST_sortDiary(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const user = yield user_1.default.findOne({ myID: req.id.id });
-        //remove equas and just apss to function, it will return and do everything.
-        /* if(user && req.query.sort === 'calorie high'){
-            const target = user.myData.find(obj => obj.id === req.body.diaryId);
-            //const target = user.myData.find(obj => obj.id === '0347d1f0-e511-4b0d-b9b0-84c6da9c3271');
-            res.json({arrHigh: target.diary.sort((a: objInterface, b: objInterface) => b.ENERC_KCAL.quantity - a.ENERC_KCAL.quantity)})
-        }
-    
-        if(user && req.query.sort === 'calorie low'){
-            const target = user.myData.find(obj => obj.id === req.body.diaryId);
-            res.json({arrHigh: target.diary.sort((a: objInterface, b: objInterface) => a.ENERC_KCAL.quantity - b.ENERC_KCAL.quantity)})
-        } */
         if (user) {
             const target = user.myData.find(obj => obj.id === req.body.diaryId);
             res.json({ arrData: (0, sortArray_1.sortArray)(target.diary, req.body.sort) });
@@ -290,5 +267,16 @@ function POST_deleteDiary(req, res) {
     });
 }
 exports.POST_deleteDiary = POST_deleteDiary;
-//after an update re sign with jwt, send token back to front end and re-set it to localstorage
-//63fc20a1f0bad1b9a8c2589a
+//returns users account info
+function GET_userInfo(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = yield user_1.default.findOne({ myID: req.id.id });
+        if (user) {
+            res.json({ fName: user.firstName, username: user.username });
+        }
+        else {
+            res.status(404);
+        }
+    });
+}
+exports.GET_userInfo = GET_userInfo;

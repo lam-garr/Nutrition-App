@@ -10,6 +10,7 @@ import { ObjectId } from 'mongodb';
 import mongo from 'mongodb'
 import axios from 'axios';
 import { request } from 'http';
+import { validationResult } from 'express-validator';
 
 //function for index api call
 export function GET_index(req: Request, res: Response){
@@ -18,6 +19,13 @@ export function GET_index(req: Request, res: Response){
 
 //function for user sign up api call
 export async function POST_sign_up(req: Request, res: Response, next: NextFunction){
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+        return res.status(400).json({message:'Signup Error'});
+    }
+
     const hashedPw = await bcrypt.hash(req.body.password, 10);
 
     const user = new User({
@@ -37,6 +45,13 @@ export async function POST_sign_up(req: Request, res: Response, next: NextFuncti
 
 //function for user log in api call
 export async function POST_log_in(req: Request, res: Response){
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+        return res.status(400).json({message:'Login Error'});
+    }
+
     const user = await User.findOne({username: req.body.username});
 
     if(user &&(await bcrypt.compare(req.body.password, user.password))){
@@ -235,6 +250,17 @@ export async function POST_deleteDiary(req: Request, res: Response){
         user.markModified("myData");
         user.save();
         res.json({myArr:user.myData})
+    }else{
+        res.status(404);
+    }
+}
+
+//returns users account info
+export async function GET_userInfo(req: Request, res: Response){
+    const user = await User.findOne({myID:req.id.id});
+
+    if(user){
+        res.json({fName:user.firstName, username: user.username});
     }else{
         res.status(404);
     }
