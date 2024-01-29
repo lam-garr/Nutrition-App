@@ -164,6 +164,7 @@ function Signup(prop: propInterface){
 
         if(!signupData.ok){
             setSignUpErr(true);
+            setFetching(false);
         }else{
             setSignUpErr(false);
             setFetching(false);
@@ -204,7 +205,7 @@ function Signup(prop: propInterface){
                     <label><input type='checkbox' id='checkbox' onChange={handleCheckBox}/>I agree to the </label><span className='term-serv-click' onClick={changeModal}>terms and conditions</span><span className='term-serv-end'>.</span>
                     </div>
                     <div className='sign-up-btn-handler'>
-                    {signUpErr && <span className='sign-up-err'>Error logging in, please try again</span>}
+                    {signUpErr && <span className='sign-up-err'>Error signing up, please try again later.</span>}
                         <button className='signupBtn' type='submit' disabled={fetching}>{handleFetching()}</button>
                     </div>
                 </form>

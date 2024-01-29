@@ -83,3 +83,16 @@
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);
     padding: 15px 20px;
 }
+
+.home-signup-btn {
+    font-size: 1rem;
+    padding: 10px 0;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    width: 250px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(18, 117, 18);
+}
+
