@@ -11,7 +11,7 @@ function Home(){
         <main className='main'>
             <header className='header'>
                 <div className='container'>
-                    <div>
+                    <div className="header-container-one">
                         <h1>A healthy life starts with what you eat.</h1>
                         <p>Track meals and nutrients to raech your goals with NutriLog.</p>
                         <Link to={"/sign-up"}><button className="home-signup-btn" type='button'>Start For Free</button></Link>
