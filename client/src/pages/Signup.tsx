@@ -169,7 +169,7 @@ function Signup(prop: propInterface){
             setSignUpErr(false);
             setFetching(false);
             //navigate to log in page
-            navigate('/log-in');
+            navigate('/nutrition-app/log-in');
         }
     }
 
@@ -210,7 +210,7 @@ function Signup(prop: propInterface){
                     </div>
                 </form>
                 <div className='members'>
-                    <p>Already a member?<Link to='/log-in'>Login Here</Link></p>
+                    <p>Already a member?<Link to='/nutrition-app/log-in'>Login Here</Link></p>
                 </div>
             </div>
         </main>

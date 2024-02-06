@@ -90,7 +90,7 @@ function Login(prop: propInterface){
             window.localStorage.setItem('AccessToken', JSON.stringify(dataObj.accessToken))
             setFetching(false);
             //navigate to collection page
-            navigate('/user/collection');
+            navigate('/nutrition-app/user/collection');
         }
     }
 
@@ -127,7 +127,7 @@ function Login(prop: propInterface){
                     </div>
                 </form>
                 <div className='members'>
-                Not a member? <Link to='/sign-up'>Sign Up</Link>
+                Not a member? <Link to='/nutrition-app/sign-up'>Sign Up</Link>
                 </div>
             </div>
         </main>
