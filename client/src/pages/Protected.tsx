@@ -11,7 +11,7 @@ function Protected(){
     const [ fetching, setFetching ] = useState(true);
 
     useEffect(() => {
-        const validate = async () => {
+        /* const validate = async () => {
             //check if accessToken is present and validate
             const data = window.localStorage.getItem('AccessToken');
     
@@ -38,14 +38,22 @@ function Protected(){
             }
         }
     
-        validate();
+        validate(); */
+
+        if(window.localStorage.getItem("AccessToken")) {
+            setValidated(true);
+            setFetching(false);
+        } else {
+            setFetching(false);
+        }
+
     },[])
 
     if(fetching){
         return null;
     }
 
-    return validated ? <Outlet/> : <Navigate to='/log-in'/>;
+    return validated ? <Outlet/> : <Navigate to='/nutrition-app/log-in'/>;
 }
 
 export default Protected;
