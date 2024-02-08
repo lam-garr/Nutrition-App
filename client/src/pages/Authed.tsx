@@ -11,7 +11,7 @@ function Authed(){
     const [ fetching, setFetching ] = useState(true);
 
     useEffect(() => {
-        const validate = async () => {
+        /* const validate = async () => {
             //check if accessToken is present and validate
             const data = window.localStorage.getItem('AccessToken');
     
@@ -38,14 +38,22 @@ function Authed(){
             }
         }
     
-        validate();
+        validate(); */
+
+        if(window.localStorage.getItem("AccessToken")) {
+            setValidated(true);
+            setFetching(false);
+        } else {
+            setFetching(false);
+        }
+
     },[])
 
     if(fetching){
         return null;
     }
 
-    return validated ? <Navigate to='/user/collection'/> : <Outlet/>;
+    return validated ? <Navigate to='/nutrition-app/user/collection'/> : <Outlet/>;
 }
 
 export default Authed;
