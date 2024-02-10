@@ -41,7 +41,6 @@
 .header img{
     width: 400px;
     height: 400px;
-    padding: 10px;
     margin-top: 5px;
 }
 
@@ -70,7 +69,6 @@
 .section-one img{
     max-width: 400px;
     max-height: 400px;
-    padding: 5px;
 }
 
 .section-one .container{
@@ -89,7 +87,10 @@
 
 .section-two{
     background-color: inherit;
-    min-height: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .section-two h1 {
@@ -136,3 +137,6 @@
     background-color: rgb(18, 117, 18);
 }
 
+img {
+    border: 2px solid rgb(18, 117, 18);
+}
