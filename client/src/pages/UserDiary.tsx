@@ -33,7 +33,7 @@ function UserDiary(prop: userDiaryProp){
             dataToken = JSON.parse(token);
         }
 
-        const response = await fetch(`/api/delete-item`,{
+        const response = await fetch(`https://cottony-satin-eagle.glitch.me/delete-item`,{
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({delId:id, diaryId:param.id, sort:sortBy})
@@ -61,7 +61,7 @@ function UserDiary(prop: userDiaryProp){
         }
 
         setFetching(true);
-        const response = await fetch(`/api/update`,{
+        const response = await fetch(`https://cottony-satin-eagle.glitch.me/update`,{
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({item:ingr, id:param.id, sort:sortBy})
@@ -166,7 +166,7 @@ function UserDiary(prop: userDiaryProp){
             dataToken = JSON.parse(token);
         }
 
-        const response = await fetch('/api/set-storage', {
+        const response = await fetch('https://cottony-satin-eagle.glitch.me/set-storage', {
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({storageData:data})
@@ -202,7 +202,7 @@ function UserDiary(prop: userDiaryProp){
                 dataToken = JSON.parse(token);
             }
 
-            const response = await fetch('/api/user-diary', {
+            const response = await fetch('https://cottony-satin-eagle.glitch.me/user-diary', {
                 method: 'POST',
                 headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
                 body: JSON.stringify({diaryId:param.id})
@@ -264,7 +264,7 @@ function UserDiary(prop: userDiaryProp){
         }
 
         setFetching(true);
-        const response = await fetch(`/api/update-date`,{
+        const response = await fetch(`https://cottony-satin-eagle.glitch.me/update-date`,{
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({newDay:day, newMonth: month, diaryId: param.id})
@@ -309,7 +309,7 @@ function UserDiary(prop: userDiaryProp){
     }
 
     const update = async () => {
-        const response = await fetch(`/api/user-diary`,{
+        const response = await fetch(`https://cottony-satin-eagle.glitch.me/api/user-diary`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -371,7 +371,7 @@ function UserDiary(prop: userDiaryProp){
                 storageToken = JSON.parse(dd);
             }
 
-            const response = await fetch(`/api/sort-diary?sort=${sortBy}`, {
+            const response = await fetch(`https://cottony-satin-eagle.glitch.me/sort-diary?sort=${sortBy}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

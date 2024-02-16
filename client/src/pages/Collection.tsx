@@ -39,7 +39,7 @@ function Collection(prop:collectionProp){
                 dataToken = JSON.parse(dd);
             }
 
-            const response = await fetch('/api/collections', {
+            const response = await fetch('https://cottony-satin-eagle.glitch.me/user-collection', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ function Collection(prop:collectionProp){
                 storageToken = JSON.parse(dd);
             }
 
-            const response = await fetch(`/api/sort-colle?sort=${sortBy}`, {
+            const response = await fetch(`https://cottony-satin-eagle.glitch.me/sort-colle?sort=${sortBy}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -156,7 +156,7 @@ function Collection(prop:collectionProp){
             token = JSON.parse(data);
         }
 
-        const postEntry = await fetch(`/api/new-entry`,{
+        const postEntry = await fetch(`https://cottony-satin-eagle.glitch.me/new-entry`,{
             method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -193,7 +193,7 @@ function Collection(prop:collectionProp){
             dataToken = JSON.parse(token);
         }
 
-        const response = await fetch(`/api/delete-diary`,{
+        const response = await fetch(`https://cottony-satin-eagle.glitch.me/delete-diary`,{
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({delId:id})

@@ -153,7 +153,7 @@ function Signup(prop: propInterface){
         setFetching(true);
 
         //call api
-        const signupData = await fetch(`/api/sign-up`, {
+        const signupData = await fetch(`https://cottony-satin-eagle.glitch.me/sign-up`, {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username: usernameInput,

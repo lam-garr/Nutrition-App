@@ -19,7 +19,7 @@ function Account(){
                 dataToken = JSON.parse(data);
             }
 
-            const response = await fetch('/api/user-account', {
+            const response = await fetch('https://cottony-satin-eagle.glitch.me/account', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

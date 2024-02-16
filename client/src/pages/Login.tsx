@@ -71,7 +71,7 @@ function Login(prop: propInterface){
         setFetching(true);
 
         //call login api 
-        const loginData = await fetch(`/api/log-in`, {
+        const loginData = await fetch(`https://cottony-satin-eagle.glitch.me/log-in`, {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username: loginInput, password: passwordInput})
