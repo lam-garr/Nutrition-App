@@ -141,6 +141,7 @@ function Collection(prop:collectionProp){
     const changeDate = () => {
         setDateOpen(!dateOpen);
         prop.overlayChange();
+        setFetching(false);
     }
 
     //call api to create entry after selecting date
@@ -175,8 +176,8 @@ function Collection(prop:collectionProp){
 
         if(resObj && resObj.id !== null){
             setFetching(false);
-            navigate({pathname: `/user/diary/${resObj.id}`},
-            {state: {option: 'new'}})
+            navigate({pathname: `/nutrition-app/user/diary/${resObj.id}`})
+            //{state: {option: 'new'}})
         }else{
             setFetching(false);
             return;
