@@ -28,7 +28,7 @@ export async function POST_sign_up(req: Request, res: Response, next: NextFuncti
 
     const hashedPw = await bcrypt.hash(req.body.password, 10);
 
-    const user = new User({
+    /* const user = new User({
         username: req.body.username,
         myID: uuid(),
         firstName: req.body.firstName,
@@ -40,7 +40,20 @@ export async function POST_sign_up(req: Request, res: Response, next: NextFuncti
         }else{
             res.json({message:'Success'});
         }
-    })
+    }) */
+    const user = await User.create({
+        username: req.body.username,
+        myID: uuid(),
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        password: hashedPw
+    });
+
+    if(user){
+        res.json({message:'Success'});
+    }else {
+        res.json({message:'error'});
+    }
 }
 
 //function for user log in api call
