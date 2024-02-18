@@ -184,12 +184,12 @@ function UserDiary(prop: userDiaryProp){
     }
 
     //will check if there is data in local storage
-    useEffect(() => {
+    /* useEffect(() => {
         const data = window.localStorage.getItem('GUEST_DATA');
         if((location.state.option === 'new') && (data !== null) && ((JSON.parse(data)).length)){
             changeStoreModal();
         }
-    },[])
+    },[]) */
 
     //populates data with data from db
     useEffect(() => {
@@ -400,7 +400,7 @@ function UserDiary(prop: userDiaryProp){
             <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem} closeModal={changeTableModal}/>
             <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Please add food to track nutrients. Click info for more details on macro and micro nutrients and delete to delete an entry. Click save to save your data.'}/>
             <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} updateDate={saveDate}/>
-            <StorageModal modalHandler={changeStoreModal} modalIsOpen={storeOpen} closeModal={changeStoreModal} populate={populateData}/>
+            {/* <StorageModal modalHandler={changeStoreModal} modalIsOpen={storeOpen} closeModal={changeStoreModal} populate={populateData}/> */}
             <section className='user-food-diary-section-one'>
                 <div className='user-section-one-content'>
                     <div className='user-date' onClick={changeDate}>
@@ -428,7 +428,7 @@ function UserDiary(prop: userDiaryProp){
                             </div>
                         </div>
                         <div className='user-sec-one-buttons'>
-                        <button>save</button>
+                        {/* <button>save</button> */}
                         <button onClick={()=>{changeAddModal()}} className='user-diary-add-btn'>add food</button>
                         </div>
                         <button className='user-content-btn' onClick={changeModal}>{`\u003F`}</button>
