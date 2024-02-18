@@ -31,7 +31,7 @@ function CollectionTable(prop: propData){
                         <td>{item.id}</td>
                         <td>{item.day}</td>
                         <td>{item.calories}</td>
-                        <td><Link to={`/user/diary/${item.id}`} state={{option: 'exist'}}><button className='colleInfo'>Info</button></Link></td>
+                        <td><Link to={`/nutrition-app/user/diary/${item.id}`} state={{option: 'exist'}}><button className='colleInfo'>Info</button></Link></td>
                         <td><button onClick={() => deleteDiaryById(item.id)} className='colleDelete'>Delete</button></td>
                     </tr>
                 )

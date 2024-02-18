@@ -18,7 +18,7 @@ interface userDiaryProp{
 function UserDiary(prop: userDiaryProp){
 
     const param = useParams();
-    const location = useLocation();
+    //const location = useLocation();
 
     const [ itemData, setItemData ] = useState<objInterface[]>([]);
 
