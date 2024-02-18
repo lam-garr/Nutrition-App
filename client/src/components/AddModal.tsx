@@ -69,14 +69,14 @@ function Modal(prop:propInterface){
                             <input required className='addInput' ref={inputRef} onChange={prop.changeHandler} value={prop.value}></input>
                             {prop.empty && <span className='add-empty'>Input is not valid, please try again!</span>}
                         </div>
-                        <div>
+                        {/* <div>
                             <label>choose</label>
                             <select>
                                 <option>select</option>
                                 <option>lb</option>
                                 <option>kg</option>
                             </select>
-                        </div>
+                        </div> */}
                         <hr/>
                         <div className='form-btns'>
                             <div></div>
