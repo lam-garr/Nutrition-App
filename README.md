@@ -17,8 +17,8 @@ Add as many items to your log as you want and easily sort them.
 
 `$ cd Nutrition-App` will navigate into the repository.
 
-`cd client` will navigate you to the client directory, further instructions can be found there including how to start the app.
+`$ cd client` will navigate you to the client directory, further instructions can be found there including how to start the app.
 
-`cd server` will navigate you to the server directory.
+`$ cd server` will navigate you to the server directory.
 
 Inside the server directory, `npm install` will install all dependant packages to start the applicaiton. `npm run devstart` will then start the development server. Server will be accessible at [http://localhost:5000](http://localhost:5000). 
