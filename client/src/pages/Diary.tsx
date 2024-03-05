@@ -40,7 +40,7 @@ function Diary(prop:diaryProp){
         }
 
         setFetching(true);
-        const response = await fetch(`https://cottony-satin-eagle.glitch.me/nutrition-info?search=${ingr}`);
+        const response = await fetch(`http://localhost:5000/api/nutr?search=${ingr}`);
         const apiObj = await response.json();
 
         //check if returned api object is vali

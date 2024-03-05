@@ -18,7 +18,7 @@ interface userDiaryProp{
 function UserDiary(prop: userDiaryProp){
 
     const param = useParams();
-    //const location = useLocation();
+    const location = useLocation();
 
     const [ itemData, setItemData ] = useState<objInterface[]>([]);
 
@@ -33,7 +33,7 @@ function UserDiary(prop: userDiaryProp){
             dataToken = JSON.parse(token);
         }
 
-        const response = await fetch(`https://cottony-satin-eagle.glitch.me/delete-item`,{
+        const response = await fetch(`http://localhost:5000`,{
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({delId:id, diaryId:param.id, sort:sortBy})
@@ -61,7 +61,7 @@ function UserDiary(prop: userDiaryProp){
         }
 
         setFetching(true);
-        const response = await fetch(`https://cottony-satin-eagle.glitch.me/update`,{
+        const response = await fetch(`http://localhost:5000/api/update`,{
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({item:ingr, id:param.id, sort:sortBy})
@@ -166,7 +166,7 @@ function UserDiary(prop: userDiaryProp){
             dataToken = JSON.parse(token);
         }
 
-        const response = await fetch('https://cottony-satin-eagle.glitch.me/set-storage', {
+        const response = await fetch('http://localhost:5000/api/set-storage', {
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({storageData:data})
@@ -184,12 +184,13 @@ function UserDiary(prop: userDiaryProp){
     }
 
     //will check if there is data in local storage
-    /* useEffect(() => {
+    useEffect(() => {
+        console.log(location.state.option)
         const data = window.localStorage.getItem('GUEST_DATA');
         if((location.state.option === 'new') && (data !== null) && ((JSON.parse(data)).length)){
             changeStoreModal();
         }
-    },[]) */
+    },[])
 
     //populates data with data from db
     useEffect(() => {
@@ -202,7 +203,7 @@ function UserDiary(prop: userDiaryProp){
                 dataToken = JSON.parse(token);
             }
 
-            const response = await fetch('https://cottony-satin-eagle.glitch.me/user-diary', {
+            const response = await fetch('http://localhost:5000/api/user-diary', {
                 method: 'POST',
                 headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
                 body: JSON.stringify({diaryId:param.id})
@@ -264,7 +265,7 @@ function UserDiary(prop: userDiaryProp){
         }
 
         setFetching(true);
-        const response = await fetch(`https://cottony-satin-eagle.glitch.me/update-date`,{
+        const response = await fetch(`http://localhost:5000/api/update-date`,{
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({newDay:day, newMonth: month, diaryId: param.id})
@@ -309,7 +310,7 @@ function UserDiary(prop: userDiaryProp){
     }
 
     const update = async () => {
-        const response = await fetch(`https://cottony-satin-eagle.glitch.me/api/user-diary`,{
+        const response = await fetch(`http://localhost:5000/api/user-diary`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -371,7 +372,7 @@ function UserDiary(prop: userDiaryProp){
                 storageToken = JSON.parse(dd);
             }
 
-            const response = await fetch(`https://cottony-satin-eagle.glitch.me/sort-diary?sort=${sortBy}`, {
+            const response = await fetch(`http://localhost:5000/api/sort-diary?sort=${sortBy}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -400,7 +401,7 @@ function UserDiary(prop: userDiaryProp){
             <TableModal tableModalHandler={changeTableModal} tableModalIsOpen={tableModalOpen} itemData={propItem} closeModal={changeTableModal}/>
             <HelpModal helpModalHandler={changeModal} helpModalIsOpen={modalOpen} closeModal={changeModal} message={'Please add food to track nutrients. Click info for more details on macro and micro nutrients and delete to delete an entry. Click save to save your data.'}/>
             <DateModal dateModalHandler={changeDate} dateModalIsOpen={dateOpen} closeModal={changeDate} changeMonth={changeMonth} changeDay={changeDay} changeYear={changeYear} updateDate={saveDate}/>
-            {/* <StorageModal modalHandler={changeStoreModal} modalIsOpen={storeOpen} closeModal={changeStoreModal} populate={populateData}/> */}
+            <StorageModal modalHandler={changeStoreModal} modalIsOpen={storeOpen} closeModal={changeStoreModal} populate={populateData}/>
             <section className='user-food-diary-section-one'>
                 <div className='user-section-one-content'>
                     <div className='user-date' onClick={changeDate}>

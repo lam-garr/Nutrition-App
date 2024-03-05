@@ -39,7 +39,7 @@ function Collection(prop:collectionProp){
                 dataToken = JSON.parse(dd);
             }
 
-            const response = await fetch('https://cottony-satin-eagle.glitch.me/user-collection', {
+            const response = await fetch('http://localhost:5000/api/collections', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ function Collection(prop:collectionProp){
                 storageToken = JSON.parse(dd);
             }
 
-            const response = await fetch(`https://cottony-satin-eagle.glitch.me/sort-colle?sort=${sortBy}`, {
+            const response = await fetch(`http://localhost:5000/api/sort-colle?sort=${sortBy}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ function Collection(prop:collectionProp){
             token = JSON.parse(data);
         }
 
-        const postEntry = await fetch(`https://cottony-satin-eagle.glitch.me/new-entry`,{
+        const postEntry = await fetch(`http://localhost:5000/api/new-entry`,{
             method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -176,8 +176,8 @@ function Collection(prop:collectionProp){
 
         if(resObj && resObj.id !== null){
             setFetching(false);
-            navigate({pathname: `/nutrition-app/user/diary/${resObj.id}`})
-            //{state: {option: 'new'}})
+            navigate({pathname: `/nutrition-app/user/diary/${resObj.id}`},
+            {state: {option: "new"}})
         }else{
             setFetching(false);
             return;
