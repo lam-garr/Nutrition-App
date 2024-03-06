@@ -194,7 +194,7 @@ function Collection(prop:collectionProp){
             dataToken = JSON.parse(token);
         }
 
-        const response = await fetch(`https://cottony-satin-eagle.glitch.me/delete-diary`,{
+        const response = await fetch(`http://localhost:5000/api/delete-diary`,{
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({delId:id})

@@ -166,19 +166,39 @@ function UserDiary(prop: userDiaryProp){
             dataToken = JSON.parse(token);
         }
 
-        const response = await fetch('http://localhost:5000/api/set-storage', {
+        /* const response = await fetch('http://localhost:5000/api/set-storage', {
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
-            body: JSON.stringify({storageData:data})
+            body: JSON.stringify({storageData:data, diaryId: param.id})
         });
 
         const resObj = await response.json();
-
+        console.log(resObj)
+        console.log(resObj.myArr)
         if(resObj && resObj.myArr.length){
             setItemData(resObj.myArr);
+            //extract dd/mm/yy and then set
+            const splitDate = (resObj.date).split('/');
+            setDay(splitDate[0]);
+            setMonth(splitDate[1]);
+            setYear(splitDate[2]);
+        } */
+
+        const ingr = "1 large banana"
+
+        const response = await fetch(`http://localhost:5000/api/update`,{
+            method: 'POST',
+            headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
+            body: JSON.stringify({item:ingr, id:param.id, sort:sortBy})
+        });
+
+        const apiObj = await response.json();
+
+        if(apiObj){
+            setItemData(apiObj.myArr);
         }
 
-        window.localStorage.removeItem('GUEST_DATA');
+        //window.localStorage.removeItem('GUEST_DATA');
 
         setFetching(false);
     }
