@@ -278,3 +278,16 @@ export async function GET_userInfo(req: Request, res: Response){
         res.status(404);
     }
 }
+
+export async function POST_setFromStorage(req: Request, res: Response) {
+    const user = await User.findOne({myID:req.id.id});
+    
+    if(user) {
+        let target = user.myData.find(obj => obj.id === req.body.diaryId);
+        target.diary = req.body.storageData;
+        target.calories = target.diary.reduce((total: number, item: objInterface) => total + Math.round(item.ENERC_KCAL.quantity), 0);
+        res.json({myArr:target.diary, date: target.day})
+    }else {
+        res.status(404);
+    }
+}

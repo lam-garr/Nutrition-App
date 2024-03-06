@@ -3,7 +3,8 @@ import { GET_index, GET_NUTR_info, POST_sign_up,
     POST_log_in, GET_validate, GET_userInfo,
     POST_collection, GET_sortedCollection, POST_newEntry,
     POST_update, POST_diary, verifyToken, POST_deleteItem,
-    POST_date, POST_sortDiary, POST_deleteDiary } from '../controllers/apiController';
+    POST_date, POST_sortDiary, POST_deleteDiary,
+    POST_setFromStorage } from '../controllers/apiController';
 import { check, validationResult } from "express-validator";
 import User from '../models/user';
 
@@ -46,5 +47,7 @@ router.post('/sort-diary', verifyToken, POST_sortDiary);
 router.post('/delete-diary', verifyToken, POST_deleteDiary);
 
 router.get('/user-account', verifyToken, GET_userInfo);
+
+router.post("/set-storage", verifyToken, POST_setFromStorage);
 
 export default router;
