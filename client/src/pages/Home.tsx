@@ -14,7 +14,7 @@ function Home(){
                     <div className="header-container-one">
                         <h1>A healthy life starts with what you eat.</h1>
                         <p>Track meals and nutrients to raech your goals with NutriLog.</p>
-                        <Link to={"/nutrition-app/diary"}><button className="home-diary-btn" type='button'>Start For Free</button></Link>
+                        <Link to={"/diary"}><button className="home-diary-btn" type='button'>Start For Free</button></Link>
                     </div>
                     <img src={saladImg} alt='sample pic'/>
                 </div>

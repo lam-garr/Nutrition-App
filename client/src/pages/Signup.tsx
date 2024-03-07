@@ -169,7 +169,7 @@ function Signup(prop: propInterface){
             setSignUpErr(false);
             setFetching(false);
             //navigate to log in page
-            navigate('/nutrition-app/log-in');
+            navigate('/log-in');
         }
     }
 

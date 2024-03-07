@@ -71,7 +71,6 @@ function UserDiary(prop: userDiaryProp){
 
         //check if returned api object is valid
         if(apiObj && apiObj.err){
-            console.log(apiObj.err)
             setIsEmpty(true);
             setFetching(false);
             return;
@@ -121,7 +120,6 @@ function UserDiary(prop: userDiaryProp){
     }
 
     //this useState will be used to pass info for rendering in the TableModal
-    //change useState typing when finished later
     const [ propItem, setPropItem ] = useState<any>();
 
     //handler for AddModal
@@ -149,7 +147,6 @@ function UserDiary(prop: userDiaryProp){
 
     //function to execute if user wants to use stored data
     const populateData = async () => {
-        console.log('inside storage')
         //close modal then populate & persist data to db from local storage
         changeStoreModal();
 
@@ -166,15 +163,14 @@ function UserDiary(prop: userDiaryProp){
             dataToken = JSON.parse(token);
         }
 
-        /* const response = await fetch('http://localhost:5000/api/set-storage', {
+        const response = await fetch('http://localhost:5000/api/set-storage', {
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({storageData:data, diaryId: param.id})
         });
 
         const resObj = await response.json();
-        console.log(resObj)
-        console.log(resObj.myArr)
+
         if(resObj && resObj.myArr.length){
             setItemData(resObj.myArr);
             //extract dd/mm/yy and then set
@@ -182,15 +178,7 @@ function UserDiary(prop: userDiaryProp){
             setDay(splitDate[0]);
             setMonth(splitDate[1]);
             setYear(splitDate[2]);
-        } */
-
-        const ingr = "1 large banana"
-
-        const response = await fetch(`http://localhost:5000/api/update`,{
-            method: 'POST',
-            headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
-            body: JSON.stringify({item:ingr, id:param.id, sort:sortBy})
-        });
+        }
 
         const apiObj = await response.json();
 
@@ -205,7 +193,6 @@ function UserDiary(prop: userDiaryProp){
 
     //will check if there is data in local storage
     useEffect(() => {
-        console.log(location.state.option)
         const data = window.localStorage.getItem('GUEST_DATA');
         if((location.state.option === 'new') && (data !== null) && ((JSON.parse(data)).length)){
             changeStoreModal();
@@ -277,7 +264,6 @@ function UserDiary(prop: userDiaryProp){
     //save date to db
     const saveDate = async () => {
         changeDate();
-        console.log('indise change')
         const token = window.localStorage.getItem('AccessToken');
         let dataToken;
         if(token){
@@ -290,13 +276,12 @@ function UserDiary(prop: userDiaryProp){
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({newDay:day, newMonth: month, diaryId: param.id})
         });
-        console.log('after call')
         const apiObj = await response.json();
 
         if(!apiObj.ok){
-            console.log('error with setting date')
+            alert('error with setting date')
         }
-        console.log('ok call')
+
     }
 
     //handling specific macronutrient value along with total calories
@@ -340,27 +325,21 @@ function UserDiary(prop: userDiaryProp){
 
         const resObj = await response.json();
 
-        console.log(resObj)
-
         setFetching(false);
 
         if(resObj !== null){
             //set data from db to array
             setItemData(resObj.diary);
-
-            console.log(itemData);
         }
     }
 
     //update values whenever itemData array state is changed
     useEffect(() => {
         //update values based on data from db
-        console.log(itemData);
         const newCarb = itemData.reduce((total, item) => total + item.CHOCDF.quantity, 0);
         const newPro = itemData.reduce((total, item) => total + item.PROCNT.quantity, 0);
         const newFat = itemData.reduce((total, item) => total + item.FAT.quantity, 0);
         const newKcal = itemData.reduce((total, item) => total + item.ENERC_KCAL.quantity, 0);
-        console.log(newCarb)
 
         changeCarbs(Math.round(newCarb));
         changeProtein(Math.round(newPro));

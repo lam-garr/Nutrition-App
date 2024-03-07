@@ -49,7 +49,6 @@ function Collection(prop:collectionProp){
 
             const resObj = await response.json();
 
-            console.log(resObj)
             if(resObj){
                 setData(resObj.myArr);
             }
@@ -129,7 +128,7 @@ function Collection(prop:collectionProp){
         setDay(e.target.value);
     }
 
-    const [ year, setYear ] = useState(2023);
+    const [ year, setYear ] = useState(2024);
 
     const changeYear = (e:any) => {
         setYear(e.target.value);
@@ -176,7 +175,7 @@ function Collection(prop:collectionProp){
 
         if(resObj && resObj.id !== null){
             setFetching(false);
-            navigate({pathname: `/nutrition-app/user/diary/${resObj.id}`},
+            navigate({pathname: `/user/diary/${resObj.id}`},
             {state: {option: "new"}})
         }else{
             setFetching(false);

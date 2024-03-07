@@ -54,12 +54,12 @@ function SideBar(prop: propInterface){
                 <div></div>
                 <button className='sidebar-close' onClick={prop.clickHandler}>&times;</button>
             </div>
-            <Link to={'/nutrition-app'}><button onClick={prop.closeHandler}>Home</button></Link>
-            {loggedIn !== true && <Link to={'/nutrition-app/diary'}><button onClick={prop.closeHandler}>Food Diary</button></Link>}
-            {loggedIn && <Link to={'/nutrition-app/user/collection'}><button onClick={prop.closeHandler}>Diary Entries</button></Link>}
-            {loggedIn && <Link to={'/nutrition-app/user/account'}><button onClick={prop.closeHandler}>Account</button></Link>}
-            {loggedIn ? (<Link to={'/nutrition-app/log-in'}><button onClick={signOut}>Sign Out</button></Link>)
-             : (<Link to={'/nutrition-app/log-in'}><button onClick={prop.closeHandler}>Log In</button></Link>)}
+            <Link to={'/'}><button onClick={prop.closeHandler}>Home</button></Link>
+            {loggedIn !== true && <Link to={'/diary'}><button onClick={prop.closeHandler}>Food Diary</button></Link>}
+            {loggedIn && <Link to={'/user/collection'}><button onClick={prop.closeHandler}>Diary Entries</button></Link>}
+            {loggedIn && <Link to={'/user/account'}><button onClick={prop.closeHandler}>Account</button></Link>}
+            {loggedIn ? (<Link to={'/log-in'}><button onClick={signOut}>Sign Out</button></Link>)
+             : (<Link to={'/log-in'}><button onClick={prop.closeHandler}>Log In</button></Link>)}
         </aside>
     )
 }

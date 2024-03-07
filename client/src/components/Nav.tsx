@@ -16,7 +16,7 @@ function Nav(prop: propInterface){
                     <div className='menu-div'></div>
                 </button> 
                 <div className='nav-logo'>
-                    <Link to={'/nutrition-app'}>
+                    <Link to={'/'}>
                         <h1>NutriLog</h1>
                     </Link>
                 </div>
