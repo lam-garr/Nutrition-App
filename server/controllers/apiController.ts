@@ -28,19 +28,6 @@ export async function POST_sign_up(req: Request, res: Response, next: NextFuncti
 
     const hashedPw = await bcrypt.hash(req.body.password, 10);
 
-    /* const user = new User({
-        username: req.body.username,
-        myID: uuid(),
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        password: hashedPw
-    }).save(err => {
-        if(err){
-            return next(err);
-        }else{
-            res.json({message:'Success'});
-        }
-    }) */
     const user = await User.create({
         username: req.body.username,
         myID: uuid(),
@@ -79,12 +66,8 @@ export async function POST_log_in(req: Request, res: Response){
 //make api call to edamam
 export async function GET_NUTR_info(req: Request, res: Response){
     let ingr = req.query.search;
-    if(ingr==''){
-        ingr = '1 large apple'
-    }
+
     const apiResponse: any = await axios(`https://api.edamam.com/api/nutrition-data?app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&ingr=${ingr}`);
-    //let response:any = await apiResponse.json();
-    //const apiObj: objInterface = createObj(apiResponse.data.totalNutrients, ingr);
     const apiObj: objInterface = apiResponse.data.totalNutrients;
 
     //check if object has empty properties
@@ -231,13 +214,9 @@ export async function POST_date(req: Request, res: Response){
 
     if(user){
         const target = user.myData.find(obj => obj.id === req.body.diaryId);
-
         target.day = `${req.body.newDay}/${req.body.newMonth}/2023`;
-        console.log(target.day)
         user.markModified("myData");
-
         user.save()
-
         res.status(200);
     }else{
         res.status(400);
