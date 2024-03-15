@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import '../styles/Account.css';
 
 function Account(){
@@ -7,6 +9,8 @@ function Account(){
     const [ username, setUsername ] = useState('');
 
     const [ fetching, setFetching ] = useState(true);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -32,6 +36,10 @@ function Account(){
             if(resObj){
                 setUsername(resObj.username);
                 setFetching(false);
+            }else {
+                setFetching(false);
+                window.localStorage.removeItem('AccessToken');
+                navigate("/log-in")
             }
         }
 
