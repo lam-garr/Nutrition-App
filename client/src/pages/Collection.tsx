@@ -99,9 +99,12 @@ function Collection(prop:collectionProp){
     
             if(resObj){
                 setData(resObj.arrData);
+                setFetching(false);
+            } else {
+                window.localStorage.removeItem('AccessToken');
+                navigate("/log-in");
+                setFetching(false);
             }
-
-            setFetching(false);
         }
 
         setFetching(true);
