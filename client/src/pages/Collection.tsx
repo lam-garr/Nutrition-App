@@ -184,8 +184,9 @@ function Collection(prop:collectionProp){
             navigate({pathname: `/user/diary/${resObj.id}`},
             {state: {option: "new"}})
         }else{
+            window.localStorage.removeItem('AccessToken');
+            navigate("/log-in");
             setFetching(false);
-            return;
         }
     }
 
