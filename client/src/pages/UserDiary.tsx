@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import Table from '../components/Table';
 import TableModal from '../components/TableModal';
 import AddModal from '../components/AddModal';
@@ -19,6 +19,7 @@ function UserDiary(prop: userDiaryProp){
 
     const param = useParams();
     const location = useLocation();
+    const navigate = useNavigate();
 
     const [ itemData, setItemData ] = useState<objInterface[]>([]);
 
@@ -33,7 +34,7 @@ function UserDiary(prop: userDiaryProp){
             dataToken = JSON.parse(token);
         }
 
-        const response = await fetch(`http://localhost:5000`,{
+        const response = await fetch(`http://localhost:5000/delete-item`,{
             method: 'POST',
             headers:{'Content-Type': 'application/json', 'Authorization': `Bearer ${dataToken}`},
             body: JSON.stringify({delId:id, diaryId:param.id, sort:sortBy})
@@ -42,6 +43,11 @@ function UserDiary(prop: userDiaryProp){
 
         if(apiObj){
             setItemData(apiObj.myArr)
+            setFetching(false);
+        } else {
+            window.localStorage.removeItem('AccessToken');
+            navigate("/log-in");
+            setFetching(false);
         }
 
     }
