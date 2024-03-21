@@ -190,11 +190,14 @@ function UserDiary(prop: userDiaryProp){
 
         if(apiObj){
             setItemData(apiObj.myArr);
+            setFetching(false);
+        } else {
+            window.localStorage.removeItem('AccessToken');
+            navigate("/log-in");
+            setFetching(false);
         }
 
         //window.localStorage.removeItem('GUEST_DATA');
-
-        setFetching(false);
     }
 
     //will check if there is data in local storage
