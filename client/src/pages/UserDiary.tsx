@@ -393,9 +393,12 @@ function UserDiary(prop: userDiaryProp){
     
             if(resObj){
                 setItemData(resObj.arrData);
+                setFetching(false);
+            } else {
+                window.localStorage.removeItem('AccessToken');
+                navigate("/log-in");
+                setFetching(false);
             }
-
-            setFetching(false);
         }
 
         setFetching(true);
