@@ -288,7 +288,8 @@ function UserDiary(prop: userDiaryProp){
         const apiObj = await response.json();
 
         if(!apiObj.ok){
-            alert('error with setting date')
+            window.localStorage.removeItem('AccessToken');
+            navigate("/log-in");
         }
 
     }
