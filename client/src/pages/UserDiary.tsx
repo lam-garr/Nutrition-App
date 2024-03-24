@@ -234,6 +234,9 @@ function UserDiary(prop: userDiaryProp){
                 setDay(splitDate[0]);
                 setMonth(splitDate[1]);
                 setYear(splitDate[2]);
+            } else {
+                window.localStorage.removeItem('AccessToken');
+                navigate("/log-in");
             }
         }
 
