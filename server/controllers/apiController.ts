@@ -145,6 +145,10 @@ export async function POST_update(req: Request, res: Response){
 
     const user = await User.findOne({myID:req.id.id});
 
+    if(!user) {
+        res.status(404).json({fatalError:"fatalError"});
+    }
+
     //check if object has empty properties & if user exists
     if((apiObj.ENERC_KCAL) && (user)){
         apiObj['id']= uuid();
