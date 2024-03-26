@@ -75,6 +75,16 @@ function UserDiary(prop: userDiaryProp){
 
         const apiObj = await response.json();
 
+        //check if there were any errors with api call
+        if(apiObj && apiObj.fatalError) {
+            window.localStorage.removeItem('AccessToken');
+            navigate("/log-in");
+            setFetching(false);
+            setAddInput('');
+            changeAddModal();
+            return;
+        }
+
         //check if returned api object is valid
         if(apiObj && apiObj.err){
             setIsEmpty(true);
